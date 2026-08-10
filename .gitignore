@@ -1,0 +1,5 @@
+# Ignore local Composer executable used for Laravel installation
+composer.phar
+
+# Ignore temporary Composer installer files
+composer-setup.php
