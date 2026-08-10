@@ -95,15 +95,23 @@ The `backend` folder contains a Laravel 12 project created with XAMPP PHP.
 
 ### Laravel commands
 
-Use XAMPP PHP with the local Composer binary:
+Windows may not have `php` on the system PATH, so use the XAMPP PHP executable directly. In PowerShell, use the call operator (`&`) and quote the relative Composer path:
 
-```bash
+```powershell
 cd backend
-php ..\tools\composer.phar install
-php artisan serve
+& "C:\xampp\php\php.exe" "..\tools\composer.phar" install
+& "C:\xampp\php\php.exe" "artisan" "serve"
 ```
 
-If you need global Composer later, install Composer and then you can run Laravel commands without `tools/composer.phar`.
+If you use Command Prompt (`cmd.exe`), this also works:
+
+```cmd
+cd backend
+"C:\xampp\php\php.exe" ..\tools\composer.phar install
+"C:\xampp\php\php.exe" artisan serve
+```
+
+If you later install Composer globally and add PHP to PATH, you can use `php` directly instead of the full XAMPP path.
 
 ## Notes about XAMPP and Composer
 
