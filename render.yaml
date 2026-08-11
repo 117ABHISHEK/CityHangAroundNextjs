@@ -16,3 +16,10 @@ services:
         value: pgsql
       - key: LOG_LEVEL
         value: info
+
+databases:
+  - name: cityhangaround-db
+    engine: postgres
+    version: 16
+    plan: starter
+    region: oregon

@@ -29,9 +29,13 @@ RUN apt-get update \
         php8.2-zip \
         php8.2-pgsql \
         php8.2-sqlite3 \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && rm composer-setup.php \
+    && command -v composer
 
 COPY backend /var/www/backend
 WORKDIR /var/www/backend
