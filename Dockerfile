@@ -27,6 +27,7 @@ RUN apt-get update \
         php8.2-xml \
         php8.2-curl \
         php8.2-zip \
+        php8.2-pgsql \
         php8.2-sqlite3 \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get clean \

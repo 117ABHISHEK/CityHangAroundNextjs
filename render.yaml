@@ -12,3 +12,7 @@ services:
         value: production
       - key: APP_DEBUG
         value: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: LOG_LEVEL
+        value: info
