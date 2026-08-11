@@ -1,15 +1,19 @@
 import HeroSection from "./components/HeroSection";
 import TrendingCities from "./components/TrendingCities";
 import Categories from "./components/Categories";
-import SecondarySection from "./components/SecondarySection";
+import BusinessGrowth from "./components/BusinessGrowth";
+import HomeHighlights from "./components/HomeHighlights";
+import TrustAndFaq from "./components/TrustAndFaq";
 
 export default function HomeFeature() {
   return (
-    <main>
+    <main className="home-page">
       <HeroSection />
       <TrendingCities />
       <Categories />
-      <SecondarySection />
+      <BusinessGrowth />
+      <HomeHighlights />
+      <TrustAndFaq />
     </main>
   );
 }

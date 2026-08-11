@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "../src/components/layout/Navbar/index.css";
+@import "../src/components/layout/Topbar/index.css";
+@import "../src/features/home/index.css";
 
 :root {
   --background: #ffffff;
