@@ -1,0 +1,14 @@
+node_modules
+frontend/node_modules
+backend/vendor
+backend/storage/app
+backend/storage/framework/cache
+backend/storage/framework/sessions
+backend/storage/framework/views
+backend/bootstrap/cache
+.git
+.gitignore
+.env
+.env.*
+Dockerfile*
+README.md

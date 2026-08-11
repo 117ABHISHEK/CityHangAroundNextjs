@@ -96,7 +96,8 @@
   bottom: 0;
   left: 0;
   height: 42%;
-  opacity: .7;
+  z-index: 1;
+  opacity: .82;
 }
 
 .hero-backdrop__buildings > span {
@@ -105,10 +106,15 @@
   display: flex;
   min-width: 34px;
   flex-direction: column;
-  gap: 9px;
+  gap: 7px;
   padding: 10px 8px;
   background: #1d2937;
   box-shadow: inset -8px 0 rgb(0 0 0 / 10%);
+}
+
+.hero-backdrop__buildings > span > b {
+  display: flex;
+  gap: 14px;
 }
 
 .hero-backdrop--night .hero-backdrop__buildings > span {
@@ -119,20 +125,39 @@
   display: block;
   width: 7px;
   height: 6px;
-  margin-left: 8%;
+  margin-left: 0;
   background: rgb(255 223 135 / 0%);
-  box-shadow: 14px 0 rgb(255 223 135 / 0%);
   transition: background 1s ease, box-shadow 1s ease;
+}
+
+.hero-backdrop--day .hero-backdrop__buildings i.is-morning-glow {
+  background: rgb(255 206 120 / 82%);
+  box-shadow: 0 0 12px rgb(255 198 112 / 65%);
+  animation: building-morning-flicker 4s ease-in-out infinite alternate;
 }
 
 .hero-backdrop--night .hero-backdrop__buildings i {
   background: rgb(255 223 135 / 78%);
-  box-shadow: 14px 0 rgb(255 223 135 / 64%);
+  animation: building-light-blink var(--light-duration, 10s) linear infinite;
+  animation-delay: var(--light-delay, 0s);
+}
+
+@keyframes building-morning-flicker {
+  0%, 100% { opacity: .22; }
+  30% { opacity: .8; }
+  60% { opacity: .36; }
+  100% { opacity: .92; }
 }
 
 @keyframes hero-star-twinkle {
   from { opacity: .35; }
   to { opacity: 1; }
+}
+
+@keyframes building-light-blink {
+  0%, 48% { opacity: .18; }
+  52%, 98% { opacity: 1; }
+  100% { opacity: .18; }
 }
 
 .home-hero::after {
