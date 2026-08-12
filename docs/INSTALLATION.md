@@ -124,3 +124,4 @@ If you later install Composer globally and add PHP to PATH, you can use `php` di
 - Add `tools/` to the root `.gitignore` if you do not want the folder tracked
 - Configure XAMPP Apache to serve the `backend/public` folder if you want the Laravel app available through a browser on localhost
 - Add README sections for frontend/backend commands and app-specific notes
+- See `docs/DOCKER.md` for Docker build and run instructions

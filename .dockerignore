@@ -1,0 +1,10 @@
+node_modules
+vendor
+frontend/node_modules
+backend/vendor
+.git
+.env
+*.log
+.DS_Store
+.next
+frontend/.next
