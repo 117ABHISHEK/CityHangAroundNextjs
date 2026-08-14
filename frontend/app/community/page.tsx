@@ -1,3 +1,5 @@
+import CommunitySection from "@/src/features/community";
+
 export default function CommunityPage() {
-  return <div className="p-10 text-xl">Community route placeholder</div>;
+  return <CommunitySection />;
 }
