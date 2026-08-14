@@ -9,7 +9,7 @@ export {
   Home as HomeIcon,
   Mail as ContactIcon,
   Menu as MenuIcon,
-  MapPin as LocationIcon,
+  MapPinSearch as LocationIcon,
   Megaphone as AdvertiseIcon,
   ArrowRight as ArrowRightIcon,
   BarChart3 as ChartIcon,
@@ -30,6 +30,22 @@ export {
   Tag as MarketplaceIcon,
   UserRound as LoginIcon,
   UsersRound as CommunityIcon,
+  Flame as FireIcon,
+  Clock3 as ClockIcon,
+  Heart as HeartIcon,
+  MessageCircle as MessageIcon,
+  Share2 as Share2Icon,
+  Bookmark as BookmarkIcon,
+  MoreHorizontal as MoreIcon,
+  Image as ImageIcon,
+  Video as VideoIcon,
 } from "lucide-react";
+
+export {
+  FaFacebookF as FacebookIcon,
+  FaInstagram as InstagramIcon,
+  FaLinkedinIn as LinkedInIcon,
+  FaXTwitter as XIcon,
+} from "react-icons/fa6";
 
 export type { LucideIcon } from "lucide-react";
