@@ -19,7 +19,6 @@
 .home-cities__carousel {
   display: flex;
   align-items: center;
-
   width: 100%;
   gap: 16px;
 }
@@ -36,7 +35,7 @@
   overflow-x: auto;
   overflow-y: visible;
 
-  padding: 12px 14px 28px 10px;
+  padding: 12px 18px 30px 10px;
 
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
@@ -143,58 +142,8 @@
 
 
 /* =========================================================
-   DIRECTIONAL CARD SHADOW
-   LIGHT SOURCE = TOP LEFT
-   SHADOW = BOTTOM RIGHT
-========================================================= */
-
-.home-city-card__shadow {
-  position: absolute;
-
-  /*
-    The backing layer is slightly shifted toward
-    the bottom-right of the main card.
-  */
-  top: 4px;
-  left: 4px;
-  right: -6px;
-  bottom: -7px;
-
-  z-index: 0;
-
-  border-radius: 16px;
-
-  /*
-    Dark physical thickness.
-  */
-  background: #252832;
-
-  border: 1px solid #1d2028;
-
-  /*
-    Directional projected shadow.
-    Mostly moves down and right.
-  */
-  box-shadow:
-    5px 7px 0 rgba(23, 25, 35, 0.08),
-    9px 13px 10px rgba(23, 25, 35, 0.10),
-    13px 19px 18px rgba(23, 25, 35, 0.07);
-
-  transform: translate(3px, 4px);
-
-  opacity: 0.88;
-
-  pointer-events: none;
-
-  transition:
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 320ms ease,
-    opacity 320ms ease;
-}
-
-
-/* =========================================================
    MAIN CARD
+   No secondary card behind it.
 ========================================================= */
 
 .home-city-card__inner {
@@ -205,11 +154,7 @@
   width: 100%;
   height: 100%;
 
-  /*
-    Must remain visible so the directional
-    depth layers can extend outside the card.
-  */
-  overflow: visible;
+  overflow: hidden;
 
   background: #ffffff !important;
 
@@ -221,8 +166,19 @@
 
   transform: translate(0, 0);
 
+  /*
+    Subtle neumorphic lighting:
+
+    TOP LEFT
+    = white highlight
+
+    BOTTOM RIGHT
+    = darker projected shadow
+  */
   box-shadow:
-    1px 2px 3px rgba(23, 25, 35, 0.05);
+    -4px -4px 9px rgba(255, 255, 255, 0.95),
+    5px 7px 12px rgba(23, 25, 35, 0.11),
+    9px 12px 20px rgba(23, 25, 35, 0.055);
 
   transition:
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -231,7 +187,7 @@
 
 
 /* =========================================================
-   TOP-LEFT LIGHT EDGE
+   TOP-LEFT LIGHT
 ========================================================= */
 
 .home-city-card__inner::before {
@@ -239,37 +195,24 @@
 
   position: absolute;
 
-  /*
-    Pull the light layer slightly
-    toward the top-left.
-  */
-  top: -4px;
-  left: -4px;
+  inset: 0;
 
-  right: 3px;
-  bottom: 3px;
-
-  z-index: -1;
-
-  border-radius: 16px;
-
-  background: #ffffff;
-
-  border-top: 2px solid rgba(255, 255, 255, 1);
-  border-left: 2px solid rgba(255, 255, 255, 1);
-
-  /*
-    Very subtle highlight.
-  */
-  box-shadow:
-    -2px -2px 5px rgba(255, 255, 255, 0.95);
+  z-index: 5;
 
   pointer-events: none;
+
+  border-radius: 13px;
+
+  /*
+    Soft highlight along the top-left interior.
+  */
+  box-shadow:
+    inset 2px 2px 7px rgba(255, 255, 255, 0.72);
 }
 
 
 /* =========================================================
-   BOTTOM-RIGHT DARK EDGE
+   BOTTOM-RIGHT DARKNESS
 ========================================================= */
 
 .home-city-card__inner::after {
@@ -277,67 +220,47 @@
 
   position: absolute;
 
-  /*
-    Push the dark layer toward
-    bottom-right.
-  */
-  top: 5px;
-  left: 5px;
-  right: -6px;
-  bottom: -7px;
+  inset: 0;
 
-  z-index: -2;
-
-  border-radius: 15px;
-
-  background: #292c35;
-
-  border-right: 2px solid #20232b;
-  border-bottom: 2px solid #20232b;
-
-  opacity: 0.88;
+  z-index: 5;
 
   pointer-events: none;
+
+  border-radius: 13px;
+
+  /*
+    Very subtle directional shading.
+  */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0) 55%,
+      rgba(23, 25, 35, 0.012) 72%,
+      rgba(23, 25, 35, 0.028) 88%,
+      rgba(23, 25, 35, 0.045) 100%
+    );
 }
 
 
 /* =========================================================
-   CARD HOVER
+   HOVER
 ========================================================= */
 
 .home-city-card:hover .home-city-card__inner {
   /*
-    Card rises slightly toward the light source.
+    Small movement toward the light source.
   */
-  transform: translate(-3px, -5px);
+  transform: translate(-3px, -4px);
 
   box-shadow:
-    1px 3px 5px rgba(23, 25, 35, 0.06);
+    -5px -5px 11px rgba(255, 255, 255, 0.98),
+    6px 9px 14px rgba(23, 25, 35, 0.12),
+    11px 15px 24px rgba(23, 25, 35, 0.065);
 }
 
 
 /* =========================================================
-   HOVER SHADOW
-========================================================= */
-
-.home-city-card:hover .home-city-card__shadow {
-  /*
-    Main card moves up-left while the shadow
-    remains down-right.
-  */
-  transform: translate(8px, 10px);
-
-  opacity: 0.9;
-
-  box-shadow:
-    6px 9px 0 rgba(23, 25, 35, 0.09),
-    11px 16px 12px rgba(23, 25, 35, 0.11),
-    16px 23px 20px rgba(23, 25, 35, 0.08);
-}
-
-
-/* =========================================================
-   IMAGE
+   CITY IMAGE
 ========================================================= */
 
 .home-city-card__image {
@@ -357,11 +280,6 @@
 
   transform: scale(1.02);
 
-  /*
-    Keep image inside rounded card.
-  */
-  clip-path: inset(0 round 13px);
-
   transition:
     opacity 450ms ease,
     filter 450ms ease,
@@ -379,11 +297,6 @@
   inset: 0;
 
   z-index: 1;
-
-  /*
-    Keep overlay inside rounded card.
-  */
-  clip-path: inset(0 round 13px);
 
   background:
     linear-gradient(
@@ -430,7 +343,7 @@
 
   inset: 0;
 
-  z-index: 2;
+  z-index: 6;
 
   display: flex;
   flex-direction: column;
@@ -453,13 +366,13 @@
 
 
 /* =========================================================
-   TOP
+   TOP CONTENT
 ========================================================= */
 
 .home-city-card__top {
   position: relative;
 
-  z-index: 3;
+  z-index: 7;
 
   display: flex;
   align-items: flex-start;
@@ -544,7 +457,7 @@
 .home-city-card__bottom {
   position: relative;
 
-  z-index: 3;
+  z-index: 7;
 }
 
 .home-city-card__bottom h3 {
@@ -583,7 +496,7 @@
 
   inset: 0;
 
-  z-index: 4;
+  z-index: 8;
 
   display: flex;
   flex-direction: column;
@@ -612,6 +525,7 @@
 
 .home-city-card:hover .home-city-card__default {
   opacity: 0;
+
   visibility: hidden;
 
   transform: translateY(-18px);
@@ -620,13 +534,12 @@
 .home-city-card:hover .home-city-card__ghost-number {
   opacity: 0;
 
-  transform:
-    scale(1.12)
-    translateY(-20px);
+  transform: scale(1.12) translateY(-20px);
 }
 
 .home-city-card:hover .home-city-card__hover {
   opacity: 1;
+
   visibility: visible;
 
   transform: translateY(0);
@@ -710,8 +623,7 @@
 }
 
 .home-city-card__explore svg {
-  transition:
-    transform 200ms ease;
+  transition: transform 200ms ease;
 }
 
 .home-city-card:hover .home-city-card__explore svg {
@@ -720,7 +632,7 @@
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE — DESKTOP
 ========================================================= */
 
 @media (max-width: 1200px) {
@@ -730,6 +642,10 @@
 }
 
 
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
 @media (max-width: 900px) {
   .home-cities {
     --city-width: 230px;
@@ -737,6 +653,10 @@
   }
 }
 
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLET
+========================================================= */
 
 @media (max-width: 700px) {
   .home-cities {
@@ -746,7 +666,6 @@
 
   .home-cities__arrow {
     flex-basis: 42px;
-
     width: 42px;
     height: 42px;
   }
@@ -756,6 +675,10 @@
   }
 }
 
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
 
 @media (max-width: 550px) {
   .home-cities {
