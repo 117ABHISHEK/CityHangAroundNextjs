@@ -1,3 +1,4 @@
+import "./index.css";
 import { ClockIcon, FireIcon, StarIcon } from "@/src/components/ui/icons";
 
 type FilterBarProps = {

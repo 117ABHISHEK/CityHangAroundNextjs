@@ -1,0 +1,44 @@
+.community-side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.community-side-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.community-side-link:hover {
+  background: rgba(232, 67, 44, 0.05);
+  color: var(--community-accent);
+  transform: translateX(2px);
+}
+
+.community-side-link.is-active {
+  background: rgba(232, 67, 44, 0.08);
+  color: var(--community-accent);
+}
+
+.community-side-icon,
+.community-side-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.community-side-avatar {
+  color: #fff;
+  font-size: 12px;
+}

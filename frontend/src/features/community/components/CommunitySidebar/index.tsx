@@ -1,3 +1,4 @@
+import "./index.css";
 import {
   Home,
   Flame,
@@ -26,7 +27,7 @@ export default function CommunitySidebar({ communities }: CommunitySidebarProps)
       <div className="community-side-group">
         <div className="community-side-title">Home</div>
         <nav className="community-side-nav">
-                    <a href="#" className="community-side-link is-active">
+          <a href="#" className="community-side-link is-active">
             <span className="community-side-icon"><Home size={20} /></span>
             Home
           </a>
@@ -61,7 +62,7 @@ export default function CommunitySidebar({ communities }: CommunitySidebarProps)
       <div className="community-side-group">
         <div className="community-side-title">Explore</div>
         <nav className="community-side-nav">
-                    <a href="#" className="community-side-link">
+          <a href="#" className="community-side-link">
             <span className="community-side-icon"><PartyPopper size={20} /></span>
             Events
           </a>

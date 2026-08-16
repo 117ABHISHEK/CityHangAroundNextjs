@@ -1,4 +1,5 @@
-import AdSlot from "./AdSlot";
+import "./index.css";
+import AdSlot from "../AdSlot";
 
 type Person = {
   initials: string;

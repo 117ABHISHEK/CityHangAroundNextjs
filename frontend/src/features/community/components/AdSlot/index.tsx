@@ -1,3 +1,5 @@
+import "./index.css";
+
 type AdVariant = "landscape" | "square" | "portrait";
 
 type AdSlotProps = {

@@ -1,3 +1,4 @@
+import "./index.css";
 import { ImageIcon, VideoIcon, Share2Icon } from "@/src/components/ui/icons";
 
 export default function FeedComposer() {

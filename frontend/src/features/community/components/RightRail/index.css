@@ -1,0 +1,80 @@
+.community-people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.community-person-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+}
+
+.community-person-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.community-person-info {
+  min-width: 0;
+}
+
+.community-person-name {
+  color: var(--community-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.community-person-meta {
+  color: var(--community-muted);
+  font-size: 12px;
+}
+
+.community-guidelines {
+  margin: 0;
+  color: var(--community-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.community-highlight-card {
+  overflow: hidden;
+  border: 1px solid var(--community-border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8f3ef, #fff);
+}
+
+.community-highlight-card__image {
+  height: 170px;
+  background: linear-gradient(135deg, rgba(65, 91, 117, 0.8), rgba(98, 148, 162, 0.7)),
+    url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80") center/cover;
+}
+
+.community-highlight-card__content {
+  padding: 14px 14px 18px;
+}
+
+.community-highlight-card__content h4 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.community-highlight-card__content button {
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e8432c, #ff7d5b);
+  padding: 10px 16px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}

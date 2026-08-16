@@ -1,3 +1,4 @@
+import "./index.css";
 import Image from "next/image";
 import {
   BookmarkIcon,

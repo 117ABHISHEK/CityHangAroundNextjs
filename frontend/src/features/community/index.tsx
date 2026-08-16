@@ -6,6 +6,7 @@ import FeedComposer from "./components/FeedComposer";
 import FilterBar from "./components/FilterBar";
 import PostCard from "./components/PostCard";
 import RightRail from "./components/RightRail";
+import "./base.css";
 
 const communities = [
   { id: "foodies", icon: "🍕", name: "Ahmedabad Foodies", color: "#f5720e" },
