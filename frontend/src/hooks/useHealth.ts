@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { checkHealth } from '@/services/api';
+import { checkHealth } from '@/src/services/api';
 
 interface HealthStatus {
   isHealthy: boolean;
