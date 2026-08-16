@@ -156,7 +156,6 @@
 
 /* =========================================================
    MAIN CARD
-   SOFT NEUMORPHIC SURFACE
 ========================================================= */
 
 .home-city-card__inner {
@@ -169,15 +168,8 @@
 
   overflow: hidden;
 
-  /*
-    Main neumorphic surface.
-  */
-  background: #e0e0e0 !important;
+  background: #e0e0e0;
 
-  /*
-    Soft border matching the surface.
-    No dark outline.
-  */
   border: 1px solid #d7d7d7;
 
   border-radius: 16px;
@@ -186,13 +178,6 @@
 
   transform: translate3d(0, 0, 0);
 
-  /*
-    LIGHT SOURCE
-    = TOP LEFT
-
-    SHADOW
-    = BOTTOM RIGHT
-  */
   box-shadow:
     -6px -6px 12px rgba(255, 255, 255, 0.95),
     6px 6px 12px rgba(190, 190, 190, 0.55),
@@ -222,14 +207,12 @@
 
   border-radius: 15px;
 
-  /*
-    Soft highlight following the
-    top-left light source.
-  */
   box-shadow:
     inset 3px 3px 7px rgba(255, 255, 255, 0.65);
 
   opacity: 0.9;
+
+  transition: opacity 300ms ease;
 }
 
 
@@ -250,9 +233,6 @@
 
   border-radius: 15px;
 
-  /*
-    Subtle directional shading.
-  */
   background:
     linear-gradient(
       135deg,
@@ -261,6 +241,9 @@
       rgba(170, 170, 170, 0.035) 88%,
       rgba(150, 150, 150, 0.06) 100%
     );
+
+  transition:
+    background 300ms ease;
 }
 
 
@@ -269,12 +252,9 @@
 ========================================================= */
 
 .home-city-card:hover .home-city-card__inner {
-  /*
-    Lift slightly toward the light.
-  */
   transform: translate3d(-3px, -4px, 0);
 
-  border-color: #d2d2d2;
+  border-color: rgba(23, 25, 35, 0.35);
 
   box-shadow:
     -7px -7px 14px rgba(255, 255, 255, 0.98),
@@ -285,6 +265,8 @@
 
 /* =========================================================
    CITY IMAGE
+   ---------------------------------------------------------
+   IMAGE IS VISIBLE IN BOTH STATES
 ========================================================= */
 
 .home-city-card__image {
@@ -298,24 +280,28 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  /*
-    Image is subtle in default state.
-  */
-  opacity: 0.12;
+  opacity: 1;
 
-  filter: grayscale(100%);
+  visibility: visible;
+
+  filter: none;
 
   transform: scale(1.02);
 
   transition:
-    opacity 450ms ease,
-    filter 450ms ease,
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 400ms ease;
 }
 
 
 /* =========================================================
    IMAGE OVERLAY
+   ---------------------------------------------------------
+   DEFAULT:
+   Light overlay
+
+   HOVER:
+   Dark overlay so details are readable
 ========================================================= */
 
 .home-city-card__image-overlay {
@@ -325,16 +311,23 @@
 
   z-index: 1;
 
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: none;
+
   background:
     linear-gradient(
       180deg,
-      rgba(224, 224, 224, 0.97) 0%,
-      rgba(224, 224, 224, 0.80) 46%,
-      rgba(224, 224, 224, 0.95) 100%
+      rgba(15, 17, 24, 0.08) 0%,
+      rgba(15, 17, 24, 0.03) 42%,
+      rgba(15, 17, 24, 0.70) 100%
     );
 
   transition:
-    background 450ms ease;
+    background 350ms ease,
+    opacity 300ms ease;
 }
 
 
@@ -343,20 +336,27 @@
 ========================================================= */
 
 .home-city-card:hover .home-city-card__image {
-  opacity: 0.9;
+  /*
+    Keep the image visible.
+    Just give it a tiny zoom.
+  */
+  transform: scale(1.06);
 
-  filter: grayscale(0%);
-
-  transform: scale(1.08);
+  filter: brightness(0.72);
 }
+
+
+/* =========================================================
+   DARK HOVER OVERLAY
+========================================================= */
 
 .home-city-card:hover .home-city-card__image-overlay {
   background:
     linear-gradient(
       180deg,
-      rgba(15, 17, 24, 0.68) 0%,
-      rgba(15, 17, 24, 0.48) 50%,
-      rgba(15, 17, 24, 0.86) 100%
+      rgba(15, 17, 24, 0.48) 0%,
+      rgba(15, 17, 24, 0.34) 42%,
+      rgba(15, 17, 24, 0.82) 100%
     );
 }
 
@@ -373,7 +373,9 @@
   z-index: 6;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: space-between;
 
   padding: 22px;
@@ -381,6 +383,7 @@
   overflow: hidden;
 
   opacity: 1;
+
   visibility: visible;
 
   transform: translateY(0);
@@ -402,7 +405,9 @@
   z-index: 7;
 
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
 
   gap: 10px;
@@ -414,14 +419,18 @@
 ========================================================= */
 
 .home-city-card__number {
-  color: #727784;
+  color: #ffffff;
 
   font-size: 12px;
+
   line-height: 1;
 
   font-weight: 800;
 
   letter-spacing: 0.12em;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 
@@ -431,6 +440,7 @@
 
 .home-city-card__badge {
   display: inline-flex;
+
   align-items: center;
 
   padding: 7px 11px;
@@ -438,9 +448,11 @@
   border-radius: 999px;
 
   background: #ef4b36;
+
   color: #ffffff;
 
   font-size: 9px;
+
   line-height: 1;
 
   font-weight: 800;
@@ -450,53 +462,44 @@
   letter-spacing: 0.05em;
 
   white-space: nowrap;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 
 /* =========================================================
    GHOST NUMBER
+   ---------------------------------------------------------
+   Hidden because the city image occupies the card.
 ========================================================= */
 
 .home-city-card__ghost-number {
-  position: absolute;
-
-  right: -12px;
-  top: 58px;
-
-  z-index: 1;
-
-  font-size: 150px;
-  line-height: 0.9;
-
-  font-weight: 900;
-
-  letter-spacing: -0.1em;
-
-  color: #d9dadd;
-
-  pointer-events: none;
-  user-select: none;
-
-  transition:
-    opacity 300ms ease,
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  display: none !important;
 }
 
 
 /* =========================================================
-   CITY INFORMATION
+   DEFAULT CITY INFORMATION
 ========================================================= */
 
 .home-city-card__bottom {
   position: relative;
 
   z-index: 7;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 .home-city-card__bottom h3 {
   margin: 0;
 
   max-width: 100%;
+
+  color: #ffffff;
 
   font-size: clamp(26px, 2vw, 32px);
 
@@ -512,7 +515,7 @@
 .home-city-card__bottom p {
   margin: 9px 0 0;
 
-  color: #687080;
+  color: rgba(255, 255, 255, 0.9);
 
   font-size: 13px;
 
@@ -523,7 +526,27 @@
 
 
 /* =========================================================
-   HOVER CONTENT
+   DEFAULT CONTENT HOVER
+   ---------------------------------------------------------
+   Default title/listings disappear.
+========================================================= */
+
+.home-city-card:hover .home-city-card__default {
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: translateY(-18px);
+}
+
+
+/* =========================================================
+   HOVER DETAILS PANEL
+   ---------------------------------------------------------
+   IMPORTANT:
+   NO background color here.
+
+   The image underneath remains visible.
 ========================================================= */
 
 .home-city-card__hover {
@@ -539,13 +562,19 @@
 
   padding: 22px;
 
+  /*
+    Transparent!
+    Image remains visible underneath.
+  */
+  background: transparent;
+
+  color: #ffffff;
+
   opacity: 0;
 
   visibility: hidden;
 
-  color: #ffffff;
-
-  transform: translateY(20px);
+  transform: translateY(18px);
 
   pointer-events: none;
 
@@ -557,22 +586,8 @@
 
 
 /* =========================================================
-   HOVER TRANSITION
+   HOVER CONTENT REVEAL
 ========================================================= */
-
-.home-city-card:hover .home-city-card__default {
-  opacity: 0;
-
-  visibility: hidden;
-
-  transform: translateY(-18px);
-}
-
-.home-city-card:hover .home-city-card__ghost-number {
-  opacity: 0;
-
-  transform: scale(1.12) translateY(-20px);
-}
 
 .home-city-card:hover .home-city-card__hover {
   opacity: 1;
@@ -599,6 +614,9 @@
   font-weight: 800;
 
   letter-spacing: 0.14em;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 
@@ -611,6 +629,8 @@
 
   max-width: 100%;
 
+  color: #ffffff;
+
   font-size: clamp(25px, 2vw, 32px);
 
   line-height: 1;
@@ -620,6 +640,9 @@
   letter-spacing: -0.045em;
 
   overflow-wrap: anywhere;
+
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -632,16 +655,19 @@
 
   max-width: 190px;
 
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.88);
 
   font-size: 13px;
 
   line-height: 1.55;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 
 /* =========================================================
-   EXPLORE
+   HOVER EXPLORE
 ========================================================= */
 
 .home-city-card__explore {
@@ -655,7 +681,7 @@
 
   padding-top: 15px;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
 
   color: #ffffff;
 
@@ -664,12 +690,19 @@
   line-height: 1;
 
   font-weight: 800;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
+
 .home-city-card__explore svg {
+  color: #ffffff;
+
   transition:
     transform 200ms ease;
 }
+
 
 .home-city-card:hover .home-city-card__explore svg {
   transform: translateX(5px);
@@ -748,9 +781,5 @@
   .home-city-card__default,
   .home-city-card__hover {
     padding: 20px;
-  }
-
-  .home-city-card__ghost-number {
-    font-size: 130px;
   }
 }
