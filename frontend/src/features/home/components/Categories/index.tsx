@@ -9,6 +9,7 @@ import {
   StarIcon,
 } from "@/src/components/ui/icons";
 import type { LucideIcon } from "@/src/components/ui/icons";
+import "./index.css";
 
 const categories: [LucideIcon, string, string, string, string[]][] = [
   [CityGuideIcon, "Food & Dining", "1.8K+ Places", "Restaurants, Cafes, Bakeries & Street Food", ["Cafes", "Pizzas", "Buffets"]],

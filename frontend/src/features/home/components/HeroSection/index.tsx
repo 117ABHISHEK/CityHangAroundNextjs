@@ -7,6 +7,7 @@ import {
   CommunityIcon,
 } from "@/src/components/ui/icons";
 import HeroBackdrop from "../HeroBackdrop";
+import "./index.css";
 
 const stats = [
   { value: "5,000+", label: "Businesses Listed", icon: BusinessIcon },

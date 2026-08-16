@@ -1,0 +1,245 @@
+/* =========================================================
+   TRUST & FAQ COMPONENT
+========================================================= */
+
+.home-trust {
+  background: #f7f7f9;
+}
+
+.home-testimonials {
+  background: #fff;
+}
+
+.home-trust__grid,
+.home-testimonials__grid,
+.home-faq__grid {
+  display: grid;
+  align-items: center;
+  gap: 56px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.home-testimonials__grid {
+  align-items: start;
+}
+
+.home-trust__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin: 24px 0;
+}
+
+.home-trust__stats strong {
+  font-size: 18px;
+}
+
+.home-trust__stats small {
+  display: block;
+  margin-top: 2px;
+  color: var(--home-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.home-trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.home-trust-list span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--home-muted);
+  font-size: 12px;
+}
+
+.home-trust__illustration {
+  display: flex;
+  min-height: 330px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #eef2ff, #e6f4ec);
+}
+
+.home-trust__illustration div {
+  width: 90px;
+  height: 160px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 18px rgb(15 23 42 / 10%);
+  transform: rotate(-8deg);
+}
+
+.home-trust__illustration div:nth-child(2) {
+  height: 210px;
+  background: #dfe6f5;
+  transform: rotate(0);
+}
+
+.home-trust__illustration div:nth-child(3) {
+  background: #ffe3d6;
+  transform: rotate(8deg);
+}
+
+/* =========================================================
+   TESTIMONIALS
+========================================================= */
+
+.home-testimonials h2 {
+  margin-bottom: 22px;
+  font-size: 21px;
+}
+
+.home-partners {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.home-partners span {
+  display: grid;
+  min-height: 60px;
+  place-items: center;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: #f8f9fa;
+  color: #5b6472;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.home-testimonial {
+  padding: 22px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: #f7f7f9;
+}
+
+.home-stars {
+  display: flex;
+  gap: 2px;
+  color: #f5a623;
+}
+
+.home-testimonial p {
+  margin: 16px 0;
+}
+
+.home-testimonial strong,
+.home-testimonial small {
+  display: block;
+}
+
+.home-testimonial small {
+  margin-top: 4px;
+  color: var(--home-light);
+  font-size: 12px;
+}
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.home-faq {
+  background: #f7f7f9;
+}
+
+.home-faq__grid {
+  align-items: stretch;
+}
+
+.home-faq__list {
+  margin-top: 24px;
+  padding-inline: 20px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.home-faq details {
+  padding-block: 16px;
+  border-bottom: 1px solid var(--home-border);
+}
+
+.home-faq details:last-child {
+  border-bottom: 0;
+}
+
+.home-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.home-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.home-faq details p {
+  max-width: 560px;
+  margin-top: 10px;
+  color: var(--home-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.home-cta {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 36px;
+  border-radius: 18px;
+  background: linear-gradient(120deg, var(--home-primary), #ff6f4d);
+  color: #fff;
+}
+
+.home-cta h2 {
+  color: #fff;
+  font-size: 25px;
+}
+
+.home-cta p {
+  max-width: 360px;
+  margin: 12px 0 22px;
+  color: rgb(255 255 255 / 88%);
+  font-size: 14px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .home-trust__grid,
+  .home-testimonials__grid,
+  .home-faq__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-partners {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-cta {
+    padding: 26px;
+  }
+}

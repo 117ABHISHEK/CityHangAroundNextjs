@@ -1,0 +1,66 @@
+/* =========================================================
+   HOME HIGHLIGHTS COMPONENT
+========================================================= */
+
+.home-highlights {
+  background: #fff;
+}
+
+.home-highlight-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.home-highlight {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: #f8f8fa;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.home-highlight:hover {
+  transform: translateY(-4px);
+  border-color: #f4b8aa;
+  box-shadow: 0 12px 24px rgb(232 67 44 / 10%);
+}
+
+.home-highlight__icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #fff1ee;
+  color: var(--home-primary);
+}
+
+.home-highlight h3 {
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.home-highlight p {
+  margin-top: 4px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .home-highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .home-highlight-grid {
+    grid-template-columns: 1fr;
+  }
+}

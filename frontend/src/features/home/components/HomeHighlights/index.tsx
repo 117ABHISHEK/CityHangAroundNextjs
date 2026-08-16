@@ -8,6 +8,7 @@ import {
   StarIcon,
   MarketplaceIcon,
 } from "@/src/components/ui/icons";
+import "./index.css";
 
 const highlights = [
   [BusinessIcon, "Add Business", "Get listed and reach local customers"],

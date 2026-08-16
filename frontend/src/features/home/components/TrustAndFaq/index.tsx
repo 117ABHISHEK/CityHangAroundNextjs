@@ -1,4 +1,5 @@
 import { ArrowRightIcon, CheckIcon, ChevronDown, LockIcon, ShieldIcon, StarIcon, SupportIcon } from "@/src/components/ui/icons";
+import "./index.css";
 
 const faqs = [
   ["How can I get free leads for my business?", "List your business for free and start appearing in local searches."],

@@ -8,6 +8,7 @@ import {
   SupportIcon,
   CommunityIcon,
 } from "@/src/components/ui/icons";
+import "./index.css";
 
 const steps = [
   ["1", "List Your Business", "Create your free listing in minutes."],

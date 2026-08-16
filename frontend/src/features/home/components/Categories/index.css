@@ -1,0 +1,119 @@
+/* =========================================================
+   CATEGORIES COMPONENT
+========================================================= */
+
+.home-categories {
+  background: #f7f7f9;
+}
+
+.home-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.home-category {
+  padding: 20px;
+  border: 1px solid var(--home-border);
+  border-radius: 14px;
+  background: #fff;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.home-category:hover {
+  transform: translateY(-4px);
+  border-color: #f4b8aa;
+  box-shadow: 0 14px 28px rgb(232 67 44 / 10%);
+}
+
+.home-category__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.home-category__icon {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #fff1ee;
+  color: var(--home-primary);
+}
+
+.home-category__top small {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #f0f2f5;
+  color: var(--home-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.home-category h3 {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.home-category > p {
+  min-height: 42px;
+  margin-top: 7px;
+  color: var(--home-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.home-category__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.home-category__pills span {
+  padding: 3px 8px;
+  border: 1px solid #eef0f3;
+  border-radius: 6px;
+  background: #f6f7f9;
+  color: var(--home-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.home-category a {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 16px;
+  color: var(--home-primary);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.home-category a span {
+  transition: transform 180ms ease;
+}
+
+.home-category a:hover span {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .home-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .home-category-grid {
+    grid-template-columns: 1fr;
+  }
+}

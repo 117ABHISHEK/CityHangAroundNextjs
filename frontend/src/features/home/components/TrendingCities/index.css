@@ -1,0 +1,620 @@
+/* =========================================================
+   TRENDING CITIES COMPONENT
+========================================================= */
+
+.home-cities {
+  --city-width: 220px;
+  --city-gap: 20px;
+
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
+
+.home-cities__carousel {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  gap: 16px;
+}
+
+/* =========================================================
+   VIEWPORT
+========================================================= */
+
+.home-cities__viewport {
+  flex: 1;
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  padding: 12px 10px 22px;
+
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.home-cities__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   TRACK
+========================================================= */
+
+.home-cities__track {
+  display: flex;
+  align-items: stretch;
+
+  width: max-content;
+
+  gap: var(--city-gap);
+}
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.home-cities__arrow {
+  position: relative !important;
+
+  flex: 0 0 48px;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 1px solid #e4e6eb;
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #171923;
+
+  cursor: pointer;
+
+  z-index: 20;
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.home-cities__arrow:hover:not(:disabled) {
+  background: #171923;
+  color: #ffffff;
+  border-color: #171923;
+
+  transform: scale(1.08);
+}
+
+.home-cities__arrow:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.home-cities__arrow:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   CITY CARD
+========================================================= */
+
+.home-city-card {
+  position: relative;
+
+  flex: 0 0 var(--city-width);
+
+  width: var(--city-width);
+  height: 300px;
+
+  overflow: visible !important;
+
+  background: transparent !important;
+  border: 0 !important;
+
+  scroll-snap-align: start;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   DARK OFFSET SHADOW
+========================================================= */
+
+.home-city-card__shadow {
+  position: absolute;
+
+  inset: 0;
+
+  background: #171923;
+
+  border: 2px solid #171923;
+  border-radius: 15px;
+
+  transform: translate(9px, 9px);
+
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.home-city-card__inner {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #ffffff !important;
+
+  border: 2px solid #171923;
+  border-radius: 15px;
+
+  color: #171923;
+
+  transform: translate(0, 0);
+
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms ease;
+}
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.home-city-card:hover .home-city-card__inner {
+  transform: translate(-7px, -7px);
+
+  box-shadow: 11px 13px 0 #171923;
+}
+
+.home-city-card:hover .home-city-card__shadow {
+  transform: translate(15px, 15px);
+}
+
+/* =========================================================
+   CITY IMAGE
+========================================================= */
+
+.home-city-card__image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  opacity: 0.12;
+
+  filter: grayscale(100%);
+
+  transform: scale(1.02);
+
+  transition:
+    opacity 450ms ease,
+    filter 450ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.home-city-card__image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.78) 48%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+
+  transition:
+    background 450ms ease;
+}
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
+
+.home-city-card:hover .home-city-card__image {
+  opacity: 0.9;
+
+  filter: grayscale(0%);
+
+  transform: scale(1.08);
+}
+
+.home-city-card:hover .home-city-card__image-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 17, 24, 0.68) 0%,
+      rgba(15, 17, 24, 0.48) 50%,
+      rgba(15, 17, 24, 0.86) 100%
+    );
+}
+
+/* =========================================================
+   DEFAULT CONTENT
+========================================================= */
+
+.home-city-card__default {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 22px;
+
+  overflow: hidden;
+
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 220ms ease;
+}
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.home-city-card__top {
+  position: relative;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.home-city-card__number {
+  color: #727784;
+
+  font-size: 12px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.home-city-card__badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  background: #ef4b36;
+  color: #ffffff;
+
+  font-size: 9px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   GHOST NUMBER
+========================================================= */
+
+.home-city-card__ghost-number {
+  position: absolute;
+
+  right: -12px;
+  top: 58px;
+
+  z-index: 1;
+
+  font-size: 150px;
+  line-height: 0.9;
+
+  font-weight: 900;
+
+  letter-spacing: -0.1em;
+
+  color: #f1f2f4;
+
+  pointer-events: none;
+  user-select: none;
+
+  transition:
+    opacity 300ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   CITY INFORMATION
+========================================================= */
+
+.home-city-card__bottom {
+  position: relative;
+
+  z-index: 3;
+}
+
+.home-city-card__bottom h3 {
+  margin: 0;
+
+  max-width: 100%;
+
+  font-size: clamp(26px, 2vw, 32px);
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: -0.045em;
+
+  overflow-wrap: anywhere;
+}
+
+.home-city-card__bottom p {
+  margin: 9px 0 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  line-height: 1;
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   HOVER CONTENT
+========================================================= */
+
+.home-city-card__hover {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 4;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  color: #ffffff;
+
+  transform: translateY(20px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 240ms ease,
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 240ms ease;
+}
+
+/* =========================================================
+   HOVER TRANSITION
+========================================================= */
+
+.home-city-card:hover .home-city-card__default {
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-18px);
+}
+
+.home-city-card:hover .home-city-card__ghost-number {
+  opacity: 0;
+
+  transform:
+    scale(1.12)
+    translateY(-20px);
+}
+
+.home-city-card:hover .home-city-card__hover {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+/* =========================================================
+   HOVER LABEL
+========================================================= */
+
+.home-city-card__hover-label {
+  display: block;
+
+  color: #ff604b;
+
+  font-size: 10px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+/* =========================================================
+   HOVER TITLE
+========================================================= */
+
+.home-city-card__hover h3 {
+  margin: 28px 0 0;
+
+  max-width: 100%;
+
+  font-size: clamp(25px, 2vw, 32px);
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: -0.045em;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   HOVER DESCRIPTION
+========================================================= */
+
+.home-city-card__hover p {
+  margin: 16px 0 0;
+
+  max-width: 190px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   EXPLORE
+========================================================= */
+
+.home-city-card__explore {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: auto;
+  padding-top: 15px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+
+  color: #ffffff;
+
+  font-size: 14px;
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+.home-city-card__explore svg {
+  transition:
+    transform 200ms ease;
+}
+
+.home-city-card:hover .home-city-card__explore svg {
+  transform: translateX(5px);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .home-cities {
+    --city-width: 210px;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-cities {
+    --city-width: 230px;
+    --city-gap: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-cities {
+    --city-width: 250px;
+    --city-gap: 16px;
+  }
+
+  .home-cities__arrow {
+    flex-basis: 42px;
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .home-city-card {
+    height: 320px;
+  }
+}
+
+@media (max-width: 550px) {
+  .home-cities {
+    --city-width: calc(100vw - 72px);
+    --city-gap: 16px;
+  }
+
+  .home-cities__arrow {
+    display: none !important;
+  }
+
+  .home-cities__viewport {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .home-city-card {
+    height: 310px;
+  }
+
+  .home-city-card__default,
+  .home-city-card__hover {
+    padding: 20px;
+  }
+
+  .home-city-card__ghost-number {
+    font-size: 130px;
+  }
+}
