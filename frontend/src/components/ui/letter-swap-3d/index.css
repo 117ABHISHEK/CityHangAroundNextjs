@@ -1,0 +1,280 @@
+/* =========================================================
+   LETTER SWAP 3D
+========================================================= */
+
+.letter-swap-3d {
+  display: inline;
+
+  position: relative;
+
+  vertical-align: baseline;
+
+  white-space: normal;
+
+  cursor: default;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   INNER
+========================================================= */
+
+.letter-swap-3d__inner {
+  display: inline;
+
+  white-space: normal;
+}
+
+
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
+
+.letter-swap-3d__letter {
+  position: relative;
+
+  display: inline-block;
+
+  vertical-align: baseline;
+
+  height: 1em;
+
+  line-height: inherit;
+
+  overflow: visible;
+
+  perspective: 700px;
+}
+
+
+/* =========================================================
+   LETTER FACES
+========================================================= */
+
+.letter-swap-3d__face {
+  display: inline-block;
+
+  font: inherit;
+
+  line-height: inherit;
+
+  white-space: pre;
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+/* =========================================================
+   ORIGINAL LETTER
+========================================================= */
+
+.letter-swap-3d__face--front {
+  position: relative;
+
+  z-index: 2;
+
+  transform:
+    translate3d(
+      0,
+      0,
+      0
+    );
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   INCOMING LETTER
+========================================================= */
+
+.letter-swap-3d__face--back {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  transform:
+    translate3d(
+      0,
+      var(--swap-distance),
+      0
+    );
+
+  opacity: 0;
+
+  filter:
+    blur(var(--letter-blur));
+}
+
+
+/* =========================================================
+   ACTIVE — ORIGINAL
+========================================================= */
+
+.letter-swap-3d[data-active="true"]
+  .letter-swap-3d__face--front {
+  animation:
+    letter-swap-out
+    var(--letter-duration)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    var(--letter-delay)
+    both;
+}
+
+
+/* =========================================================
+   ACTIVE — INCOMING
+========================================================= */
+
+.letter-swap-3d[data-active="true"]
+  .letter-swap-3d__face--back {
+  animation:
+    letter-swap-in
+    var(--letter-duration)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    var(--letter-delay)
+    both;
+}
+
+
+/* =========================================================
+   ORIGINAL LETTER MOVES OUT
+========================================================= */
+
+@keyframes letter-swap-out {
+
+  0% {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      );
+
+    opacity: 1;
+
+    filter: blur(0);
+  }
+
+  38% {
+    transform:
+      translate3d(
+        0,
+        var(--swap-distance),
+        0
+      );
+
+    opacity: 0;
+
+    filter:
+      blur(var(--letter-blur));
+  }
+
+  100% {
+    transform:
+      translate3d(
+        0,
+        var(--swap-distance),
+        0
+      );
+
+    opacity: 0;
+
+    filter:
+      blur(var(--letter-blur));
+  }
+}
+
+
+/* =========================================================
+   NEW LETTER COMES IN
+========================================================= */
+
+@keyframes letter-swap-in {
+
+  0% {
+    transform:
+      translate3d(
+        0,
+        calc(
+          var(--swap-distance) * -1
+        ),
+        0
+      );
+
+    opacity: 0;
+
+    filter:
+      blur(var(--letter-blur));
+  }
+
+  38% {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      );
+
+    opacity: 1;
+
+    filter: blur(0);
+  }
+
+  100% {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      );
+
+    opacity: 1;
+
+    filter: blur(0);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .letter-swap-3d[data-respect-reduced-motion="true"]
+    .letter-swap-3d__face {
+    animation: none !important;
+
+    transform: none !important;
+
+    opacity: 1 !important;
+
+    filter: none !important;
+  }
+}

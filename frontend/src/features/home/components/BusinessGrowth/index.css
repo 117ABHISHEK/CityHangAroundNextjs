@@ -1,177 +1,1155 @@
 /* =========================================================
-   BUSINESS GROWTH COMPONENT
+   BUSINESS GROWTH
 ========================================================= */
 
 .home-growth {
-  background: #fff;
+  background: #ffffff;
 }
 
 .home-reach {
   background: #f7f7f9;
 }
 
+
+/* =========================================================
+   GROWTH / REACH GRID
+========================================================= */
+
 .home-growth__grid,
 .home-reach__grid {
   display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
   align-items: center;
+
   gap: 56px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
+
+
+/* =========================================================
+   MAIN GROWTH CONTAINER
+========================================================= */
 
 .home-growth__grid {
   padding: 44px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #fff, #fff8f5);
-  border: 1px solid #f5e4de;
+
+  border: 1px solid #f1ddd7;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #fffaf8 55%,
+      #fff6f1 100%
+    );
+
+  box-shadow:
+    -8px -8px 20px rgba(255, 255, 255, 0.95),
+    12px 16px 30px rgba(120, 100, 90, 0.10);
 }
+
+
+/* =========================================================
+   3D LETTER SWAP
+========================================================= */
+
+.home-growth__letter-swap {
+  /*
+   * IMPORTANT:
+   * Must remain inline so "Found" behaves like
+   * normal text inside the heading.
+   */
+  display: inline;
+
+  position: relative;
+
+  color: var(--home-primary);
+
+  vertical-align: baseline;
+
+  white-space: normal;
+
+  cursor: default;
+
+  perspective: 1000px;
+}
+
+
+.home-growth__letter-swap-front,
+.home-growth__letter-swap-back {
+  color: var(--home-primary);
+}
+
+
+/*
+ * Do NOT use inline-flex here.
+ *
+ * The component itself needs to participate in
+ * normal heading text wrapping.
+ */
+
+.home-growth h2
+  .home-growth__letter-swap
+  .letter-swap-3d__inner {
+  display: inline;
+
+  white-space: normal;
+}
+
+
+/* =========================================================
+   LETTER SWAP TYPOGRAPHY
+========================================================= */
+
+.home-growth h2
+  .home-growth__letter-swap
+  .letter-swap-3d__letter,
+
+.home-growth h2
+  .home-growth__letter-swap
+  .letter-swap-3d__face {
+  font: inherit;
+
+  line-height: inherit;
+
+  letter-spacing: inherit;
+}
+
+
+/* =========================================================
+   LETTER SWAP DEPTH
+========================================================= */
+
+.home-growth
+  .home-growth__letter-swap
+  .letter-swap-3d__letter {
+  perspective: 1000px;
+
+  transform-style: preserve-3d;
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+}
+
+
+.home-growth
+  .home-growth__letter-swap
+  .letter-swap-3d__face {
+  color: var(--home-primary);
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+  transform-style: preserve-3d;
+}
+
+
+/* =========================================================
+   LETTER SWAP ACTIVE DEPTH
+========================================================= */
+
+.home-growth
+  .home-growth__letter-swap
+  .letter-swap-3d__letter--active
+  .letter-swap-3d__face {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18),
+    0 2px 4px rgba(180, 60, 40, 0.12);
+}
+
+
+/* =========================================================
+   STEPS
+========================================================= */
 
 .home-steps {
   display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
   gap: 14px;
-  grid-template-columns: repeat(3, 1fr);
+
   margin: 28px 0;
 }
 
+
+/* =========================================================
+   STEP CARD
+========================================================= */
+
 .home-step {
+  position: relative;
+
+  min-height: 154px;
+
   padding: 18px;
-  border: 1px solid var(--home-border);
-  border-radius: 12px;
-  background: #fff;
+
+  overflow: hidden;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  isolation: isolate;
+
+  box-shadow:
+    -4px -4px 10px rgba(255, 255, 255, 0.95),
+    6px 8px 14px rgba(120, 120, 120, 0.12);
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
 }
 
+
+/* =========================================================
+   IRREGULAR CLOUD / SCALLOPED BLOB
+========================================================= */
+
+.home-step::before {
+  content: "";
+
+  position: absolute;
+
+  right: -45px;
+  bottom: -48px;
+
+  width: 155px;
+  height: 135px;
+
+  background:
+    radial-gradient(
+      circle at 42% 40%,
+      rgba(239, 67, 44, 0.12) 0%,
+      rgba(239, 67, 44, 0.065) 42%,
+      rgba(239, 67, 44, 0) 74%
+    );
+
+  clip-path: polygon(
+    14% 19%,
+    20% 9%,
+    32% 7%,
+    41% 13%,
+    51% 5%,
+    63% 8%,
+    72% 16%,
+    85% 13%,
+    94% 23%,
+    91% 35%,
+    98% 45%,
+    92% 56%,
+    97% 68%,
+    89% 78%,
+    78% 78%,
+    69% 91%,
+    56% 86%,
+    45% 95%,
+    34% 88%,
+    22% 92%,
+    13% 82%,
+    16% 70%,
+    7% 61%,
+    12% 49%,
+    5% 39%,
+    12% 29%
+  );
+
+  opacity: 0.85;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease,
+    filter 300ms ease;
+}
+
+
+/* =========================================================
+   INNER CLOUD GLOW
+========================================================= */
+
+.home-step::after {
+  content: "";
+
+  position: absolute;
+
+  right: -18px;
+  bottom: -25px;
+
+  width: 105px;
+  height: 95px;
+
+  background:
+    radial-gradient(
+      circle at 45% 42%,
+      rgba(239, 67, 44, 0.12) 0%,
+      rgba(239, 67, 44, 0.045) 45%,
+      rgba(239, 67, 44, 0) 72%
+    );
+
+  clip-path: polygon(
+    17% 18%,
+    27% 8%,
+    39% 12%,
+    49% 5%,
+    62% 11%,
+    73% 8%,
+    85% 18%,
+    91% 31%,
+    86% 43%,
+    96% 54%,
+    89% 66%,
+    93% 77%,
+    80% 88%,
+    66% 84%,
+    55% 94%,
+    43% 86%,
+    30% 92%,
+    19% 82%,
+    21% 69%,
+    9% 60%,
+    14% 47%,
+    6% 35%,
+    14% 27%
+  );
+
+  opacity: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  transition:
+    opacity 350ms ease,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   STEP HOVER
+========================================================= */
+
+.home-step:hover {
+  transform: translateY(-5px);
+
+  border-color: #f2b8ad;
+
+  box-shadow:
+    -7px -7px 14px rgba(255, 255, 255, 0.98),
+    10px 14px 22px rgba(130, 100, 90, 0.16);
+}
+
+
+.home-step:hover::before {
+  transform:
+    translate(-10px, -10px)
+    rotate(8deg)
+    scale(1.08);
+
+  opacity: 1;
+
+  filter: blur(0.2px);
+}
+
+
+.home-step:hover::after {
+  opacity: 1;
+
+  transform:
+    translate(-8px, -8px)
+    rotate(-6deg)
+    scale(1.12);
+}
+
+
+/* =========================================================
+   STEP NUMBER
+========================================================= */
+
 .home-step__number {
+  position: relative;
+
   display: flex;
-  width: 26px;
-  height: 26px;
+
+  width: 32px;
+  height: 32px;
+
   align-items: center;
   justify-content: center;
+
   border-radius: 50%;
-  background: var(--home-primary);
-  color: #fff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f04a32,
+      #df3d28
+    );
+
+  color: #ffffff;
+
   font-size: 12px;
+
+  font-weight: 800;
+
+  box-shadow:
+    3px 4px 8px rgba(210, 55, 35, 0.22);
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease;
+}
+
+
+.home-step:hover .home-step__number {
+  transform:
+    translateY(-2px)
+    rotate(8deg);
+
+  box-shadow:
+    4px 6px 12px rgba(210, 55, 35, 0.30);
+}
+
+
+/* =========================================================
+   STEP TITLE
+========================================================= */
+
+.home-step h3 {
+  position: relative;
+
+  margin-top: 12px;
+
+  color: #171923;
+
+  font-size: 14px;
+
+  line-height: 1.35;
+
   font-weight: 800;
 }
 
-.home-step h3 {
-  margin-top: 12px;
-  font-size: 14px;
-  font-weight: 750;
-}
+
+/* =========================================================
+   STEP DESCRIPTION
+========================================================= */
 
 .home-step p {
+  position: relative;
+
   margin-top: 6px;
+
+  color: #687384;
+
+  font-size: 12px;
+
+  line-height: 1.55;
 }
+
+
+/* =========================================================
+   GROWTH ART
+========================================================= */
 
 .home-growth__art {
   position: relative;
+
   min-height: 390px;
+
   overflow: hidden;
-  border-radius: 18px;
-  background: linear-gradient(150deg, #ffe4cf, #ffcaa8);
+
+  border: 1px solid rgba(255, 255, 255, 0.75);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffe9d7 0%,
+      #ffd7b8 50%,
+      #ffc9a5 100%
+    );
+
+  isolation: isolate;
+
+  box-shadow:
+    -8px -8px 18px rgba(255, 255, 255, 0.85),
+    12px 18px 30px rgba(140, 95, 70, 0.14);
 }
 
-.home-growth__art::after {
-  position: absolute;
-  right: 10%;
-  bottom: 10%;
-  width: 70%;
-  height: 22%;
-  border-radius: 50%;
-  background: rgb(201 114 63 / 25%);
+
+/* =========================================================
+   TOP-RIGHT LIGHT
+========================================================= */
+
+.home-growth__art::before {
   content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -70px;
+
+  width: 310px;
+  height: 310px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.50) 0%,
+      rgba(255, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0) 72%
+    );
+
+  pointer-events: none;
+
+  z-index: 0;
 }
+
+
+/* =========================================================
+   FLOOR SHADOW
+========================================================= */
+
+.home-growth__art::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12%;
+  right: 12%;
+  bottom: 10%;
+
+  height: 22%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(150, 91, 60, 0.24) 0%,
+      rgba(150, 91, 60, 0.10) 45%,
+      rgba(150, 91, 60, 0) 75%
+    );
+
+  filter: blur(8px);
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   PERSON
+========================================================= */
 
 .home-growth__person {
   position: absolute;
-  bottom: 12%;
+
   left: 50%;
-  width: 150px;
+  bottom: 9%;
+
+  width: 160px;
+
   transform: translateX(-50%);
+
+  z-index: 4;
+
+  transition:
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+
+.home-growth__art:hover .home-growth__person {
+  transform:
+    translateX(-50%)
+    translateY(-3px);
+}
+
+
+/* =========================================================
+   HEAD
+========================================================= */
 
 .home-growth__head {
+  position: relative;
+
   width: 92px;
   height: 92px;
-  margin: 0 auto -10px;
+
+  margin: 0 auto -2px;
+
   border-radius: 50%;
-  background: #c98457;
+
+  background:
+    linear-gradient(
+      145deg,
+      #d89461 0%,
+      #c77d4e 52%,
+      #b96e45 100%
+    );
+
+  box-shadow:
+    inset 8px 8px 12px rgba(255, 255, 255, 0.10),
+    inset -8px -8px 14px rgba(100, 50, 30, 0.10),
+    7px 10px 16px rgba(90, 55, 35, 0.16);
+
+  z-index: 5;
 }
 
-.home-growth__body {
-  height: 230px;
-  border-radius: 35px 35px 12px 12px;
-  background: #3d2b23;
+
+/* =========================================================
+   FACE
+========================================================= */
+
+.home-growth__face {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 58px;
+  height: 58px;
+
+  transform: translate(-50%, -48%);
+
+  border: 2px solid rgba(255, 255, 255, 0.82);
+
+  border-radius: 50%;
 }
+
+
+/* =========================================================
+   EYES
+========================================================= */
+
+.home-growth__eye {
+  position: absolute;
+
+  top: 21px;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+}
+
+
+.home-growth__eye--left {
+  left: 17px;
+}
+
+
+.home-growth__eye--right {
+  right: 17px;
+}
+
+
+/* =========================================================
+   NOSE
+========================================================= */
+
+.home-growth__nose {
+  position: absolute;
+
+  left: 50%;
+  top: 26px;
+
+  width: 2px;
+  height: 8px;
+
+  transform: translateX(-50%);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.75);
+}
+
+
+/* =========================================================
+   MOUTH
+========================================================= */
+
+.home-growth__mouth {
+  position: absolute;
+
+  left: 50%;
+  bottom: 13px;
+
+  width: 20px;
+  height: 8px;
+
+  transform: translateX(-50%);
+
+  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+
+  border-radius: 0 0 50% 50%;
+}
+
+
+/* =========================================================
+   NECK
+========================================================= */
+
+.home-growth__neck {
+  position: relative;
+
+  width: 42px;
+  height: 24px;
+
+  margin: -2px auto -3px;
+
+  border-radius:
+    0 0 8px 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #b96f46 0%,
+      #ca8253 45%,
+      #b86c43 100%
+    );
+
+  z-index: 3;
+
+  box-shadow:
+    inset -4px 0 7px rgba(100, 55, 32, 0.12);
+}
+
+
+/* =========================================================
+   TIE
+========================================================= */
+
+.home-growth__tie {
+  position: absolute;
+
+  top: 101px;
+  left: 50%;
+
+  width: 30px;
+  height: 92px;
+
+  transform: translateX(-50%);
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.home-growth__art:hover .home-growth__tie {
+  transform:
+    translateX(-50%)
+    translateY(-2px);
+}
+
+
+/* =========================================================
+   TIE KNOT
+========================================================= */
+
+.home-growth__tie-knot {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  transform:
+    translateX(-50%)
+    rotate(45deg);
+
+  border-radius: 3px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f0523a,
+      #d93622
+    );
+
+  box-shadow:
+    2px 3px 5px rgba(150, 55, 40, 0.25);
+}
+
+
+/* =========================================================
+   TIE BODY
+========================================================= */
+
+.home-growth__tie-body {
+  position: absolute;
+
+  top: 12px;
+  left: 50%;
+
+  width: 18px;
+  height: 68px;
+
+  transform: translateX(-50%);
+
+  clip-path: polygon(
+    15% 0,
+    85% 0,
+    100% 75%,
+    50% 100%,
+    0 75%
+  );
+
+  background:
+    linear-gradient(
+      90deg,
+      #c93220 0%,
+      #ef4b35 45%,
+      #d93824 100%
+    );
+
+  box-shadow:
+    3px 5px 8px rgba(140, 50, 35, 0.22);
+}
+
+
+/* =========================================================
+   TIE HIGHLIGHT
+========================================================= */
+
+.home-growth__tie-body::after {
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  left: 4px;
+
+  width: 3px;
+  height: 48px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.22);
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.home-growth__body {
+  position: relative;
+
+  height: 225px;
+
+  border-radius:
+    38px
+    38px
+    14px
+    14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #4b352b 0%,
+      #3d2a22 55%,
+      #302019 100%
+    );
+
+  box-shadow:
+    inset 8px 0 14px rgba(255, 255, 255, 0.035),
+    inset -8px 0 14px rgba(0, 0, 0, 0.08),
+    8px 12px 18px rgba(67, 43, 32, 0.20);
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   BODY LIGHT
+========================================================= */
+
+.home-growth__body::before {
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+  left: 22px;
+
+  width: 95px;
+  height: 20px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0)
+    );
+
+  filter: blur(4px);
+}
+
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
 
 .home-growth__result {
   position: absolute;
-  right: 18px;
-  top: 18px;
+
+  top: 22px;
+  right: 22px;
+
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 8px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 10px 24px rgb(0 0 0 / 13%);
+
+  grid-template-columns:
+    auto 1fr;
+
+  gap: 4px 9px;
+
+  width: 250px;
+
+  min-width: 0;
+
+  padding: 16px 18px;
+
+  border: 1px solid rgba(225, 225, 225, 0.9);
+
+  border-radius: 17px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 12px 28px rgba(100, 75, 60, 0.14),
+    -3px -3px 8px rgba(255, 255, 255, 0.95);
+
+  z-index: 10;
+
+  backdrop-filter: blur(8px);
+
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+
+.home-growth__art:hover .home-growth__result {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 17px 34px rgba(100, 75, 60, 0.18),
+    -4px -4px 10px rgba(255, 255, 255, 0.98);
+}
+
+
+/* =========================================================
+   RESULT ICON
+========================================================= */
+
+.home-growth__result-icon {
+  grid-row: span 2;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  padding-top: 2px;
+
   color: var(--home-primary);
 }
 
-.home-growth__result strong,
-.home-growth__result small {
-  color: var(--home-text);
+
+/* =========================================================
+   RESULT TEXT
+========================================================= */
+
+.home-growth__result strong {
+  color: #171923;
+
+  font-size: 15px;
+
+  line-height: 1.25;
+
+  font-weight: 800;
+
+  white-space: nowrap;
 }
+
 
 .home-growth__result small {
   grid-column: 2;
-  color: var(--home-light);
+
+  color: #87909f;
+
+  font-size: 12px;
 }
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.home-growth .home-button--primary {
+  box-shadow:
+    0 10px 22px rgba(232, 67, 44, 0.16);
+
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+.home-growth .home-button--primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 28px rgba(232, 67, 44, 0.24);
+}
+
+
+/* =========================================================
+   REACH SECTION
+========================================================= */
 
 .home-phone--light {
   width: min(100%, 270px);
+
   min-height: 470px;
+
   justify-self: center;
+
   padding: 10px;
-  background: #111;
-  box-shadow: 0 24px 45px rgb(15 23 42 / 18%);
+
+  border-radius: 28px;
+
+  background: #111111;
+
+  box-shadow:
+    0 24px 45px rgba(15, 23, 42, 0.18);
 }
+
 
 .home-phone__screen--light {
   height: 100%;
+
   margin: 0;
-  background: linear-gradient(#e8432c 0 14%, #fff7f2 14% 100%);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      #e8432c 0 14%,
+      #fff7f2 14% 100%
+    );
 }
+
+
+/* =========================================================
+   CHECKLIST
+========================================================= */
 
 .home-checklist {
   display: grid;
+
   gap: 12px;
+
   margin: 20px 0 26px;
+
   padding: 0;
+
   list-style: none;
 }
 
+
 .home-checklist li {
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
   color: var(--home-text);
+
   font-size: 13px;
+
   font-weight: 600;
 }
 
+
 .home-checklist li > span {
   display: flex;
+
   width: 22px;
   height: 22px;
+
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
+
   border-radius: 50%;
+
   background: #fff1ee;
+
   color: var(--home-primary);
+
+  box-shadow:
+    -2px -2px 4px rgba(255, 255, 255, 0.9),
+    2px 2px 5px rgba(170, 170, 170, 0.15);
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE — LARGE TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .home-growth__grid,
+  .home-reach__grid {
+    gap: 36px;
+  }
+
+  .home-growth__grid {
+    padding: 34px;
+  }
+
+  .home-growth__result {
+    width: 230px;
+
+    right: 16px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
@@ -179,14 +1157,149 @@
   .home-reach__grid {
     grid-template-columns: 1fr;
   }
+
+  .home-growth__art {
+    min-height: 420px;
+  }
+
+  .home-steps {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .home-reach__grid {
+    gap: 40px;
+  }
 }
+
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+  .home-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .home-step {
+    min-height: auto;
+  }
+
+  .home-growth__result {
+    width: 225px;
+
+    top: 16px;
+    right: 16px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
 
 @media (max-width: 560px) {
   .home-growth__grid {
     padding: 22px;
+
+    border-radius: 20px;
   }
 
-  .home-steps {
-    grid-template-columns: 1fr;
+  .home-growth__art {
+    min-height: 390px;
+
+    border-radius: 20px;
+  }
+
+  .home-growth__person {
+    transform:
+      translateX(-50%)
+      scale(0.82);
+
+    transform-origin: bottom center;
+  }
+
+  .home-growth__art:hover .home-growth__person {
+    transform:
+      translateX(-50%)
+      translateY(-3px)
+      scale(0.82);
+  }
+
+  .home-growth__result {
+    width: auto;
+
+    max-width: calc(100% - 32px);
+
+    padding: 13px 14px;
+  }
+
+  .home-growth__result strong {
+    font-size: 13px;
+  }
+
+  .home-growth__result small {
+    font-size: 11px;
+  }
+
+  .home-phone--light {
+    min-height: 420px;
+  }
+
+  .home-growth__letter-swap {
+    perspective: 700px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+  .home-growth__result {
+    right: 10px;
+    left: 10px;
+
+    width: auto;
+
+    max-width: none;
+  }
+
+  .home-growth__art {
+    min-height: 370px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-growth__person,
+  .home-growth__tie,
+  .home-growth__result,
+  .home-step,
+  .home-step::before,
+  .home-step::after,
+  .home-step__number,
+  .home-growth .home-button--primary {
+    transition: none;
+  }
+
+  .home-growth__letter-swap
+    .letter-swap-3d__letter {
+    transition: none !important;
+
+    transform: none !important;
+  }
+
+  .home-growth__letter-swap
+    .letter-swap-3d__face {
+    filter: none !important;
+
+    text-shadow: none !important;
   }
 }

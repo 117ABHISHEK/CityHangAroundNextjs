@@ -9,6 +9,7 @@ import {
   WrenchOffIcon
 } from "@/src/components/ui/icons";
 import type { LucideIcon } from "@/src/components/ui/icons";
+import { LetterSwap3D } from "@/src/components/ui/letter-swap-3d";
 
 import "./index.css";
 
@@ -111,8 +112,26 @@ export default function Categories() {
           </p>
 
           <h2>
-            What Are You{" "}
-            <span>Looking</span>{" "}
+            What Are You {" "}
+
+             <LetterSwap3D
+                className="home-growth__letter-swap"
+                frontFaceClassName="home-growth__letter-swap-front"
+                backFaceClassName="home-growth__letter-swap-back"
+                staggerInterval={0.055}
+                staggerOrigin="first"
+                flipDirection="top"
+                duration={0.42}
+                blur={true}
+                blurAmount={3}
+                respectReducedMotion={true}
+                autoPlay={true}
+                interval={5000}
+              >
+                Looking
+              </LetterSwap3D>
+
+              {" "}
             For Today?
           </h2>
 
