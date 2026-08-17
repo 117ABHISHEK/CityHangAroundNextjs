@@ -8,6 +8,7 @@ export {
   Heart as FavoritesIcon,
   Home as HomeIcon,
   Mail as ContactIcon,
+  Tickets as EventIcons,
   Menu as MenuIcon,
   MapPinSearch as LocationIcon,
   Megaphone as AdvertiseIcon,

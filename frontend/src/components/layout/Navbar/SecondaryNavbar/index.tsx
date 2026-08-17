@@ -5,7 +5,7 @@ import {
   ChevronDown,
   CityGuideIcon,
   CommunityIcon,
-  ContactIcon,
+  EventIcons,
   HomeIcon,
   MarketplaceIcon,
 } from "@/src/components/ui/icons";
@@ -32,7 +32,7 @@ const navItems: NavItem[] = [
   { label: "Marketplace", icon: MarketplaceIcon, tab: "marketplace", hasDropdown: true },
   { label: "Community", icon: CommunityIcon, tab: "community" },
   { label: "Blog", icon: BlogIcon, tab: "blog", hasDropdown: true },
-  { label: "Contact", icon: ContactIcon, tab: "contact" },
+  { label: "Contact", icon: EventIcons, tab: "contact" },
 ];
 
 export default function SecondaryNavbar({ activeTab = "home", onTabChange }: SecondaryNavbarProps) {
