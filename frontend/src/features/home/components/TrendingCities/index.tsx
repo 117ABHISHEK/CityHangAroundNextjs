@@ -67,7 +67,7 @@ const cities: City[] = [
     count: "700+ Listings",
     description: "See what people are discovering across Pune this week.",
     image:
-      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=900&q=85",
+      "https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=900&q=85",
   },
   {
     id: 7,
@@ -91,7 +91,8 @@ const cities: City[] = [
     name: "Jaipur",
     count: "550+ Listings",
     badge: "Trending",
-    description: "Find popular destinations, events and offers around Jaipur.",
+    description:
+      "Find popular destinations, events and offers around Jaipur.",
     image:
       "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=85",
   },
@@ -99,7 +100,8 @@ const cities: City[] = [
     id: 10,
     name: "Surat",
     count: "500+ Listings",
-    description: "Explore local experiences and trending spots around Surat.",
+    description:
+      "Explore local experiences and trending spots around Surat.",
     image:
       "https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=900&q=85",
   },
