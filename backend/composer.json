@@ -1,30 +1,57 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.2.0",
+        "artesaos/seotools": "^1.2",
+        "firebase/php-jwt": "^7.0",
+        "guzzlehttp/guzzle": "^7.5",
+        "intervention/image": "^3.11",
+        "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/helpers": "^1.7",
+        "laravel/octane": "^2.3",
+        "laravel/sanctum": "^4.0",
+        "laravel/scout": "^10.23",
+        "laravel/socialite": "*",
+        "laravel/telescope": "^5.20",
+        "laravel/tinker": "^2.5",
+        "league/csv": "*",
+        "league/flysystem-aws-s3-v3": "^3.12",
+        "meilisearch/meilisearch-php": "^1.16",
+        "paypal/rest-api-sdk-php": "^1.6",
+        "pbmedia/laravel-ffmpeg": "*",
+        "php-flasher/flasher-laravel": "^2.0",
+        "predis/predis": "^3.4",
+        "razorpay/razorpay": "*",
+        "sentry/sentry-laravel": "^4.20",
+        "spatie/laravel-health": "^1.35",
+        "srmklive/paypal": "^3.0",
+        "stripe/stripe-php": "^19.0",
+        "yajra/laravel-datatables-oracle": "^12.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.24",
-        "laravel/sail": "^1.41",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.50"
+        "barryvdh/laravel-debugbar": "^4.0",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/breeze": "^2.0",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^8.1",
+        "phpunit/phpunit": "^11.0",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/CommonHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -32,22 +59,6 @@
         }
     },
     "scripts": {
-        "setup": [
-            "composer install",
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate",
-            "@php artisan migrate --force",
-            "npm install",
-            "npm run build"
-        ],
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
-        ],
-        "test": [
-            "@php artisan config:clear --ansi",
-            "@php artisan test"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -59,12 +70,7 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
-        ],
-        "pre-package-uninstall": [
-            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+            "@php artisan key:generate --ansi"
         ]
     },
     "extra": {
@@ -77,10 +83,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

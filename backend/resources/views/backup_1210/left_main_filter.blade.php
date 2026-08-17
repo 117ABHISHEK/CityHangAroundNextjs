@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Filter</title>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js" defer></script>
+
+    <!-- Include Owl Carousel CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    </noscript>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
+</head>
+<body>
+
+<div class="widget_top_filter">
+    <div class="col-12">
+        <strong>Total Results Found: {{$mypages->count() }}</strong> Results
+    </div>
+    <div class="row">
+         <form method="GET" action="{{ route('pages') }}">
+    <div class="row gx-2 gy-2">
+        <!-- City Dropdown -->
+        <div class="col-4 col-md-3 d-flex align-items-center">
+            <select id="city" name="city" class="form-control form-control-sm w-100">
+                <option value="">Select a city</option>
+                @foreach ($all_cities as $city)
+                    <option value="{{$city->id}}" {{ $filter_city == $city->id ? 'selected' : '' }}>
+                        {{$city->city_name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Area Dropdown -->
+        <div class="col-4 col-md-3 d-flex align-items-center">
+            <select id="area" name="area" class="form-control form-control-sm w-100">
+                <option value="">Select an area</option>
+            </select>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="col-4 col-md-2 d-flex align-items-center">
+            <select id="filter_sort_by" name="filter_sort_by" class="form-control form-control-sm w-100">
+                <option value="newest" {{ $filter_sort_by == "newest" ? 'selected' : '' }}>Newest</option>
+                <option value="oldest" {{ $filter_sort_by == "oldest" ? 'selected' : '' }}>Oldest</option>
+            </select>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="col-6 col-md-2 d-flex align-items-center">
+            <a class="btn-sm w-100 btn btn-primary py-2" href="{{ route('pages') }}">
+                Reset
+            </a>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-6 col-md-2 d-flex align-items-center">
+            <button type="submit" class="btn btn-primary btn-sm w-100 py-2">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+        <!-- <div class="tags_Outer">
+            <div class="owl-carousel tag-carousel owl-theme">
+                @foreach ($all_categories as $category)
+                <div class="item">
+                    <a href="{{ route('page.category',['category_slug'=>$category->category_slug]) }}">
+                        {{ $category->category_name }}
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#city, #area, #filter_sort_by').select2();
+    
+    $('.tag-carousel').owlCarousel({
+        margin: 10,
+        nav: true,
+        dots: false,
+        autoWidth: true,
+        loop: false,
+        responsive: {
+            0: { items: 1 },
+            600: { items: 3 },
+            1000: { items: 4 }
+        }
+    });
+
+    $('#city').on('change', function() {
+        var city_id = $(this).val();
+        $('#area').html("<option value=''>Select an area</option>");
+
+        if (city_id) {
+            $.ajax({
+                url: '/ajax/itemareas/' + city_id,
+                method: 'GET',
+                success: function(result) {
+                    $.each(JSON.parse(result), function(key, value) {
+                        $('#area').append('<option value="'+ value.id +'">'+ value.area_name +'</option>');
+                    });
+                }
+            });
+        }
+    });
+
+   @if($filter_city)
+    var filter_city_id = {{ $filter_city }};
+    $.ajax({
+        url: '/ajax/itemareas/' + filter_city_id,
+        method: 'GET',
+        success: function(result) {
+            $('#area').html("<option value=''>Select an area</option>");
+            $.each(JSON.parse(result), function(key, value) {
+                var selected = (value.id == {{ $filter_area ?? 'null' }}) ? 'selected' : '';
+                $('#area').append('<option value="'+ value.id +'" '+ selected +'>'+ value.area_name +'</option>');
+            });
+        }
+    });
+@endif
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use DB, Session;
+
+//used models
+use App\Models\FileUploader;
+use App\Models\{Stories,Media_files};
+
+class StoryController extends Controller
+{
+	private $user;
+
+	function __construct(){
+        $this->middleware(function ($request, $next) {
+	        $this->user = Auth()->user();
+	        return $next($request);
+	    });
+	}
+
+    function stories($offset = 0, $limit = 5){
+    	//Stories
+        $stories =  DB::table('stories')
+            ->join('users', 'stories.user_id', '=', 'users.id')
+            ->select('stories.*', 'users.name', 'users.photo', 'users.friends', 'stories.created_at as created_at')
+            ->where(function ($query) {
+                $query->whereJsonContains('users.friends', [$this->user->id])
+                ->where('stories.privacy', '!=', 'private')
+                ->orWhere('stories.user_id', $this->user->id);
+            })
+            ->where('stories.status', 'active')
+            ->where('stories.created_at', '>=', (time() - 86400))
+            ->skip($offset)->take($limit)->orderBy('stories.story_id', 'DESC')->get();
+
+    	$page_data['stories'] = $stories;
+    	return view('frontend.story.single_story', $page_data);
+    }
+
+    function story_details($story_id = "", $offset = 0, $limit = 10){
+
+        //First 10 stories
+        $stories =  DB::table('stories')
+            ->join('users', 'stories.user_id', '=', 'users.id')
+            ->select('stories.*', 'users.name', 'users.photo', 'users.friends', 'stories.created_at as created_at')
+            ->where(function ($query) {
+                $query->whereJsonContains('users.friends', [$this->user->id])
+                ->orWhere('stories.user_id', [$this->user->id]);
+            })
+            ->where('stories.privacy','!=', 'private')
+            ->where('stories.created_at', '>=', (time() - 86400))
+            ->where('stories.status', 'active')
+            ->whereNotIn('stories.story_id', [$story_id])->orderBy('stories.story_id', 'DESC')->get();
+        
+        //Stories
+        $story_details =  DB::table('stories')
+        ->select('stories.*', 'users.name', 'users.photo', 'users.friends', 'stories.created_at as created_at')
+        ->join('users', 'stories.user_id', '=', 'users.id')
+        ->where('stories.story_id', $story_id)->get()->first();
+
+        $page_data['stories'] = $stories;
+        $page_data['story_details'] = $story_details;
+        return view('frontend.story.story_details', $page_data);
+    }
+
+    function single_story_details($story_id = ""){
+        //Stories
+        $story_details =  DB::table('stories')
+        ->select('stories.*', 'users.name', 'users.photo', 'users.friends', 'stories.created_at as created_at')
+        ->join('users', 'stories.user_id', '=', 'users.id')
+        ->where('stories.story_id', $story_id)->get()->first();
+
+        $page_data['story_details'] = $story_details;
+        return view('frontend.story.single_story_details', $page_data);
+    }
+
+    function create_story(Request $request){
+        $all_data = $request->all();
+
+        // 1) Set common data
+        $data['publisher'] = $all_data['publisher'] ?? 'user';
+        $data['content_type'] = $all_data['content_type'] ?? 'text';
+        $data['privacy'] = $all_data['privacy'] ?? 'public';
+        $data['created_at'] = time();
+        $data['updated_at'] = $data['created_at'];
+        $data['user_id'] = $this->user->id ?? auth()->id();
+        $data['publisher_id'] = $this->user->id ?? auth()->id();
+        $data['status'] = 'active';
+
+        // 2) Handle Text Story
+        if ($data['content_type'] == 'text') {
+            if (!empty($request->description)) {
+                $data['description'] = json_encode([
+                    'color'    => $all_data['color'] ?? '000',
+                    'bg-color' => $all_data['bg-color'] ?? 'fff',
+                    'text'     => $all_data['description']
+                ]);
+            } else {
+                if ($request->ajax()) {
+                    return response()->json(['status' => 'error', 'message' => 'Description is required for text story'], 422);
+                }
+                return redirect('/home');
+            }
+        } else {
+            // For files, description is optional but should be saved if provided
+            if (!empty($request->description)) {
+                $data['description'] = $request->description;
+            }
+        }
+
+        // 3) Create Story Record
+        try {
+            $story_id = \App\Models\Stories::insertGetId($data);
+        } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()], 500);
+            }
+            return redirect('/home');
+        }
+
+        // 4) Handle Media Uploads
+        if ($data['content_type'] != 'text' && $request->hasFile('story_files')) {
+            $video_exts = ['avi', 'mp4', 'webm', 'mov', 'wmv', 'mkv'];
+            
+            foreach ($request->file('story_files') as $media_file) {
+                if ($media_file->isValid()) {
+                    $file_ext = strtolower($media_file->getClientOriginalExtension());
+                    
+                    if (in_array($file_ext, $video_exts)) {
+                        $p = 'public/storage/story/videos';
+                        if (!is_dir($p)) mkdir($p, 0777, true);
+                        $file_name = FileUploader::upload($media_file, $p);
+                        $file_type = 'video';
+                    } else {
+                        $p = 'public/storage/story/images';
+                        if (!is_dir($p)) mkdir($p, 0777, true);
+                        // Using width=800 triggers Intervention resize; without it it just moves
+                        $file_name = FileUploader::upload($media_file, $p, 800);
+                        $file_type = 'image';
+                    }
+
+                    \App\Models\Media_files::create([
+                        'user_id'    => $data['user_id'],
+                        'story_id'   => $story_id,
+                        'file_name'  => $file_name,
+                        'file_type'  => $file_type,
+                        'privacy'    => $data['privacy'],
+                        'created_at' => $data['created_at'],
+                        'updated_at' => $data['updated_at']
+                    ]);
+                }
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['status' => 'success', 'message' => 'Story uploaded successfully']);
+        }
+
+        return redirect('/home');
+    }
+}

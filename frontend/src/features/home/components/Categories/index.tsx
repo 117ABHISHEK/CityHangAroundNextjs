@@ -1,29 +1,220 @@
 import {
-  BusinessIcon,
-  CalendarIcon,
-  CityGuideIcon,
+  EducationIcon,
+  EventIcons,
+  FoodIcon,
   CommunityIcon,
-  FavoritesIcon,
-  MarketplaceIcon,
+  BadgeIndianRupeeIcon,
   ShoppingIcon,
-  StarIcon,
+  HealthIcon,
+  WrenchOffIcon
 } from "@/src/components/ui/icons";
 import type { LucideIcon } from "@/src/components/ui/icons";
+
 import "./index.css";
 
-const categories: [LucideIcon, string, string, string, string[]][] = [
-  [CityGuideIcon, "Food & Dining", "1.8K+ Places", "Restaurants, Cafes, Bakeries & Street Food", ["Cafes", "Pizzas", "Buffets"]],
-  [FavoritesIcon, "Health & Medical", "620+ Doctors", "Hospitals, Clinics, Dental & Diagnostic Labs", ["Doctors", "Clinics", "Gyms"]],
-  [BusinessIcon, "Education", "850+ Institutes", "Schools, Colleges, Coaching & Skill Tutors", ["Colleges", "Classes", "Skill IT"]],
-  [ShoppingIcon, "Shopping & Retail", "2.4K+ Stores", "Fashion Boutiques, Electronics & Malls", ["Apparel", "Malls", "Gadgets"]],
-  [CalendarIcon, "Events & Nightlife", "290+ Live", "Concerts, Shows, Workshops & Meetups", ["Music", "Nightlife", "Sports"]],
-  [CommunityIcon, "City Community", "50+ Groups", "Discussion Forums, Local Groups & Q&A", ["Foodies", "Jobs", "Real Estate"]],
-  [MarketplaceIcon, "Trending & Deals", "Hot Deals", "Hyperlocal Offers, Discounts & Top Places", ["50% Off", "Top Rated", "Offers"]],
-  [StarIcon, "Auto & Car Repair", "410+ Garages", "Auto Service, Garages, Car Wash & Parts", ["Garages", "Wash", "EV Repair"]],
+type Category = {
+  icon: LucideIcon;
+  title: string;
+  badge: string;
+  description: string;
+  pills: string[];
+};
+
+const categories: Category[] = [
+  {
+    icon: FoodIcon,
+    title: "Food & Dining",
+    badge: "1.8K+ Places",
+    description:
+      "Restaurants, Cafes, Bakeries & Street Food",
+    pills: ["Cafes", "Pizzas", "Buffets"],
+  },
+
+  {
+    icon: HealthIcon,
+    title: "Health & Medical",
+    badge: "620+ Doctors",
+    description:
+      "Hospitals, Clinics, Dental & Diagnostic Labs",
+    pills: ["Doctors", "Clinics", "Gyms"],
+  },
+
+  {
+    icon: EducationIcon,
+    title: "Education",
+    badge: "850+ Institutes",
+    description:
+      "Schools, Colleges, Coaching & Skill Tutors",
+    pills: ["Colleges", "Classes", "Skill IT"],
+  },
+
+  {
+    icon: ShoppingIcon,
+    title: "Shopping & Retail",
+    badge: "2.4K+ Stores",
+    description:
+      "Fashion Boutiques, Electronics & Malls",
+    pills: ["Apparel", "Malls", "Gadgets"],
+  },
+
+  {
+    icon: EventIcons,
+    title: "Events & Nightlife",
+    badge: "290+ Live",
+    description:
+      "Concerts, Shows, Workshops & Meetups",
+    pills: ["Music", "Nightlife", "Sports"],
+  },
+
+  {
+    icon: CommunityIcon,
+    title: "City Community",
+    badge: "50+ Groups",
+    description:
+      "Discussion Forums, Local Groups & Q&A",
+    pills: ["Foodies", "Jobs", "Real Estate"],
+  },
+
+  {
+    icon: BadgeIndianRupeeIcon,
+    title: "Trending & Deals",
+    badge: "Hot Deals",
+    description:
+      "Hyperlocal Offers, Discounts & Top Places",
+    pills: ["50% Off", "Top Rated", "Offers"],
+  },
+
+  {
+    icon: WrenchOffIcon,
+    title: "Auto & Car Repair",
+    badge: "410+ Garages",
+    description:
+      "Auto Service, Garages, Car Wash & Parts",
+    pills: ["Garages", "Wash", "EV Repair"],
+  },
 ];
 
 export default function Categories() {
   return (
-    <section className="home-section home-categories"><div className="home-container"><div className="home-section__heading"><p className="home-eyebrow">Find your next favorite</p><h2>What Are You <span>Looking</span> For Today?</h2><p>Choose a category to find trusted local businesses.</p></div><div className="home-category-grid">{categories.map(([Icon, title, badge, description, pills]) => <article key={title as string} className="home-category"><div className="home-category__top"><span className="home-category__icon"><Icon size={22} /></span><small>{badge as string}</small></div><h3>{title as string}</h3><p>{description as string}</p><div className="home-category__pills">{(pills as string[]).map((pill) => <span key={pill}>{pill}</span>)}</div><a href="#">Explore Category <span>→</span></a></article>)}</div></div></section>
+    <section className="home-section home-categories">
+
+      <div className="home-container">
+
+        {/* =================================================
+            SECTION HEADING
+        ================================================= */}
+
+        <div className="home-section__heading">
+
+          <p className="home-eyebrow">
+            Find your next favorite
+          </p>
+
+          <h2>
+            What Are You{" "}
+            <span>Looking</span>{" "}
+            For Today?
+          </h2>
+
+          <p>
+            Choose a category to find trusted local businesses.
+          </p>
+
+        </div>
+
+
+        {/* =================================================
+            CATEGORY GRID
+        ================================================= */}
+
+        <div className="home-category-grid">
+
+          {categories.map((category) => {
+
+            const Icon = category.icon;
+
+            return (
+              <article
+                key={category.title}
+                className="home-category"
+              >
+
+                {/* =================================================
+                    TOP
+                ================================================= */}
+
+                <div className="home-category__top">
+
+                  <span className="home-category__icon">
+                    <Icon size={22} />
+                  </span>
+
+                  <small>
+                    {category.badge}
+                  </small>
+
+                </div>
+
+
+                {/* =================================================
+                    CONTENT
+                ================================================= */}
+
+                <div className="home-category__content">
+
+                  <h3>
+                    {category.title}
+                  </h3>
+
+                  <p>
+                    {category.description}
+                  </p>
+
+                </div>
+
+
+                {/* =================================================
+                    PILLS
+                ================================================= */}
+
+                <div className="home-category__pills">
+
+                  {category.pills.map((pill) => (
+
+                    <span key={pill}>
+                      {pill}
+                    </span>
+
+                  ))}
+
+                </div>
+
+
+                {/* =================================================
+                    ACTION
+                ================================================= */}
+
+                <a
+                  href="#"
+                  className="home-category__action"
+                >
+                  <span>
+                    Explore Category
+                  </span>
+
+                  <span className="home-category__arrow">
+                    →
+                  </span>
+                </a>
+
+              </article>
+            );
+          })}
+
+        </div>
+
+      </div>
+
+    </section>
   );
 }

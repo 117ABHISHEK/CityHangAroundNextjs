@@ -1,0 +1,9 @@
+
+
+/* harish css  */
+
+.top-menu-wrap ul{ display: flex; gap: 15px; padding: 7px 0 ; margin: 0px; justify-content: space-around;}
+.top-menu-wrap ul li { list-style: none !important;}
+.top-menu-wrap ul li a { color: #000; letter-spacing: normal;}
+.top-menu-wrap ul li.active a { color: #5a2ff9;}
+.top-menu-wrap ul li a { font-weight: bold;}

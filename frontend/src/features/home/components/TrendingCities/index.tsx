@@ -51,14 +51,15 @@ const cities: City[] = [
     image:
       "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=900&q=85",
   },
- {
-  id: 5,
-  name: "Hyderabad",
-  count: "800+ Listings",
-  description: "Explore local favourites, hidden gems and trending spots.",
-  image:
-    "https://source.unsplash.com/900x1200/?hyderabad,india,city,night",
-},
+  {
+    id: 5,
+    name: "Hyderabad",
+    count: "800+ Listings",
+    description:
+      "Explore local favourites, hidden gems and trending spots.",
+    image:
+      "https://images.unsplash.com/photo-1578991624414-276ef23a534f?auto=format&fit=crop&w=900&q=85",
+  },
   {
     id: 6,
     name: "Pune",

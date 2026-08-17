@@ -1,0 +1,18 @@
+
+
+/* Left Filters css  Harish */
+
+.LeftFilters { background-color: #fff; padding: 15px; height: 100vh;}
+.LeftFilters h2 { font-size: 18px;}
+
+   
+    .tags_left ul  { padding: 0px 0px 30px 0px; margin: 0;}
+
+    .tags_left a { color: #000;}
+.tags_left ul li { list-style: none; border-bottom: solid 1px #00000020;}
+
+
+.select2-results__option--highlighted {
+    background-color: #5a2ff9 !important; /* Red background color */
+    color: white !important; /* White text for contrast */
+}

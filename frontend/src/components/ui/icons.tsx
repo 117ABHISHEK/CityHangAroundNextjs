@@ -26,9 +26,10 @@ export {
   Plus as AddIcon,
   Search as SearchIcon,
   ShieldCheck as ShieldIcon,
-  ShoppingBag as ShoppingIcon,
+  ShoppingCart  as ShoppingIcon,
   Star as StarIcon,
   Tag as MarketplaceIcon,
+  BadgeIndianRupee  as BadgeIndianRupeeIcon,
   UserRound as LoginIcon,
   UsersRound as CommunityIcon,
   Flame as FireIcon,
@@ -40,6 +41,10 @@ export {
   MoreHorizontal as MoreIcon,
   Image as ImageIcon,
   Video as VideoIcon,
+  UtensilsCrossed as FoodIcon,
+  HeartPlus as HealthIcon,
+  BookOpenText  as EducationIcon,
+  WrenchOff as WrenchOffIcon
 } from "lucide-react";
 
 export {

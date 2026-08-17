@@ -1,0 +1,17 @@
+.feeds-product-section{
+    background-color: white;
+    padding-bottom: 2rem;
+
+}
+
+.align-center{
+    align-items: center;
+}
+
+.padding-bottom{
+    padding:0 0 1.25rem 0;
+}
+
+#heading{
+    padding:0 0 1.25rem 0 !important;
+}

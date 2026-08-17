@@ -1,0 +1,23 @@
+.containerOUter { width: 90%; margin: auto;}
+
+#topMenuSroll { font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 30px 0px;
+
+}
+#topMenuSroll .menuIcon { width: 25px; margin: auto;}
+#topMenuSroll { text-align: center;}
+
+#topMenuSroll .item b{ color: #6A6A6A; padding: 8px 0 0 0 ;  display: block;}
+#topMenuSroll .item a { text-decoration: none; font-size: 12px;}
+.owl-nav button { border: solid 1px #6A6A6A !important; width: 32px; height: 32px; line-height: 20px; border-radius: 50% !important; font-family: ;}
+.owl-nav button span { font-weight: bold; font-size: 25px; line-height: 20px;}
+
+.owl-nav button.disabled { display: none  !important;}
+
+.owl-nav { position: relative;}
+
+.owl-nav button { position: absolute; top: -70px;}
+.owl-nav button.owl-prev { left: -20px; }
+.owl-nav button.owl-next { right: -20px;}

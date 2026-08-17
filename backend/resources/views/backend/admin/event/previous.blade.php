@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Events</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    </noscript>
+
+    <!-- jQuery & DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" defer></script>
+    <style>
+    /* Make pagination compact and scrollable on small screens */
+    @media (max-width: 576px) {
+        .pagination-responsive .page-link {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .pagination-responsive .page-item {
+            margin: 2px;
+        }
+    }
+
+    .pagination-area {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+</head>
+<body>
+
+<div class="main_content">
+    <!-- Main section header and breadcrumb -->
+    <div class="mainSection-title">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gr-15">
+                    <div class="d-flex flex-column">
+                        <h4>{{ get_phrase('Previous Events') }}</h4>
+                    </div>
+                    <div class="export-btn-area">
+                        <a href="{{ route('admin.event.create') }}" class="export_btn">
+                            <i class="fas fa-plus me-2"></i> {{ get_phrase('Create') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Admin area -->
+    <div class="row">
+        <div class="col-12">
+            <div class="eSection-wrap-2">
+                <!-- Table Area -->
+                <div class="table-responsive">
+                    <table class="table eTable" id="previousEventsTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ get_phrase('Sl No') }}</th>
+                                <th scope="col">{{ get_phrase('Event') }}</th>
+                                <th scope="col">{{ get_phrase('Owner') }}</th>
+                                <th scope="col" class="text-center">{{ get_phrase('Action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($events as $key => $event)
+                                <tr>
+                                    <th scope="row">
+                                        <p class="row-number">{{ ++$key }}</p>
+                                    </th>
+                                    <td>
+                                        <div class="dAdmin_info_name min-w-100px">
+                                            <a href="" class="text-dark" target="_blank">{{ $event->title }}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="dAdmin_info_name min-w-100px">
+                                            <a href="{{ route('user.profile.view', $event->user_id) }}" class="text-dark" target="_blank">
+                                                {{ $event->name ?? "" }}
+                                            </a>
+                                            <br><small>{{ $event->email }}</small>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="adminTable-action me-auto">
+                                            <button type="button" class="eBtn eBtn-black dropdown-toggle table-action-btn-2" 
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ get_phrase('Actions') }}
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end eDropdown-menu-2 eDropdown-table-action">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.edit.event', $event->id) }}">
+                                                        {{ get_phrase('Edit') }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" onclick="return confirm('{{ get_phrase('Are You Sure Want To Delete?') }}')" 
+                                                       href="{{ route('admin.view.event', ['delete' => 'yes', 'id' => $event->id]) }}">
+                                                        {{ get_phrase('Delete') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                   <div class="pagination-area mt-3">
+    <div aria-label="Page navigation example" class="mb-3">
+        <ul class="pagination justify-content-center flex-wrap pagination-responsive">
+            {{ $events->links() }}
+        </ul>
+    </div>
+</div>
+                    <!-- Pagination end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Admin area -->
+
+    <!-- Start Footer -->
+    @include('backend.footer')
+    <!-- End Footer -->
+</div>
+
+<!-- Initialize DataTable -->
+<script>
+    $(document).ready(function () {
+        $('#previousEventsTable').DataTable({
+            "paging": true,     // Enables pagination
+            "searching": true,  // Enables search box
+            "ordering": true,   // Enables column sorting
+            "lengthMenu": [10, 25, 50, 100], // Controls how many entries are shown per page
+            "language": {
+                "search": "{{ get_phrase('Search') }}:",
+                "lengthMenu": "{{ get_phrase('Show _MENU_ entries') }}",
+                "info": "{{ get_phrase('Showing _START_ to _END_ of _TOTAL_ entries') }}",
+                "infoFiltered": "{{ get_phrase('(filtered from _MAX_ total entries)') }}",
+                "paginate": {
+                    "first": "{{ get_phrase('First') }}",
+                    "last": "{{ get_phrase('Last') }}",
+                    "next": "{{ get_phrase('Next') }}",
+                    "previous": "{{ get_phrase('Previous') }}"
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

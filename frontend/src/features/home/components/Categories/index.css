@@ -1,119 +1,665 @@
 /* =========================================================
-   CATEGORIES COMPONENT
+   CATEGORIES
 ========================================================= */
 
 .home-categories {
   background: #f7f7f9;
 }
 
-.home-category-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.home-category {
-  padding: 20px;
-  border: 1px solid var(--home-border);
-  border-radius: 14px;
-  background: #fff;
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-}
-
-.home-category:hover {
-  transform: translateY(-4px);
-  border-color: #f4b8aa;
-  box-shadow: 0 14px 28px rgb(232 67 44 / 10%);
-}
-
-.home-category__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.home-category__icon {
-  display: flex;
-  width: 48px;
-  height: 48px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: #fff1ee;
-  color: var(--home-primary);
-}
-
-.home-category__top small {
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: #f0f2f5;
-  color: var(--home-muted);
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.home-category h3 {
-  margin-top: 16px;
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.home-category > p {
-  min-height: 42px;
-  margin-top: 7px;
-  color: var(--home-muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.home-category__pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-.home-category__pills span {
-  padding: 3px 8px;
-  border: 1px solid #eef0f3;
-  border-radius: 6px;
-  background: #f6f7f9;
-  color: var(--home-muted);
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.home-category a {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-  margin-top: 16px;
-  color: var(--home-primary);
-  font-size: 12px;
-  font-weight: 750;
-}
-
-.home-category a span {
-  transition: transform 180ms ease;
-}
-
-.home-category a:hover span {
-  transform: translateX(4px);
-}
 
 /* =========================================================
-   RESPONSIVE
+   GRID
+========================================================= */
+
+.home-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.home-category {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 285px;
+
+  padding: 22px;
+
+  overflow: hidden;
+
+  border: 1px solid #e1e1e1;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  color: #171923;
+
+  isolation: isolate;
+
+  box-shadow:
+    -7px -7px 14px rgba(255, 255, 255, 0.95),
+    8px 9px 16px rgba(170, 170, 170, 0.38);
+
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms ease,
+    border-color 220ms ease;
+}
+
+
+/* =========================================================
+   TOP LEFT LIGHT
+========================================================= */
+
+.home-category::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 65%;
+  height: 65%;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0) 65%
+  );
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   BOTTOM RIGHT DEPTH
+========================================================= */
+
+.home-category::after {
+  content: "";
+
+  position: absolute;
+
+  right: -15px;
+  bottom: -18px;
+
+  width: 65%;
+  height: 45%;
+
+  border-radius: 50%;
+
+  background: rgba(160, 160, 160, 0.08);
+
+  filter: blur(20px);
+
+  pointer-events: none;
+
+  transition:
+    transform 320ms ease,
+    opacity 320ms ease;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.home-category:hover {
+  transform: translate3d(-4px, -7px, 0);
+
+  border-color: rgba(232, 67, 44, 0.45);
+
+  box-shadow:
+    -10px -10px 20px rgba(255, 255, 255, 0.98),
+    12px 16px 26px rgba(150, 150, 150, 0.42);
+}
+
+
+.home-category:hover::after {
+  transform: translate(7px, 9px) scale(1.08);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.home-category__top {
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   ICON CONTAINER
+========================================================= */
+
+.home-category__icon {
+  position: relative;
+
+  display: flex;
+
+  width: 50px;
+  height: 50px;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border: 1px solid #eeeeee;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  color: var(--home-primary);
+
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    4px 4px 8px rgba(180, 180, 180, 0.32);
+
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 250ms ease,
+    box-shadow 300ms ease,
+    background 300ms ease;
+}
+
+
+/* =========================================================
+   ICON FILL
+========================================================= */
+
+.home-category__icon::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: var(--home-primary);
+
+  border-radius: inherit;
+
+  /*
+    Start with no visible orange.
+    The fill originates from bottom-left.
+  */
+
+  clip-path: circle(
+    0% at 0% 100%
+  );
+
+  transition:
+    clip-path 450ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   ICON SVG
+========================================================= */
+
+.home-category__icon svg {
+  position: relative;
+
+  z-index: 3;
+
+  width: 22px;
+  height: 22px;
+
+  color: var(--home-primary);
+
+  stroke: currentColor;
+
+  transition:
+    color 280ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 280ms ease;
+}
+
+
+/* =========================================================
+   ICON HOVER
+========================================================= */
+
+.home-category:hover .home-category__icon {
+  transform:
+    translateY(-5px)
+    scale(1.08);
+
+  border-color: var(--home-primary);
+
+  box-shadow:
+    -5px -5px 10px rgba(255, 255, 255, 0.98),
+    6px 7px 12px rgba(160, 160, 160, 0.42),
+    0 0 0 5px rgba(232, 67, 44, 0.08);
+}
+
+
+/* =========================================================
+   ACTUAL ORANGE FILL
+========================================================= */
+
+.home-category:hover .home-category__icon::before {
+  clip-path: circle(
+    150% at 0% 100%
+  );
+}
+
+
+/* =========================================================
+   ICON BECOMES WHITE
+========================================================= */
+
+.home-category:hover .home-category__icon svg {
+  color: #ffffff;
+
+  transform:
+    scale(1.12)
+    rotate(-6deg);
+
+  filter:
+    drop-shadow(
+      0 2px 3px rgba(0, 0, 0, 0.15)
+    );
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.home-category__top small {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 30px;
+
+  padding: 0 11px;
+
+  border: 1px solid #e5e5e5;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #657080;
+
+  font-size: 10px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  box-shadow:
+    -2px -2px 5px rgba(255, 255, 255, 0.95),
+    3px 3px 6px rgba(180, 180, 180, 0.25);
+
+  transition:
+    transform 280ms ease,
+    border-color 250ms ease,
+    background 250ms ease,
+    color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+
+/* =========================================================
+   BADGE HOVER
+========================================================= */
+
+.home-category:hover .home-category__top small {
+  transform: translateY(-3px);
+
+  border-color: rgba(232, 67, 44, 0.2);
+
+  background: #fff3f0;
+
+  color: var(--home-primary);
+
+  box-shadow:
+    -3px -3px 6px rgba(255, 255, 255, 0.95),
+    4px 4px 8px rgba(180, 180, 180, 0.28);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.home-category__content {
+  position: relative;
+
+  z-index: 5;
+
+  margin-top: 23px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.home-category h3 {
+  margin: 0;
+
+  color: #171923;
+
+  font-size: 18px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: -0.025em;
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 250ms ease;
+}
+
+
+/* =========================================================
+   TITLE HOVER
+========================================================= */
+
+.home-category:hover h3 {
+  transform: translateX(3px);
+
+  color: #11131b;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.home-category__content p {
+  min-height: 42px;
+
+  margin: 8px 0 0;
+
+  color: #687384;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  transition:
+    transform 300ms ease,
+    color 250ms ease;
+}
+
+
+.home-category:hover .home-category__content p {
+  transform: translateX(3px);
+
+  color: #596273;
+}
+
+
+/* =========================================================
+   PILLS
+========================================================= */
+
+.home-category__pills {
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: auto;
+
+  padding-top: 20px;
+}
+
+
+/* =========================================================
+   PILL
+========================================================= */
+
+.home-category__pills span {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 27px;
+
+  padding: 0 9px;
+
+  border: 1px solid #e5e5e5;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #657080;
+
+  font-size: 10px;
+
+  line-height: 1;
+
+  font-weight: 650;
+
+  box-shadow:
+    -2px -2px 4px rgba(255, 255, 255, 0.9),
+    2px 2px 4px rgba(180, 180, 180, 0.2);
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+
+/* =========================================================
+   PILLS CARD HOVER
+========================================================= */
+
+.home-category:hover .home-category__pills span {
+  transform: translateY(-2px);
+}
+
+
+.home-category:hover .home-category__pills span:nth-child(2) {
+  transition-delay: 35ms;
+}
+
+
+.home-category:hover .home-category__pills span:nth-child(3) {
+  transition-delay: 70ms;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PILL HOVER
+========================================================= */
+
+.home-category__pills span:hover {
+  transform: translateY(-4px) !important;
+
+  border-color: #edb4a9;
+
+  background: #fff0ec;
+
+  color: var(--home-primary);
+
+  box-shadow:
+    -2px -2px 5px rgba(255, 255, 255, 0.95),
+    3px 3px 5px rgba(180, 180, 180, 0.25);
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.home-category__action {
+  position: relative;
+
+  z-index: 5;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 18px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid #dedede;
+
+  color: var(--home-primary);
+
+  font-size: 12px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  text-decoration: none;
+
+  transition:
+    transform 280ms ease,
+    color 200ms ease;
+}
+
+
+/* =========================================================
+   ACTION HOVER
+========================================================= */
+
+.home-category:hover .home-category__action {
+  transform: translateX(3px);
+
+  color: #d93f29;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.home-category__arrow {
+  display: inline-block;
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.home-category:hover .home-category__arrow {
+  transform: translateX(5px);
+}
+
+
+/* =========================================================
+   RESPONSIVE — LARGE TABLET
+========================================================= */
+
+@media (max-width: 1150px) {
+  .home-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
   .home-category-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
   }
 }
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
 
 @media (max-width: 560px) {
   .home-category-grid {
     grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .home-category {
+    min-height: 270px;
+
+    padding: 20px;
+  }
+
+  .home-category__icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-category,
+  .home-category::after,
+  .home-category__icon,
+  .home-category__icon::before,
+  .home-category__icon svg,
+  .home-category__top small,
+  .home-category h3,
+  .home-category__content p,
+  .home-category__pills span,
+  .home-category__action,
+  .home-category__arrow {
+    transition: none;
   }
 }
