@@ -11,7 +11,7 @@ export type TabType =
   | "buy-sell"
   | "marketplace"
   | "blog"
-  | "contact";
+  | "event";
 
 type NavbarProps = {
   activeTab?: TabType;
