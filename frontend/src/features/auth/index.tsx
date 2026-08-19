@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowRight,
   Check,
@@ -29,7 +30,12 @@ export default function AuthModal({
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const prevIsOpenRef = useRef(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -55,7 +61,7 @@ export default function AuthModal({
     prevIsOpenRef.current = isOpen;
   }, [isOpen, initialMode]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const isLogin = mode === "login";
 
@@ -65,14 +71,14 @@ export default function AuthModal({
   const iconWrapper =
     "flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-50 text-[#ef4444] transition-all duration-200 group-hover:scale-105 group-focus-within:scale-105 group-focus-within:bg-red-100";
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/35 p-3 backdrop-blur-sm animate-[fadeIn_180ms_ease-out]"
+      className="fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto bg-slate-950/45 p-4 backdrop-blur-md animate-[fadeIn_180ms_ease-out]"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-2xl border border-white/70 bg-[#f8f9fb] shadow-[0_20px_60px_rgba(15,23,42,0.20)] animate-[modalIn_260ms_cubic-bezier(0.16,1,0.3,1)]"
+        className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-2xl border border-white/70 bg-[#f8f9fb] shadow-[0_20px_60px_rgba(15,23,42,0.30)] animate-[modalIn_260ms_cubic-bezier(0.16,1,0.3,1)]"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -406,6 +412,7 @@ export default function AuthModal({
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
