@@ -6,7 +6,7 @@ import Footer from "@/src/components/layout/Footer/index";
 import HomeFeature from "@/src/features/home";
 import CommunitySection from "@/src/features/community";
 
-type TabType = "home" | "community" | "city-guide" | "buy-sell" | "marketplace" | "blog" | "contact";
+type TabType = "home" | "community" | "city-guide" | "buy-sell" | "marketplace" | "blog" | "event";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("home");
