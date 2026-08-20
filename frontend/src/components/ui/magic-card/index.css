@@ -1,0 +1,274 @@
+/* =========================================================
+   MAGIC CARD
+========================================================= */
+
+.magic-card {
+  --magic-x: 50%;
+  --magic-y: 50%;
+
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(229, 229, 232, 0.95);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 253, 252, 0.82) 100%
+    );
+
+  isolation: isolate;
+
+  box-shadow:
+    -5px -5px 12px rgba(255, 255, 255, 0.95),
+    6px 9px 18px rgba(100, 90, 85, 0.07);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transform:
+    translateY(0)
+    perspective(1000px);
+
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+
+/* =========================================================
+   CURSOR FOLLOWING GLOW
+========================================================= */
+
+.magic-card__glow {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      280px circle at var(--magic-x) var(--magic-y),
+      rgba(255, 107, 82, 0.22) 0%,
+      rgba(239, 69, 47, 0.12) 28%,
+      rgba(184, 112, 255, 0.07) 46%,
+      rgba(255, 255, 255, 0.02) 62%,
+      transparent 75%
+    );
+
+  transition:
+    opacity 280ms ease;
+
+  z-index: 0;
+}
+
+
+/* =========================================================
+   INNER GLASS HIGHLIGHT
+========================================================= */
+
+.magic-card__content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   MAGIC BORDER
+========================================================= */
+
+.magic-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  padding: 1px;
+
+  background:
+    radial-gradient(
+      180px circle at var(--magic-x) var(--magic-y),
+      rgba(239, 69, 47, 0.55) 0%,
+      rgba(239, 69, 47, 0.24) 28%,
+      rgba(239, 69, 47, 0.08) 48%,
+      transparent 72%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  /*
+   * Standard mask
+   */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  /*
+   * WebKit / Safari support
+   */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  transition:
+    opacity 250ms ease;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   SOFT OUTER LIGHT
+========================================================= */
+
+.magic-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    radial-gradient(
+      220px circle at var(--magic-x) var(--magic-y),
+      rgba(239, 69, 47, 0.12),
+      transparent 65%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  filter: blur(10px);
+
+  transition:
+    opacity 300ms ease;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.magic-card:hover {
+  transform:
+    translateY(-5px)
+    perspective(1000px);
+
+  border-color:
+    rgba(239, 69, 47, 0.24);
+
+  box-shadow:
+    -7px -7px 15px rgba(255, 255, 255, 0.98),
+    10px 15px 30px rgba(100, 75, 65, 0.11),
+    0 0 24px rgba(239, 69, 47, 0.04);
+}
+
+.magic-card:hover .magic-card__glow {
+  opacity: 1;
+}
+
+.magic-card:hover::before {
+  opacity: 1;
+}
+
+.magic-card:hover::after {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   GLOW TRANSITION
+========================================================= */
+
+.magic-card__glow {
+  transition:
+    opacity 280ms ease,
+    background-position 100ms linear;
+}
+
+
+/* =========================================================
+   ACTIVE / CLICK
+========================================================= */
+
+.magic-card:active {
+  transform:
+    translateY(-2px)
+    scale(0.992);
+}
+
+.magic-card:active::before {
+  opacity: 0.75;
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) {
+  .magic-card__glow {
+    opacity: 0;
+  }
+
+  .magic-card::before,
+  .magic-card::after {
+    opacity: 0;
+  }
+
+  .magic-card:hover {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .magic-card {
+    transition: none;
+  }
+
+  .magic-card__glow,
+  .magic-card::before,
+  .magic-card::after {
+    transition: none;
+  }
+
+  .magic-card:hover {
+    transform: none;
+  }
+}

@@ -12,6 +12,7 @@ import {
 } from "@/src/components/ui/icons";
 
 import { LetterSwap3D } from "@/src/components/ui/letter-swap-3d";
+import MagicCard from "@/src/components/ui/magic-card";
 
 import "./index.css";
 
@@ -699,31 +700,32 @@ export default function BusinessGrowth() {
                   description,
                 }) => (
 
-                  <div
-                    className="home-reach__feature"
-                    key={title}
-                  >
+                  <MagicCard key={title}>
 
-                    <span className="home-reach__feature-icon">
+                    <div className="home-reach__feature">
 
-                      <Icon size={16} />
+                      <span className="home-reach__feature-icon">
 
-                    </span>
+                        <Icon size={16} />
+
+                      </span>
 
 
-                    <div>
+                      <div>
 
-                      <strong>
-                        {title}
-                      </strong>
+                        <strong>
+                          {title}
+                        </strong>
 
-                      <p>
-                        {description}
-                      </p>
+                        <p>
+                          {description}
+                        </p>
+
+                      </div>
 
                     </div>
 
-                  </div>
+                  </MagicCard>
 
                 )
               )}
