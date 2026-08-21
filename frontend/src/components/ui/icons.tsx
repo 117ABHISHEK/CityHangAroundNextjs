@@ -44,7 +44,8 @@ export {
   UtensilsCrossed as FoodIcon,
   HeartPlus as HealthIcon,
   BookOpenText  as EducationIcon,
-  WrenchOff as WrenchOffIcon
+  WrenchOff as WrenchOffIcon,
+  BadgeCheck  as BadgeIcon
 } from "lucide-react";
 
 export {

@@ -8,7 +8,7 @@ import {
   CityGuideIcon,
   CommunityIcon,
   LocationIcon,
-  SearchIcon,
+  SearchIcon
 } from "@/src/components/ui/icons";
 
 import { LetterSwap3D } from "@/src/components/ui/letter-swap-3d";
