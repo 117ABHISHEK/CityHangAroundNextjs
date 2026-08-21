@@ -2149,9 +2149,8 @@
 
 
   .home-growth__art {
-    min-height: 430px;
+    display: none;
   }
-
 
   .home-reach__visual {
     min-height: 560px;
@@ -2270,23 +2269,6 @@
     padding: 22px;
 
     border-radius: 21px;
-  }
-
-
-  .home-growth__art {
-    min-height: 390px;
-
-    border-radius: 21px;
-  }
-
-
-  .home-growth__person {
-    transform:
-      translateX(-50%)
-      scale(0.82);
-
-    transform-origin:
-      bottom center;
   }
 
 

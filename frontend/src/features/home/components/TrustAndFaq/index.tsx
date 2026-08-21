@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -37,35 +40,103 @@ const partners = [
     name: "Zomato",
     logo: "https://cdn.simpleicons.org/zomato/E23744",
     className: "home-partner__logo--zomato",
+    color: "#E23744",
+    initial: "Z",
   },
   {
     name: "Paytm",
     logo: "https://cdn.simpleicons.org/paytm/00BAF2",
     className: "home-partner__logo--paytm",
+    color: "#00BAF2",
+    initial: "P",
   },
   {
     name: "Uber",
     logo: "https://cdn.simpleicons.org/uber/000000",
     className: "home-partner__logo--uber",
+    color: "#000000",
+    initial: "U",
   },
   {
     name: "MakeMyTrip",
     logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Makemytrip_logo.svg",
     className: "home-partner__logo--makemytrip",
+    color: "#E03534",
+    initial: "M",
   },
   {
     name: "OYO",
     logo: "https://cdn.simpleicons.org/oyo/EE2E24",
     className: "home-partner__logo--oyo",
+    color: "#EE2E24",
+    initial: "O",
   },
   {
     name: "Cleartrip",
     logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cleartrip_Original.svg",
     className: "home-partner__logo--cleartrip",
+    color: "#E8634A",
+    initial: "C",
   },
 ];
 
 export default function TrustAndFaq() {
+  const [activePartner, setActivePartner] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const partnersRef = useRef<HTMLDivElement>(null);
+  const autoScrollTimer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 560);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleScroll = () => {
+    if (!partnersRef.current || !isMobile) return;
+    const container = partnersRef.current;
+    const center = container.scrollLeft + container.clientWidth / 2;
+    
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    Array.from(container.children).forEach((child, index) => {
+      const el = child as HTMLElement;
+      const childCenter = el.offsetLeft - container.offsetLeft + el.clientWidth / 2;
+      const distance = Math.abs(center - childCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActivePartner(closestIndex);
+  };
+
+  useEffect(() => {
+    if (!isMobile) return;
+    autoScrollTimer.current = setInterval(() => {
+      setActivePartner((prev) => {
+        const next = (prev + 1) % partners.length;
+        if (partnersRef.current) {
+          const container = partnersRef.current;
+          const element = container.children[next] as HTMLElement;
+          if (element) {
+            container.scrollTo({
+              left: element.offsetLeft - container.offsetLeft - (container.clientWidth / 2) + (element.clientWidth / 2),
+              behavior: 'smooth'
+            });
+          }
+        }
+        return next;
+      });
+    }, 2500);
+    return () => {
+      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current);
+    };
+  }, [isMobile]);
+
   return (
     <>
       {/* =====================================================
@@ -257,26 +328,49 @@ export default function TrustAndFaq() {
               and customers that matter most.
             </p>
 
-            <div className="home-partners">
+            <div className="home-partners" ref={partnersRef} onScroll={handleScroll}>
 
-              {partners.map((partner) => (
-                <MagicCard key={partner.name}>
-                  <div className="home-partner-card">
+              {partners.map((partner, index) => {
+                const isActive = isMobile && activePartner === index;
+                const cardClass = `home-partner-card ${isActive ? "is-active" : ""}`;
+
+                const inner = (
+                  <div className={cardClass}>
                     <div className="home-partner">
-
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={partner.logo}
                         alt={`${partner.name} logo`}
                         className={`home-partner__logo ${partner.className}`}
                       />
-
                     </div>
                   </div>
-                </MagicCard>
-              ))}
+                );
+
+                return isMobile ? (
+                  <div key={partner.name} className="home-partner-slide">
+                    {inner}
+                  </div>
+                ) : (
+                  <MagicCard key={partner.name}>
+                    {inner}
+                  </MagicCard>
+                );
+              })}
 
             </div>
+
+            {/* DOT INDICATORS — mobile only */}
+            {isMobile && (
+              <div className="home-partners-dots">
+                {partners.map((_, index) => (
+                  <span
+                    key={index}
+                    className={activePartner === index ? "is-active" : ""}
+                  />
+                ))}
+              </div>
+            )}
 
           </div>
 

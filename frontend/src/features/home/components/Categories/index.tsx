@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import {
   EducationIcon,
   EventIcons,
@@ -96,6 +99,52 @@ const categories: Category[] = [
 ];
 
 export default function Categories() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+
+  /* ----------------------------------------------------------
+     IntersectionObserver: auto-activate the most-visible card
+     in the mobile carousel.
+  ---------------------------------------------------------- */
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        /* Find the entry with the largest intersection ratio */
+        let best: IntersectionObserverEntry | null = null;
+        for (const entry of entries) {
+          if (
+            entry.isIntersecting &&
+            (!best || entry.intersectionRatio > best.intersectionRatio)
+          ) {
+            best = entry;
+          }
+        }
+
+        if (best) {
+          const idx = cardRefs.current.indexOf(
+            best.target as HTMLElement,
+          );
+          if (idx !== -1) setActiveIndex(idx);
+        }
+      },
+      {
+        root: grid,          /* scroll container itself */
+        rootMargin: "0px",
+        threshold: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      },
+    );
+
+    for (const el of cardRefs.current) {
+      if (el) observer.observe(el);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="home-section home-categories">
 
@@ -146,16 +195,17 @@ export default function Categories() {
             CATEGORY GRID
         ================================================= */}
 
-        <div className="home-category-grid">
+        <div className="home-category-grid" ref={gridRef}>
 
-          {categories.map((category) => {
+          {categories.map((category, index) => {
 
             const Icon = category.icon;
 
             return (
               <article
                 key={category.title}
-                className="home-category"
+                ref={(el) => { cardRefs.current[index] = el; }}
+                className={`home-category${activeIndex === index ? " is-active" : ""}`}
               >
 
                 {/* =================================================

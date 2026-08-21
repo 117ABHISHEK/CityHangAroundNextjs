@@ -1511,25 +1511,23 @@
   .home-hero {
     height: auto;
     min-height: 0;
-
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
 
   .home-hero__visual {
     position: absolute;
-
-    top: auto;
+    top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-
     width: 100%;
-    height: 420px;
-
+    height: 100%;
     clip-path: none;
-
-    opacity: 0.14;
-
+    opacity: 0.15;
     pointer-events: none;
+    z-index: 0;
   }
 
   .home-hero__visual-navigation,
@@ -1543,7 +1541,6 @@
 
   .home-hero__content {
     display: flex;
-
     height: auto;
     min-height: 0;
 

@@ -116,10 +116,11 @@
 
 
 /* =========================================================
-   CARD HOVER
+   CARD HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover {
+.home-category:hover,
+.home-category.is-active {
   transform: translate3d(-4px, -7px, 0);
 
   border-color: rgba(232, 67, 44, 0.45);
@@ -130,7 +131,8 @@
 }
 
 
-.home-category:hover::after {
+.home-category:hover::after,
+.home-category.is-active::after {
   transform: translate(7px, 9px) scale(1.08);
 
   opacity: 0.9;
@@ -249,10 +251,11 @@
 
 
 /* =========================================================
-   ICON HOVER
+   ICON HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover .home-category__icon {
+.home-category:hover .home-category__icon,
+.home-category.is-active .home-category__icon {
   transform:
     translateY(-5px)
     scale(1.08);
@@ -270,7 +273,8 @@
    ACTUAL ORANGE FILL
 ========================================================= */
 
-.home-category:hover .home-category__icon::before {
+.home-category:hover .home-category__icon::before,
+.home-category.is-active .home-category__icon::before {
   clip-path: circle(
     150% at 0% 100%
   );
@@ -281,7 +285,8 @@
    ICON BECOMES WHITE
 ========================================================= */
 
-.home-category:hover .home-category__icon svg {
+.home-category:hover .home-category__icon svg,
+.home-category.is-active .home-category__icon svg {
   color: #ffffff;
 
   transform:
@@ -339,10 +344,11 @@
 
 
 /* =========================================================
-   BADGE HOVER
+   BADGE HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover .home-category__top small {
+.home-category:hover .home-category__top small,
+.home-category.is-active .home-category__top small {
   transform: translateY(-3px);
 
   border-color: rgba(232, 67, 44, 0.2);
@@ -394,10 +400,11 @@
 
 
 /* =========================================================
-   TITLE HOVER
+   TITLE HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover h3 {
+.home-category:hover h3,
+.home-category.is-active h3 {
   transform: translateX(3px);
 
   color: #11131b;
@@ -425,7 +432,8 @@
 }
 
 
-.home-category:hover .home-category__content p {
+.home-category:hover .home-category__content p,
+.home-category.is-active .home-category__content p {
   transform: translateX(3px);
 
   color: #596273;
@@ -494,20 +502,23 @@
 
 
 /* =========================================================
-   PILLS CARD HOVER
+   PILLS CARD HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover .home-category__pills span {
+.home-category:hover .home-category__pills span,
+.home-category.is-active .home-category__pills span {
   transform: translateY(-2px);
 }
 
 
-.home-category:hover .home-category__pills span:nth-child(2) {
+.home-category:hover .home-category__pills span:nth-child(2),
+.home-category.is-active .home-category__pills span:nth-child(2) {
   transition-delay: 35ms;
 }
 
 
-.home-category:hover .home-category__pills span:nth-child(3) {
+.home-category:hover .home-category__pills span:nth-child(3),
+.home-category.is-active .home-category__pills span:nth-child(3) {
   transition-delay: 70ms;
 }
 
@@ -569,10 +580,11 @@
 
 
 /* =========================================================
-   ACTION HOVER
+   ACTION HOVER / ACTIVE
 ========================================================= */
 
-.home-category:hover .home-category__action {
+.home-category:hover .home-category__action,
+.home-category.is-active .home-category__action {
   transform: translateX(3px);
 
   color: #d93f29;
@@ -591,7 +603,8 @@
 }
 
 
-.home-category:hover .home-category__arrow {
+.home-category:hover .home-category__arrow,
+.home-category.is-active .home-category__arrow {
   transform: translateX(5px);
 }
 
@@ -626,14 +639,23 @@
 
 @media (max-width: 560px) {
   .home-category-grid {
-    grid-template-columns: 1fr;
-
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 16px;
+    padding-block: 14px 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .home-category-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .home-category {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
     min-height: 270px;
-
     padding: 20px;
   }
 

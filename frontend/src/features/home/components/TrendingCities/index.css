@@ -778,8 +778,29 @@
     height: 310px;
   }
 
-  .home-city-card__default,
+  .home-city-card__default {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
   .home-city-card__hover {
     padding: 20px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+
+  .home-city-card__image {
+    filter: brightness(0.72);
+  }
+
+  .home-city-card__image-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(15, 17, 24, 0.48) 0%,
+        rgba(15, 17, 24, 0.34) 42%,
+        rgba(15, 17, 24, 0.82) 100%
+      );
   }
 }

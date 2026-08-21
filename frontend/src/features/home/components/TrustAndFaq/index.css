@@ -492,6 +492,7 @@
 
 .home-testimonials {
   background: #fff;
+  overflow: hidden;
 }
 
 .home-testimonials h2 {
@@ -1660,17 +1661,92 @@
     height: 115px;
   }
 
-
-  /* PARTNERS */
+  /* PARTNERS CAROUSEL */
 
   .home-partners {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    
+    /* Force edge-to-edge perfectly */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 10px 17.5vw 24px; /* Center the 65vw cards */
+    
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-top: 24px;
   }
 
-  .home-partner-card,
+  .home-partners::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-partner-slide {
+    flex: 0 0 65vw;
+    scroll-snap-align: center;
+  }
+
+  .home-partner-card {
+    min-height: 72px;
+    border-radius: 14px;
+    border: 1.5px solid #e1e7ef;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    transition:
+      transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 350ms ease,
+      box-shadow 350ms ease,
+      opacity 350ms ease;
+    opacity: 0.45;
+    transform: scale(0.88);
+  }
+
   .home-partner {
     min-height: 72px;
+  }
+
+  .home-partner-card.is-active {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(232, 67, 44, 0.28);
+    box-shadow: 0 8px 22px rgba(232, 67, 44, 0.11);
+  }
+
+  .home-partner-card:not(.is-active) .home-partner__logo {
+    filter: grayscale(1) saturate(0) opacity(0.35);
+  }
+
+  .home-partner-card.is-active .home-partner__logo {
+    filter: none;
+  }
+
+  /* DOT INDICATORS */
+
+  .home-partners-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-partners-dots span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #d0d5dd;
+    transition: width 300ms ease, background 300ms ease;
+  }
+
+  .home-partners-dots span.is-active {
+    width: 20px;
+    background: var(--home-primary);
   }
 
 
