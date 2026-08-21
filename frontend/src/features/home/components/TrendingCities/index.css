@@ -778,29 +778,69 @@
     height: 310px;
   }
 
-  .home-city-card__default {
-    opacity: 0 !important;
-    visibility: hidden !important;
-  }
-
+  .home-city-card__default,
   .home-city-card__hover {
     padding: 20px;
+  }
+}
+
+/* =========================================================
+   DISABLE HOVER ON TOUCH
+========================================================= */
+
+@media (hover: none) {
+  /* Neutralize native sticky hover */
+  .home-city-card:hover .home-city-card__inner {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 1px 4px rgba(15, 17, 24, 0.08);
+  }
+  .home-city-card:hover .home-city-card__image {
+    transform: none;
+    filter: brightness(0.9);
+  }
+  .home-city-card:hover .home-city-card__image-overlay {
+    background: linear-gradient(180deg, rgba(15, 17, 24, 0.08) 0%, rgba(15, 17, 24, 0.6) 100%);
+  }
+  .home-city-card:hover .home-city-card__default {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .home-city-card:hover .home-city-card__hover {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px);
+  }
+
+  /* Trigger hover effects on explicit tap (React state) */
+  .home-city-card.is-active-mobile .home-city-card__inner {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 28px 65px rgba(232, 67, 44, 0.18),
+      0 10px 22px rgba(232, 67, 44, 0.08),
+      0 0 0 1px rgba(232, 67, 44, 0.12);
+  }
+  
+  .home-city-card.is-active-mobile .home-city-card__image {
+    transform: scale(1.05);
+    filter: brightness(0.72);
+  }
+  
+  .home-city-card.is-active-mobile .home-city-card__image-overlay {
+    background: linear-gradient(180deg, rgba(15, 17, 24, 0.48) 0%, rgba(15, 17, 24, 0.34) 42%, rgba(15, 17, 24, 0.82) 100%);
+  }
+
+  .home-city-card.is-active-mobile .home-city-card__default {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-18px) !important;
+  }
+  
+  .home-city-card.is-active-mobile .home-city-card__hover {
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateY(0) !important;
   }
-
-  .home-city-card__image {
-    filter: brightness(0.72);
-  }
-
-  .home-city-card__image-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(15, 17, 24, 0.48) 0%,
-        rgba(15, 17, 24, 0.34) 42%,
-        rgba(15, 17, 24, 0.82) 100%
-      );
-  }
 }
+

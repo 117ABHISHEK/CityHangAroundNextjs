@@ -108,10 +108,11 @@ const cities: City[] = [
 ];
 
 export default function TrendingCities() {
-  const viewportRef = useRef<HTMLDivElement>(null);
-
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const viewportRef = useRef<HTMLDivElement>(null);
 
   const updateScrollButtons = () => {
     const viewport = viewportRef.current;
@@ -235,7 +236,11 @@ export default function TrendingCities() {
           <div ref={viewportRef} className="home-cities__viewport">
             <div className="home-cities__track">
               {cities.map((city) => (
-                <article key={city.id} className="home-city-card">
+                <article
+                  key={city.id}
+                  className={`home-city-card ${activeCardId === city.id ? "is-active-mobile" : ""}`}
+                  onClick={() => setActiveCardId(activeCardId === city.id ? null : city.id)}
+                >
                   {/* Dark Offset */}
 
                   <div className="home-city-card__shadow" aria-hidden="true" />
