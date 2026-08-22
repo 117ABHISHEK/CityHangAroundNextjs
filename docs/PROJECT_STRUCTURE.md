@@ -39,28 +39,25 @@ CityHangAroundNextjs/
 
 ```
 frontend/
-├── app/                          # Next.js App Router
-│   ├── layout.tsx                # Root layout (fonts, providers)
-│   ├── page.tsx                  # Home page
+├── app/                          # Next.js App Router (root only)
+│   ├── layout.tsx                # Root layout (fonts, providers, metadata)
+│   ├── page.tsx                  # Home page (tab-based routing)
 │   ├── globals.css               # Global styles + Tailwind import
-│   ├── business/                 # /business routes
-│   ├── community/                # /community routes
-│   ├── events/                   # /events routes
-│   ├── marketplace/              # /marketplace routes
-│   ├── search/                   # /search routes
-│   └── [city]/                   # Dynamic city routes
+│   └── favicon.ico               # Browser tab icon
 │
 ├── src/
 │   ├── components/               # Shared, reusable components
 │   │   ├── layout/               # App shell components
-│   │   │   ├── Navbar/           # Top navigation
-│   │   │   ├── Footer/           # Site footer
-│   │   │   └── MobileNavigation/ # Mobile bottom nav
+│   │   │   ├── Navbar/           # Top navigation (primary + secondary)
+│   │   │   │   ├── index.tsx     # Navbar shell (scroll hide/show)
+│   │   │   │   ├── index.css     # Navbar styles
+│   │   │   │   ├── PrimaryNavbar/  # Logo, search, city picker, actions
+│   │   │   │   └── SecondaryNavbar/ # Tab navigation with dropdowns
+│   │   │   └── Footer/           # Site footer
 │   │   ├── shared/               # Cross-feature components
-│   │   │   ├── Ads/              # Ad placement components
-│   │   │   ├── ErrorState/       # Error boundary UI
-│   │   │   ├── LoadingState/     # Skeleton / spinner
-│   │   │   ├── Pagination/       # List pagination
+│   │   │   ├── Ads/              # Google Ads integration
+│   │   │   │   ├── index.tsx     # Barrel export (GoogleAdScript only)
+│   │   │   │   └── GoogleAdScript.tsx
 │   │   │   └── SectionHeading/   # Reusable section header
 │   │   └── ui/                   # Primitive UI components
 │   │       ├── icons.tsx         # All Lucide icon re-exports
@@ -70,36 +67,25 @@ frontend/
 │   │
 │   ├── features/                 # Feature-based modules
 │   │   ├── home/                 # ⭐ Homepage (main focus)
-│   │   ├── auth/                 # Authentication
-│   │   ├── business/             # Business listings
-│   │   ├── categories/           # Category browsing
-│   │   ├── cities/               # City pages
+│   │   │   ├── index.tsx         # Home page entry — assembles all sections
+│   │   │   ├── base.css          # Shared CSS variables & base classes
+│   │   │   └── components/       # Section components (see below)
+│   │   ├── auth/                 # Authentication (login/signup modal)
 │   │   ├── community/            # Community / forums
-│   │   ├── events/               # Events & nightlife
-│   │   ├── marketplace/          # Marketplace
-│   │   ├── notifications/        # Push / in-app notifications
-│   │   ├── payments/             # Payment integration
-│   │   ├── profile/              # User profiles
-│   │   └── search/               # Search functionality
-│   │
-│   ├── hooks/                    # Custom React hooks
-│   │   └── useHealth.ts          # Health check hook
-│   │
-│   ├── lib/                      # Core libraries
-│   │   ├── analytics/            # Analytics / tracking
-│   │   ├── api/                  # API client utilities
-│   │   ├── auth/                 # Auth helpers
-│   │   └── seo/                  # SEO utilities
-│   │
-│   ├── services/                 # External service integrations
-│   │   └── api.ts                # API service layer
+│   │   │   ├── index.tsx         # Community section entry
+│   │   │   ├── base.css          # Community CSS variables
+│   │   │   └── components/       # PostCard, FeedComposer, FilterBar, etc.
+│   │   └── events/               # Events
+│   │       └── createEvent/      # Event creation form (scaffolded)
 │   │
 │   ├── config/                   # App configuration
 │   │   └── ads.ts                # Ad configuration
 │   │
-│   ├── types/                    # Shared TypeScript types
+│   ├── hooks/                    # Custom React hooks
+│   │   └── useHealth.ts          # Health check hook
 │   │
-│   └── utils/                    # Utility functions
+│   └── services/                 # External service integrations
+│       └── api.ts                # API service layer
 │
 ├── public/                       # Static assets
 │   ├── fonts/                    # Custom fonts
@@ -112,6 +98,60 @@ frontend/
 ├── postcss.config.mjs
 └── eslint.config.mjs
 ```
+
+---
+
+## How Routing Works
+
+This project uses a **tab-based SPA pattern** on the home page rather than traditional file-based routes.
+
+### Home Page (`app/page.tsx`)
+
+The root page renders a tab switcher with Navbar. Clicking tabs in the secondary navbar swaps the visible feature:
+
+```tsx
+// app/page.tsx
+"use client";
+import { useState } from "react";
+import Navbar from "@/src/components/layout/Navbar";
+import Footer from "@/src/components/layout/Footer";
+import HomeFeature from "@/src/features/home";
+import CommunitySection from "@/src/features/community";
+
+type TabType = "home" | "community" | "city-guide" | "buy-sell" | "marketplace" | "blog" | "event";
+
+export default function Home() {
+  const [activeTab, setActiveTab] = useState<TabType>("home");
+
+  return (
+    <div>
+      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+      {activeTab === "home" && <HomeFeature />}
+      {activeTab === "community" && <CommunitySection />}
+      <Footer />
+    </div>
+  );
+}
+```
+
+### Tab → Feature Mapping
+
+| Tab | Feature Component | Source |
+|-----|------------------|--------|
+| Home | `<HomeFeature />` | `src/features/home/` |
+| Community | `<CommunitySection />` | `src/features/community/` |
+| City Guide | *(to be built)* | — |
+| Buy/Sell | *(to be built)* | — |
+| Marketplace | *(to be built)* | — |
+| Blog | *(to be built)* | — |
+| Event | *(to be built)* | — |
+
+### Adding a New Tab
+
+1. Create `src/features/yourfeature/index.tsx`
+2. Add the tab type to `TabType` in `app/page.tsx`
+3. Import the component and add `{activeTab === "your-tab" && <YourFeature />}`
+4. Add the nav item in `SecondaryNavbar` nav items array
 
 ---
 
@@ -158,6 +198,59 @@ features/home/
 5. **HomeHighlights** — 4-column feature highlight cards
 6. **BusinessGrowth** — "Advertise with us" section
 7. **TrustAndFaq** — Trust badges + FAQ accordion
+
+---
+
+## Community Feature (`src/features/community/`)
+
+```
+features/community/
+├── index.tsx                     # Community section entry
+├── base.css                      # Community CSS variables
+└── components/
+    ├── PostCard/                 # Individual post card
+    │   ├── index.tsx
+    │   └── index.css
+    ├── FeedComposer/             # Create new post
+    │   ├── index.tsx
+    │   └── index.css
+    ├── FilterBar/                # Hot / New / Top filters
+    │   ├── index.tsx
+    │   └── index.css
+    ├── CommunitySidebar/         # Community groups list
+    │   ├── index.tsx
+    │   └── index.css
+    ├── RightRail/                # People & suggestions sidebar
+    │   ├── index.tsx
+    │   └── index.css
+    └── AdSlot/                   # Ad placement
+        ├── index.tsx
+        └── index.css
+```
+
+---
+
+## Events Feature (`src/features/events/`)
+
+```
+features/events/
+└── createEvent/                  # Event creation form (scaffolded)
+    ├── index.tsx                 # Page wrapper
+    ├── index.css                 # Page styles
+    └── components/
+        ├── EventForm/            # Multi-step form orchestrator
+        ├── BasicInformation/     # Step 1: Name, category, tags, description
+        ├── EventSidebar/         # Left sidebar stepper
+        ├── LivePreview/          # Right sidebar preview card
+        ├── EventImageUpload/     # Cover image upload
+        ├── EventStatus/          # Status selector
+        ├── EventPreviewCard/     # Preview card component
+        ├── AutoSaveStatus/       # Auto-save indicator
+        ├── BottomActionBar/      # Back / Save / Continue buttons
+        └── QuickTips/            # Tips panel
+```
+
+> **Note:** The createEvent components are scaffolded (empty files). See `docs/EVENTS_FEATURE_GUIDE.md` for implementation guide.
 
 ---
 
@@ -364,6 +457,13 @@ docker run --rm -p 3000:3000 -p 9000:9000 cityhangaround
 
 ## Development Guidelines
 
+### Adding a New Tab to the Homepage
+
+1. Create `src/features/yourfeature/index.tsx`
+2. Add the tab type to `TabType` in `app/page.tsx`
+3. Import and render: `{activeTab === "your-tab" && <YourFeature />}`
+4. Add the nav item in `src/components/layout/Navbar/SecondaryNavbar/index.tsx`
+
 ### Adding a New Section to the Homepage
 
 1. Create `src/features/home/components/YourSection/index.tsx`
@@ -373,14 +473,6 @@ docker run --rm -p 3000:3000 -p 9000:9000 cityhangaround
 5. Use CSS variables from `base.css` for colors
 6. Add entrance animations with staggered delays
 7. Add `prefers-reduced-motion` support
-
-### Creating a New Feature Module
-
-1. Create `src/features/yourfeature/`
-2. Add `index.tsx` as the entry point
-3. Add a `components/` subdirectory for feature-specific components
-4. Co-locate CSS with each component (`index.css`)
-5. Add a route in `app/yourfeature/page.tsx`
 
 ### CSS Rules
 
