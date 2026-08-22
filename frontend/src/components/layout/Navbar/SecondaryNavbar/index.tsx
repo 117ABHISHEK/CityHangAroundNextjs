@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import AnimatedIcon from "@/src/components/ui/animated-icon";
 import {
   BlogIcon,
@@ -44,7 +45,7 @@ const navItems: NavItem[] = [
       { label: "Top Attractions", href: "#" },
       { label: "Restaurants & Dining", href: "#" },
       { label: "Nightlife & Bars", href: "#" },
-      { label: "Upcoming Events", href: "#" },
+      { label: "Upcoming Events", href: "/events" },
     ],
   },
   {
@@ -89,6 +90,7 @@ export default function SecondaryNavbar({
   activeTab = "home",
   onTabChange,
 }: SecondaryNavbarProps) {
+  const router = useRouter();
   const [openDropdown, setOpenDropdown] = useState<TabType | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -110,6 +112,11 @@ export default function SecondaryNavbar({
     } else {
       setOpenDropdown(null);
       onTabChange?.(item.tab);
+      if (item.tab === "event") {
+        router.push("/events");
+      } else if (item.tab === "home") {
+        router.push("/");
+      }
     }
   };
 
