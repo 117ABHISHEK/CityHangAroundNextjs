@@ -621,6 +621,173 @@
 }
 
 /* =========================================================
+   MOBILE CITY SELECTOR
+========================================================= */
+
+.navbar__mobile-city {
+  display: none;
+  position: relative;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Mobile-only favorites icon */
+.navbar__mobile-fav {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #1e293b;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.navbar__mobile-fav:hover,
+.navbar__mobile-fav:active {
+  color: var(--nav-coral);
+  background: var(--nav-coral-light);
+}
+
+.navbar__mobile-city-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.navbar__mobile-city-btn:hover,
+.navbar__mobile-city-btn--open {
+  border-color: var(--nav-coral);
+  color: var(--nav-coral);
+  background: var(--nav-coral-light);
+}
+
+.navbar__mobile-city-text {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar__mobile-city-chevron {
+  color: #94a3b8;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar__mobile-city-chevron--open {
+  transform: rotate(180deg);
+  color: var(--nav-coral);
+}
+
+/* Mobile City Dropdown */
+.navbar__mobile-city-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+  width: 260px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 14px;
+  box-shadow: 0 14px 34px -4px rgba(15, 23, 42, 0.14), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  padding: 8px;
+  animation: dropdownSlideIn 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar__mobile-city-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 6px;
+  color: #94a3b8;
+}
+
+.navbar__mobile-city-search-input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-size: 12.5px;
+  background: transparent;
+  color: #1e293b;
+}
+
+.navbar__mobile-city-search-input::placeholder {
+  color: #94a3b8;
+}
+
+.navbar__mobile-city-list {
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.navbar__mobile-city-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.navbar__mobile-city-list::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.navbar__mobile-city-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.navbar__mobile-city-item:hover,
+.navbar__mobile-city-item:active {
+  background: var(--nav-coral-light);
+  color: var(--nav-coral);
+}
+
+.navbar__mobile-city-item--active {
+  background: var(--nav-coral-light);
+  color: var(--nav-coral);
+  font-weight: 600;
+}
+
+.navbar__mobile-city-empty {
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* =========================================================
    RESPONSIVE BREAKPOINTS
 ========================================================= */
 
@@ -652,53 +819,76 @@
 
 @media (max-width: 767px) {
   .navbar__primary-shell {
-    height: 70px;
+    height: 64px;
   }
 
   .navbar__primary {
-    height: 70px;
+    height: 64px;
   }
 
   .navbar__main {
-    height: 70px;
+    height: 64px;
+    gap: 10px;
   }
 
   .navbar__logo-image {
-    width: 155px;
-    height: 42px;
+    width: 130px;
+    height: 35px;
+  }
+
+  /* Hide hamburger menu on mobile */
+  .navbar__mobile-menu {
+    display: none;
+  }
+
+  /* Show mobile city selector */
+  .navbar__mobile-city {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  /* Hide desktop-only Favorites, show mobile-only Favorites */
+  .navbar__action--favorites {
+    display: none;
+  }
+
+  .navbar__mobile-fav {
+    display: flex;
+  }
+
+  /* Hide Add Business on mobile */
+  .navbar__add-business {
+    display: none;
   }
 
   .navbar__secondary-shell {
-    height: 52px;
+    height: 48px;
   }
 
   .navbar__secondary {
-    height: 52px;
+    height: 48px;
   }
 
   .navbar__nav-inner {
-    height: 52px;
-    gap: 8px;
+    height: 48px;
+    gap: 6px;
   }
 
   .navbar__nav-item {
     font-size: 12px;
-    padding-inline: 6px;
+    padding-inline: 8px;
     gap: 5px;
   }
 
   .navbar__nav-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 }
 
 @media (max-width: 639px) {
   .navbar__action-label {
-    display: none;
-  }
-
-  .navbar__add-business {
     display: none;
   }
 }

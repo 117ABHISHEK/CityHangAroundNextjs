@@ -40,13 +40,14 @@ export default function PrimaryNavbar() {
   const [citySearch, setCitySearch] = useState("");
 
   const cityDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileCityRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        cityDropdownRef.current &&
-        !cityDropdownRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+      const clickedInsideDesktop = cityDropdownRef.current?.contains(target);
+      const clickedInsideMobile = mobileCityRef.current?.contains(target);
+      if (!clickedInsideDesktop && !clickedInsideMobile) {
         setCityDropdownOpen(false);
       }
     };
@@ -88,6 +89,60 @@ export default function PrimaryNavbar() {
               priority
             />
           </a>
+
+          {/* Mobile City Selector (visible below 768px) */}
+          <div className="navbar__mobile-city" ref={mobileCityRef}>
+            <button
+              type="button"
+              className={`navbar__mobile-city-btn ${cityDropdownOpen ? "navbar__mobile-city-btn--open" : ""}`}
+              onClick={() => setCityDropdownOpen((prev) => !prev)}
+              aria-expanded={cityDropdownOpen}
+              aria-haspopup="listbox"
+            >
+              <span className="navbar__mobile-city-text">
+                {selectedCity === "Select City" ? "City" : selectedCity}
+              </span>
+              <ChevronDown
+                size={12}
+                strokeWidth={2}
+                aria-hidden="true"
+                className={`navbar__mobile-city-chevron ${cityDropdownOpen ? "navbar__mobile-city-chevron--open" : ""}`}
+              />
+            </button>
+
+            {/* Mobile City Dropdown */}
+            {cityDropdownOpen && (
+              <div className="navbar__mobile-city-dropdown" role="listbox">
+                <div className="navbar__mobile-city-search">
+                  <SearchIcon size={14} strokeWidth={2} aria-hidden="true" />
+                  <input
+                    type="text"
+                    placeholder="Search city..."
+                    value={citySearch}
+                    onChange={(e) => setCitySearch(e.target.value)}
+                    className="navbar__mobile-city-search-input"
+                    autoFocus
+                  />
+                </div>
+                <div className="navbar__mobile-city-list">
+                  {filteredCities.map((city) => (
+                    <button
+                      key={city}
+                      type="button"
+                      className={`navbar__mobile-city-item ${selectedCity === city ? "navbar__mobile-city-item--active" : ""}`}
+                      onClick={() => handleSelectCity(city)}
+                    >
+                      <LocationIcon size={13} strokeWidth={2} />
+                      <span>{city}</span>
+                    </button>
+                  ))}
+                  {filteredCities.length === 0 && (
+                    <div className="navbar__mobile-city-empty">No city found</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Search Bar with Select City inside */}
           <div className="navbar__search">
@@ -169,7 +224,7 @@ export default function PrimaryNavbar() {
 
           {/* Action Links */}
           <div className="navbar__actions">
-            <a href="#" className="navbar__action">
+            <a href="#" className="navbar__action navbar__mobile-fav">
               <AnimatedIcon>
                 <FavoritesIcon size={16} strokeWidth={1.8} aria-hidden="true" />
               </AnimatedIcon>
