@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode, MouseEvent } from "react";
 import "./index.css";
 

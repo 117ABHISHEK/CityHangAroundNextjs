@@ -3,15 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import PrimaryNavbar from "./PrimaryNavbar";
 import SecondaryNavbar from "./SecondaryNavbar";
+import type { TabType } from "@/src/routes";
 
-export type TabType =
-  | "home"
-  | "community"
-  | "city-guide"
-  | "buy-sell"
-  | "marketplace"
-  | "blog"
-  | "event";
+export type { TabType };
 
 type NavbarProps = {
   activeTab?: TabType;

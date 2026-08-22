@@ -4,7 +4,7 @@ import Categories from "./components/Categories";
 import BusinessGrowth from "./components/BusinessGrowth";
 import HomeHighlights from "./components/HomeHighlights";
 import TrustAndFaq from "./components/TrustAndFaq";
-import "./base.css";
+import "./index.css";
 
 export default function HomeFeature() {
   return (

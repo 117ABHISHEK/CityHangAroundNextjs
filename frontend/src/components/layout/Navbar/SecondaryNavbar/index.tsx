@@ -2,88 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import AnimatedIcon from "@/src/components/ui/animated-icon";
-import {
-  BlogIcon,
-  BuySellIcon,
-  ChevronDown,
-  CityGuideIcon,
-  CommunityIcon,
-  EventIcons,
-  HomeIcon,
-  MarketplaceIcon,
-} from "@/src/components/ui/icons";
-import type { LucideIcon } from "@/src/components/ui/icons";
-import type { TabType } from "../index";
-
-type DropdownItem = {
-  label: string;
-  href: string;
-};
-
-type NavItem = {
-  label: string;
-  icon: LucideIcon;
-  tab: TabType;
-  hasDropdown?: boolean;
-  dropdownItems?: DropdownItem[];
-};
+import { ChevronDown } from "@/src/components/ui/icons";
+import type { TabType, RouteConfig } from "@/src/routes";
+import { routes } from "@/src/routes";
 
 type SecondaryNavbarProps = {
   activeTab?: TabType;
   onTabChange?: (tab: TabType) => void;
 };
-
-const navItems: NavItem[] = [
-  { label: "Home", icon: HomeIcon, tab: "home" },
-  {
-    label: "City Guide",
-    icon: CityGuideIcon,
-    tab: "city-guide",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Top Attractions", href: "#" },
-      { label: "Restaurants & Dining", href: "#" },
-      { label: "Nightlife & Bars", href: "#" },
-      { label: "Upcoming Events", href: "#" },
-    ],
-  },
-  {
-    label: "Buy/Sell",
-    icon: BuySellIcon,
-    tab: "buy-sell",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Vehicles & Cars", href: "#" },
-      { label: "Property & Real Estate", href: "#" },
-      { label: "Electronics & Gadgets", href: "#" },
-      { label: "Home & Furniture", href: "#" },
-    ],
-  },
-  {
-    label: "Marketplace",
-    icon: MarketplaceIcon,
-    tab: "marketplace",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Local Services", href: "#" },
-      { label: "Freelancers & Jobs", href: "#" },
-      { label: "Deals & Discounts", href: "#" },
-    ],
-  },
-  { label: "Community", icon: CommunityIcon, tab: "community" },
-  {
-    label: "Blog",
-    icon: BlogIcon,
-    tab: "blog",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "City Stories", href: "#" },
-      { label: "Local News", href: "#" },
-      { label: "Travel Tips", href: "#" },
-    ],
-  },
-  { label: "Event", icon: EventIcons, tab: "event" },
-];
 
 export default function SecondaryNavbar({
   activeTab = "home",
@@ -102,7 +28,7 @@ export default function SecondaryNavbar({
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  const handleTabClick = (e: React.MouseEvent, item: NavItem) => {
+  const handleTabClick = (e: React.MouseEvent, item: RouteConfig) => {
     e.preventDefault();
     if (item.hasDropdown) {
       setOpenDropdown((current) => (current === item.tab ? null : item.tab));
@@ -116,7 +42,7 @@ export default function SecondaryNavbar({
   return (
     <nav className="navbar__secondary" ref={navRef} aria-label="Secondary navigation">
       <div className="navbar__nav-inner">
-        {navItems.map((item) => {
+        {routes.map((item) => {
           const { label, icon: Icon, tab, hasDropdown, dropdownItems } = item;
           const isOpen = openDropdown === tab;
           const isActive = activeTab === tab;
