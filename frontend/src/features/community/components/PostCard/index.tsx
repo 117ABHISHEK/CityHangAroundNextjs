@@ -1,5 +1,8 @@
+"use client";
+
 import "./index.css";
 import Image from "next/image";
+import { FormEvent, useState } from "react";
 import {
   BookmarkIcon,
   HeartIcon,
@@ -27,8 +30,36 @@ type PostCardProps = {
 };
 
 export default function PostCard({ post }: PostCardProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState<string[]>([]);
+
+  const handleCopyLink = async () => {
+    const postLink = `${window.location.origin}${window.location.pathname}#post-${post.id}`;
+
+    await navigator.clipboard.writeText(postLink);
+    setIsMenuOpen(false);
+    alert("Post link copied");
+  };
+
+  const handleReport = () => {
+    setIsMenuOpen(false);
+    alert("Post reported");
+  };
+
+  const handleAddComment = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newComment = commentText.trim();
+    if (!newComment) return;
+
+    setComments((currentComments) => [...currentComments, newComment]);
+    setCommentText("");
+  };
+
   return (
-    <article className="community-post-card">
+    <article id={`post-${post.id}`} className="community-post-card">
       <div className="community-post-head">
         <div className="community-post-community" style={{ borderLeftColor: post.color }}>
           <span className="community-post-community-dot" style={{ background: post.color }}>
@@ -43,9 +74,32 @@ export default function PostCard({ post }: PostCardProps) {
           • Posted by <strong>{post.author}</strong> • {post.time}
         </span>
 
-        <button type="button" className="community-post-more" aria-label="More options">
-          <MoreIcon size={16} />
-        </button>
+        <div className="community-post-menu">
+          <button
+            type="button"
+            className="community-post-more"
+            aria-label="More options"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            <MoreIcon size={16} />
+          </button>
+
+          {isMenuOpen && (
+            <div className="community-post-menu__dropdown">
+              <button type="button" onClick={handleCopyLink}>
+                Copy link
+              </button>
+              <button
+                type="button"
+                className="community-post-menu__report"
+                onClick={handleReport}
+              >
+                Report
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <h3 className="community-post-title">{post.title}</h3>
@@ -84,9 +138,14 @@ export default function PostCard({ post }: PostCardProps) {
           </button>
         </div>
 
-        <button type="button" className="community-post-action">
+        <button
+          type="button"
+          className="community-post-action"
+          aria-expanded={isCommentsOpen}
+          onClick={() => setIsCommentsOpen((open) => !open)}
+        >
           <MessageIcon size={14} />
-          {post.comments} Comments
+          {post.comments + comments.length} Comments
         </button>
 
         <button type="button" className="community-post-action">
@@ -98,6 +157,32 @@ export default function PostCard({ post }: PostCardProps) {
           <BookmarkIcon size={14} />
         </button>
       </div>
+
+      {isCommentsOpen && (
+        <section className="community-comments" aria-label="Comments">
+          {comments.length > 0 && (
+            <div className="community-comments__list">
+              {comments.map((comment, index) => (
+                <div key={`${comment}-${index}`} className="community-comments__item">
+                  <strong>You</strong>
+                  <p>{comment}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <form className="community-comments__form" onSubmit={handleAddComment}>
+            <input
+              type="text"
+              value={commentText}
+              onChange={(event) => setCommentText(event.target.value)}
+              placeholder="Write a comment..."
+              aria-label="Write a comment"
+            />
+            <button type="submit">Comment</button>
+          </form>
+        </section>
+      )}
     </article>
   );
 }

@@ -176,6 +176,108 @@
   border-radius: 8px;
 }
 
+.community-post-menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.community-post-menu__dropdown {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 130px;
+  padding: 6px;
+  border: 1px solid var(--community-border);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+.community-post-menu__dropdown button {
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  padding: 9px 10px;
+  text-align: left;
+  color: #344054;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.community-post-menu__dropdown button:hover {
+  background: #f2f4f7;
+}
+
+.community-post-menu__dropdown .community-post-menu__report {
+  color: #d92d20;
+}
+
+.community-post-menu__dropdown .community-post-menu__report:hover {
+  background: #fef3f2;
+}
+
+.community-comments {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f2f5;
+}
+
+.community-comments__list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.community-comments__item {
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: #f7f7f8;
+  color: #475467;
+  font-size: 13px;
+}
+
+.community-comments__item strong {
+  color: #161c27;
+  font-size: 12px;
+}
+
+.community-comments__item p {
+  margin: 3px 0 0;
+}
+
+.community-comments__form {
+  display: flex;
+  gap: 8px;
+}
+
+.community-comments__form input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--community-border);
+  border-radius: 9px;
+  padding: 9px 11px;
+  color: #344054;
+  font: inherit;
+}
+
+.community-comments__form input:focus {
+  outline: 2px solid rgba(232, 67, 44, 0.2);
+  border-color: var(--community-accent);
+}
+
+.community-comments__form button {
+  border: 0;
+  border-radius: 9px;
+  background: var(--community-accent);
+  padding: 9px 13px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @media (max-width: 760px) {
   .community-post-footer {
     gap: 8px;
