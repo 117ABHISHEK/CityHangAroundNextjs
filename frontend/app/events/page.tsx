@@ -1,12 +1,12 @@
+import type { Metadata } from "next";
+import EventHome from "@/src/features/events/eventHome";
+
+export const metadata: Metadata = {
+  title: "Events in Ahmedabad & Gujarat | CityHangAround",
+  description:
+    "Discover upcoming tech summits, food festivals, music concerts, and workshops happening in Ahmedabad and Gandhinagar.",
+};
+
 export default function EventsPage() {
-  return (
-    <main style={{ padding: "40px 24px", textAlign: "center" }}>
-      <h1 style={{ fontSize: "28px", fontWeight: 700, marginBottom: "12px" }}>
-        Events
-      </h1>
-      <p style={{ color: "#6b7280", fontSize: "16px" }}>
-        Coming soon — explore local events, concerts, festivals and more.
-      </p>
-    </main>
-  );
+  return <EventHome />;
 }

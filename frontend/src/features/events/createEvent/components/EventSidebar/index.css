@@ -1,0 +1,155 @@
+.event-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-sidebar__stepper {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.event-sidebar__header-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.event-sidebar__header-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 20px;
+  line-height: 1.4;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.event-sidebar__steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-sidebar__step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.event-sidebar__step-item:hover {
+  background: #f8fafc;
+}
+
+.event-sidebar__step-item--active {
+  background: #fff8f6;
+  border-color: #ffd4cb;
+}
+
+.event-sidebar__step-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.event-sidebar__step-item--active .event-sidebar__step-indicator {
+  background: #e8432c;
+  color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(232, 67, 44, 0.2);
+}
+
+.event-sidebar__step-item--completed .event-sidebar__step-indicator {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.event-sidebar__check-icon {
+  stroke-width: 3;
+}
+
+.event-sidebar__step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event-sidebar__step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.event-sidebar__step-item--active .event-sidebar__step-title {
+  color: #e8432c;
+}
+
+.event-sidebar__step-desc {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.event-sidebar__help-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  padding: 20px;
+  border-radius: 16px;
+  color: #ffffff;
+}
+
+.event-sidebar__help-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.event-sidebar__help-icon {
+  color: #ff765b;
+}
+
+.event-sidebar__help-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.event-sidebar__help-text {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+
+.event-sidebar__help-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff8c75;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.event-sidebar__help-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
