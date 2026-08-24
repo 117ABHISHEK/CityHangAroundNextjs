@@ -39,15 +39,26 @@ CityHangAroundNextjs/
 
 ```
 frontend/
-├── app/                          # Next.js App Router (root only)
+├── app/                          # Next.js App Router (file-based routes)
 │   ├── layout.tsx                # Root layout (fonts, providers, metadata)
-│   ├── page.tsx                  # Home page (tab-based routing)
+│   ├── page.tsx                  # Home page → src/features/home
+│   ├── not-found.tsx             # Custom 404 page
 │   ├── globals.css               # Global styles + Tailwind import
-│   └── favicon.ico               # Browser tab icon
+│   ├── favicon.ico               # Browser tab icon
+│   ├── community/page.tsx        # /community route → src/features/community
+│   ├── events/page.tsx           # /events route (placeholder)
+│   ├── city-guide/page.tsx       # /city-guide route (placeholder)
+│   ├── buy-sell/page.tsx         # /buy-sell route (placeholder)
+│   ├── marketplace/page.tsx      # /marketplace route (placeholder)
+│   └── blog/page.tsx             # /blog route (placeholder)
 │
 ├── src/
+│   ├── routes/                   # Centralized route configuration
+│   │   └── index.ts              # Route definitions, TabType, pathToTab, tabToPath
+│   │
 │   ├── components/               # Shared, reusable components
 │   │   ├── layout/               # App shell components
+│   │   │   ├── ClientLayout.tsx   # Client wrapper (navbar + footer + routing)
 │   │   │   ├── Navbar/           # Top navigation (primary + secondary)
 │   │   │   │   ├── index.tsx     # Navbar shell (scroll hide/show)
 │   │   │   │   ├── index.css     # Navbar styles
@@ -63,7 +74,7 @@ frontend/
 │   │       ├── icons.tsx         # All Lucide icon re-exports
 │   │       ├── animated-icon.tsx # Animated icon wrapper
 │   │       ├── letter-swap-3d/   # 3D letter flip animation
-│   │       └── magic-card/       # 3D tilt card component
+│   │       └── magic-card/       # 3D tilt card component (Client Component)
 │   │
 │   ├── features/                 # Feature-based modules
 │   │   ├── home/                 # ⭐ Homepage (main focus)
@@ -103,55 +114,45 @@ frontend/
 
 ## How Routing Works
 
-This project uses a **tab-based SPA pattern** on the home page rather than traditional file-based routes.
+This project uses **Next.js App Router** with file-based routing. Each route has its own `page.tsx` under `app/`. Navigation between routes is handled by `ClientLayout`, which reads the current pathname and maps it to the active navbar tab.
 
-### Home Page (`app/page.tsx`)
+### Route → Page Mapping
 
-The root page renders a tab switcher with Navbar. Clicking tabs in the secondary navbar swaps the visible feature:
+| Route | Page | Source |
+|-------|------|--------|
+| `/` | Home | `app/page.tsx` → `src/features/home/` |
+| `/community` | Community | `app/community/page.tsx` → `src/features/community/` |
+| `/events` | Events | `app/events/page.tsx` (placeholder) |
+| `/city-guide` | City Guide | `app/city-guide/page.tsx` (placeholder) |
+| `/buy-sell` | Buy/Sell | `app/buy-sell/page.tsx` (placeholder) |
+| `/marketplace` | Marketplace | `app/marketplace/page.tsx` (placeholder) |
+| `/blog` | Blog | `app/blog/page.tsx` (placeholder) |
+| *(any other)* | 404 | `app/not-found.tsx` |
 
-```tsx
-// app/page.tsx
-"use client";
-import { useState } from "react";
-import Navbar from "@/src/components/layout/Navbar";
-import Footer from "@/src/components/layout/Footer";
-import HomeFeature from "@/src/features/home";
-import CommunitySection from "@/src/features/community";
+### Centralized Route Config (`src/routes/index.ts`)
 
-type TabType = "home" | "community" | "city-guide" | "buy-sell" | "marketplace" | "blog" | "event";
+All route definitions live in `src/routes/index.ts`. This file exports:
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabType>("home");
+- **`RouteConfig` type** — shape of each route (tab, path, label, icon, dropdown items)
+- **`TabType`** — union type of all tab identifiers
+- **`routes` array** — single source of truth for all routes and their metadata
+- **`pathToTab`** — auto-derived `path → tab` lookup map
+- **`tabToPath`** — auto-derived `tab → path` lookup map
 
-  return (
-    <div>
-      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
-      {activeTab === "home" && <HomeFeature />}
-      {activeTab === "community" && <CommunitySection />}
-      <Footer />
-    </div>
-  );
-}
-```
+### ClientLayout (`src/components/layout/ClientLayout.tsx`)
 
-### Tab → Feature Mapping
+Wraps every page with the Navbar and Footer. It:
+1. Reads the current `pathname` via `usePathname()`
+2. Looks up the active tab via `pathToTab[pathname]`
+3. On tab click, navigates via `router.push(tabToPath[tab])`
 
-| Tab | Feature Component | Source |
-|-----|------------------|--------|
-| Home | `<HomeFeature />` | `src/features/home/` |
-| Community | `<CommunitySection />` | `src/features/community/` |
-| City Guide | *(to be built)* | — |
-| Buy/Sell | *(to be built)* | — |
-| Marketplace | *(to be built)* | — |
-| Blog | *(to be built)* | — |
-| Event | *(to be built)* | — |
+### Adding a New Route
 
-### Adding a New Tab
+1. Add an entry to the `routes` array in `src/routes/index.ts`
+2. Create `app/<route>/page.tsx` with your page component
+3. (Optional) Create a feature module in `src/features/<feature>/` if needed
 
-1. Create `src/features/yourfeature/index.tsx`
-2. Add the tab type to `TabType` in `app/page.tsx`
-3. Import the component and add `{activeTab === "your-tab" && <YourFeature />}`
-4. Add the nav item in `SecondaryNavbar` nav items array
+> **No other files need changes** — `ClientLayout`, `Navbar`, and `SecondaryNavbar` all read from `src/routes/index.ts`.
 
 ---
 
@@ -457,12 +458,13 @@ docker run --rm -p 3000:3000 -p 9000:9000 cityhangaround
 
 ## Development Guidelines
 
-### Adding a New Tab to the Homepage
+### Adding a New Route
 
-1. Create `src/features/yourfeature/index.tsx`
-2. Add the tab type to `TabType` in `app/page.tsx`
-3. Import and render: `{activeTab === "your-tab" && <YourFeature />}`
-4. Add the nav item in `src/components/layout/Navbar/SecondaryNavbar/index.tsx`
+1. Add an entry to the `routes` array in `src/routes/index.ts` (includes tab, path, label, icon, and optional dropdown items)
+2. Create `app/<route>/page.tsx` with your page component
+3. (Optional) Create a feature module in `src/features/<feature>/` and have the page component import it
+
+> All nav, tab mapping, and path resolution is derived from the single `routes` array — no other files need changes.
 
 ### Adding a New Section to the Homepage
 
