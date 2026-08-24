@@ -12,57 +12,57 @@ type SecondaryNavbarProps = {
   onTabChange?: (tab: TabType) => void;
 };
 
-const navItems: NavItem[] = [
-  { label: "Home", icon: HomeIcon, tab: "home" },
-  {
-    label: "City Guide",
-    icon: CityGuideIcon,
-    tab: "city-guide",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Top Attractions", href: "#" },
-      { label: "Restaurants & Dining", href: "#" },
-      { label: "Nightlife & Bars", href: "#" },
-      { label: "Upcoming Events", href: "/events" },
-    ],
-  },
-  {
-    label: "Buy/Sell",
-    icon: BuySellIcon,
-    tab: "buy-sell",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Vehicles & Cars", href: "#" },
-      { label: "Property & Real Estate", href: "#" },
-      { label: "Electronics & Gadgets", href: "#" },
-      { label: "Home & Furniture", href: "#" },
-    ],
-  },
-  {
-    label: "Marketplace",
-    icon: MarketplaceIcon,
-    tab: "marketplace",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "Local Services", href: "#" },
-      { label: "Freelancers & Jobs", href: "#" },
-      { label: "Deals & Discounts", href: "#" },
-    ],
-  },
-  { label: "Community", icon: CommunityIcon, tab: "community" },
-  {
-    label: "Blog",
-    icon: BlogIcon,
-    tab: "blog",
-    hasDropdown: true,
-    dropdownItems: [
-      { label: "City Stories", href: "#" },
-      { label: "Local News", href: "#" },
-      { label: "Travel Tips", href: "#" },
-    ],
-  },
-  { label: "Event", icon: EventIcons, tab: "event" },
-];
+// const navItems: NavItem[] = [
+//   { label: "Home", icon: HomeIcon, tab: "home" },
+//   {
+//     label: "City Guide",
+//     icon: CityGuideIcon,
+//     tab: "city-guide",
+//     hasDropdown: true,
+//     dropdownItems: [
+//       { label: "Top Attractions", href: "#" },
+//       { label: "Restaurants & Dining", href: "#" },
+//       { label: "Nightlife & Bars", href: "#" },
+//       { label: "Upcoming Events", href: "/events" },
+//     ],
+//   },
+//   {
+//     label: "Buy/Sell",
+//     icon: BuySellIcon,
+//     tab: "buy-sell",
+//     hasDropdown: true,
+//     dropdownItems: [
+//       { label: "Vehicles & Cars", href: "#" },
+//       { label: "Property & Real Estate", href: "#" },
+//       { label: "Electronics & Gadgets", href: "#" },
+//       { label: "Home & Furniture", href: "#" },
+//     ],
+//   },
+//   {
+//     label: "Marketplace",
+//     icon: MarketplaceIcon,
+//     tab: "marketplace",
+//     hasDropdown: true,
+//     dropdownItems: [
+//       { label: "Local Services", href: "#" },
+//       { label: "Freelancers & Jobs", href: "#" },
+//       { label: "Deals & Discounts", href: "#" },
+//     ],
+//   },
+//   { label: "Community", icon: CommunityIcon, tab: "community" },
+//   {
+//     label: "Blog",
+//     icon: BlogIcon,
+//     tab: "blog",
+//     hasDropdown: true,
+//     dropdownItems: [
+//       { label: "City Stories", href: "#" },
+//       { label: "Local News", href: "#" },
+//       { label: "Travel Tips", href: "#" },
+//     ],
+//   },
+//   { label: "Event", icon: EventIcons, tab: "event" },
+// ];
 
 export default function SecondaryNavbar({
   activeTab = "home",
