@@ -34,6 +34,11 @@ export default function PostCard({ post }: PostCardProps) {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState<string[]>([]);
+  const [vote, setVote] = useState<"up" | "down" | null>(null);
+  const [isSaved, setIsSaved] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0]]);
+
+  const voteCount = post.votes + (vote === "up" ? 1 : vote === "down" ? -1 : 0);
 
   const handleCopyLink = async () => {
     const postLink = `${window.location.origin}${window.location.pathname}#post-${post.id}`;
@@ -46,6 +51,33 @@ export default function PostCard({ post }: PostCardProps) {
   const handleReport = () => {
     setIsMenuOpen(false);
     alert("Post reported");
+  };
+
+  const handleVote = (nextVote: "up" | "down") => {
+    setVote((currentVote) => (currentVote === nextVote ? null : nextVote));
+  };
+
+  const handleTagToggle = (tag: string) => {
+    setSelectedTags((currentTags) =>
+      currentTags.includes(tag)
+        ? currentTags.filter((currentTag) => currentTag !== tag)
+        : [...currentTags, tag],
+    );
+  };
+
+  const handleShare = async () => {
+    const postLink = `${window.location.origin}${window.location.pathname}#post-${post.id}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: post.title, text: post.body, url: postLink });
+      } else {
+        await navigator.clipboard.writeText(postLink);
+        alert("Post link copied");
+      }
+    } catch {
+      // Sharing can be cancelled by the user.
+    }
   };
 
   const handleAddComment = (event: FormEvent<HTMLFormElement>) => {
@@ -121,19 +153,37 @@ export default function PostCard({ post }: PostCardProps) {
 
       <div className="community-post-tags">
         {post.tags.map((tag, index) => (
-          <span key={`${tag}-${index}`} className="community-post-tag">
+          <button
+            key={`${tag}-${index}`}
+            type="button"
+            className={`community-post-tag${selectedTags.includes(tag) ? " is-active" : ""}`}
+            aria-pressed={selectedTags.includes(tag)}
+            onClick={() => handleTagToggle(tag)}
+          >
             {tag}
-          </span>
+          </button>
         ))}
       </div>
 
       <div className="community-post-footer">
-        <div className="community-post-votes" aria-label={`Votes: ${post.votes}`}>
-          <button type="button" className="community-vote-button" aria-label="Upvote">
+        <div className="community-post-votes" aria-label={`Votes: ${voteCount}`}>
+          <button
+            type="button"
+            className={`community-vote-button${vote === "up" ? " is-active" : ""}`}
+            aria-label="Upvote"
+            aria-pressed={vote === "up"}
+            onClick={() => handleVote("up")}
+          >
             <HeartIcon size={14} />
           </button>
-          <span>{post.votes}</span>
-          <button type="button" className="community-vote-button is-down" aria-label="Downvote">
+          <span>{voteCount}</span>
+          <button
+            type="button"
+            className={`community-vote-button is-down${vote === "down" ? " is-active" : ""}`}
+            aria-label="Downvote"
+            aria-pressed={vote === "down"}
+            onClick={() => handleVote("down")}
+          >
             <HeartIcon size={14} />
           </button>
         </div>
@@ -148,12 +198,18 @@ export default function PostCard({ post }: PostCardProps) {
           {post.comments + comments.length} Comments
         </button>
 
-        <button type="button" className="community-post-action">
+        <button type="button" className="community-post-action" onClick={handleShare}>
           <Share2Icon size={14} />
           Share
         </button>
 
-        <button type="button" className="community-post-bookmark" aria-label="Save post">
+        <button
+          type="button"
+          className={`community-post-bookmark${isSaved ? " is-active" : ""}`}
+          aria-label={isSaved ? "Unsave post" : "Save post"}
+          aria-pressed={isSaved}
+          onClick={() => setIsSaved((saved) => !saved)}
+        >
           <BookmarkIcon size={14} />
         </button>
       </div>
