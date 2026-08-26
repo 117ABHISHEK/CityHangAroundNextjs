@@ -105,44 +105,65 @@ export default function Categories() {
 
   /* ----------------------------------------------------------
      IntersectionObserver: auto-activate the most-visible card
-     in the mobile carousel.
+     in the mobile carousel (≤560px). On desktop, :hover alone
+     drives the card animation, so the observer must stay off.
   ---------------------------------------------------------- */
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        /* Find the entry with the largest intersection ratio */
-        let best: IntersectionObserverEntry | null = null;
-        for (const entry of entries) {
-          if (
-            entry.isIntersecting &&
-            (!best || entry.intersectionRatio > best.intersectionRatio)
-          ) {
-            best = entry;
+    const mql = window.matchMedia("(max-width: 560px)");
+    let observer: IntersectionObserver | null = null;
+
+    function connect() {
+      observer?.disconnect();
+      observer = null;
+
+      /* Desktop: clear any stale active index so only :hover works */
+      if (!mql.matches) {
+        setActiveIndex(null);
+        return;
+      }
+
+      /* Mobile: observe cards for carousel auto-activation */
+      observer = new IntersectionObserver(
+        (entries) => {
+          let best: IntersectionObserverEntry | null = null;
+          for (const entry of entries) {
+            if (
+              entry.isIntersecting &&
+              (!best || entry.intersectionRatio > best.intersectionRatio)
+            ) {
+              best = entry;
+            }
           }
-        }
 
-        if (best) {
-          const idx = cardRefs.current.indexOf(
-            best.target as HTMLElement,
-          );
-          if (idx !== -1) setActiveIndex(idx);
-        }
-      },
-      {
-        root: grid,          /* scroll container itself */
-        rootMargin: "0px",
-        threshold: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-      },
-    );
+          if (best) {
+            const idx = cardRefs.current.indexOf(
+              best.target as HTMLElement,
+            );
+            if (idx !== -1) setActiveIndex(idx);
+          }
+        },
+        {
+          root: grid,
+          rootMargin: "0px",
+          threshold: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        },
+      );
 
-    for (const el of cardRefs.current) {
-      if (el) observer.observe(el);
+      for (const el of cardRefs.current) {
+        if (el) observer.observe(el);
+      }
     }
 
-    return () => observer.disconnect();
+    connect();
+    mql.addEventListener("change", connect);
+
+    return () => {
+      observer?.disconnect();
+      mql.removeEventListener("change", connect);
+    };
   }, []);
 
   return (
