@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import AuthModal, { type AuthMode } from "@/src/features/auth";
 import AnimatedIcon from "@/src/components/ui/animated-icon";
+import { getCities } from "@/src/services/home";
+
+type CityItem = { id: number; city_name: string; city_slug: string; city_image: string | null };
 import {
   AddIcon,
   ChevronDown,
@@ -14,23 +17,7 @@ import {
   SearchIcon,
 } from "@/src/components/ui/icons";
 
-const CITIES = [
-  "Kolkata",
-  "Delhi",
-  "Mumbai",
-  "Bangalore",
-  "Hyderabad",
-  "Chennai",
-  "Pune",
-  "Ahmedabad",
-  "Jaipur",
-  "Surat",
-  "Lucknow",
-  "Chandigarh",
-  "Indore",
-  "Kochi",
-  "Goa",
-];
+const CITY_STORAGE_KEY = "cha_selected_city";
 
 export default function PrimaryNavbar() {
   const [authOpen, setAuthOpen] = useState(false);
@@ -38,9 +25,31 @@ export default function PrimaryNavbar() {
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState<string>("Select City");
   const [citySearch, setCitySearch] = useState("");
+  const [cities, setCities] = useState<CityItem[]>([]);
 
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const mobileCityRef = useRef<HTMLDivElement>(null);
+
+  // Fetch cities from the Laravel backend API on mount
+  useEffect(() => {
+    const loadCities = async () => {
+      try {
+        const data = await getCities();
+        setCities(data);
+
+        // Restore previously selected city from localStorage
+        const saved = localStorage.getItem(CITY_STORAGE_KEY);
+        if (saved) {
+          const match = data.find((c) => c.city_name === saved);
+          if (match) setSelectedCity(match.city_name);
+        }
+      } catch (err) {
+        console.error("Failed to load cities:", err);
+        // Gracefully degrade — dropdown stays empty
+      }
+    };
+    loadCities();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,14 +64,15 @@ export default function PrimaryNavbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const filteredCities = CITIES.filter((city) =>
-    city.toLowerCase().includes(citySearch.toLowerCase())
+  const filteredCities = cities.filter((city) =>
+    city.city_name.toLowerCase().includes(citySearch.toLowerCase())
   );
 
-  const handleSelectCity = (city: string) => {
-    setSelectedCity(city);
+  const handleSelectCity = (cityName: string) => {
+    setSelectedCity(cityName);
     setCityDropdownOpen(false);
     setCitySearch("");
+    localStorage.setItem(CITY_STORAGE_KEY, cityName);
   };
 
   return (
@@ -127,13 +137,13 @@ export default function PrimaryNavbar() {
                 <div className="navbar__mobile-city-list">
                   {filteredCities.map((city) => (
                     <button
-                      key={city}
+                      key={city.id}
                       type="button"
-                      className={`navbar__mobile-city-item ${selectedCity === city ? "navbar__mobile-city-item--active" : ""}`}
-                      onClick={() => handleSelectCity(city)}
+                      className={`navbar__mobile-city-item ${selectedCity === city.city_name ? "navbar__mobile-city-item--active" : ""}`}
+                      onClick={() => handleSelectCity(city.city_name)}
                     >
                       <LocationIcon size={13} strokeWidth={2} />
-                      <span>{city}</span>
+                      <span>{city.city_name}</span>
                     </button>
                   ))}
                   {filteredCities.length === 0 && (
@@ -183,13 +193,13 @@ export default function PrimaryNavbar() {
                   <div className="navbar__city-options">
                     {filteredCities.map((city) => (
                       <button
-                        key={city}
+                        key={city.id}
                         type="button"
-                        className={`navbar__city-item ${selectedCity === city ? "navbar__city-item--active" : ""}`}
-                        onClick={() => handleSelectCity(city)}
+                        className={`navbar__city-item ${selectedCity === city.city_name ? "navbar__city-item--active" : ""}`}
+                        onClick={() => handleSelectCity(city.city_name)}
                       >
                         <LocationIcon size={13} strokeWidth={2} />
-                        <span>{city}</span>
+                        <span>{city.city_name}</span>
                       </button>
                     ))}
                     {filteredCities.length === 0 && (
