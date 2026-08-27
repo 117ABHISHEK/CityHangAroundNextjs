@@ -4,8 +4,9 @@ import "./index.css";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import {
+  ArrowDownIcon,
+  ArrowUpIcon,
   BookmarkIcon,
-  HeartIcon,
   MessageIcon,
   MoreIcon,
   Share2Icon,
@@ -174,7 +175,7 @@ export default function PostCard({ post }: PostCardProps) {
             aria-pressed={vote === "up"}
             onClick={() => handleVote("up")}
           >
-            <HeartIcon size={14} />
+            <ArrowUpIcon size={14} />
           </button>
           <span>{voteCount}</span>
           <button
@@ -184,7 +185,7 @@ export default function PostCard({ post }: PostCardProps) {
             aria-pressed={vote === "down"}
             onClick={() => handleVote("down")}
           >
-            <HeartIcon size={14} />
+            <ArrowDownIcon size={14} />
           </button>
         </div>
 

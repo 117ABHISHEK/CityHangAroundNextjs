@@ -13,6 +13,8 @@ export {
   MapPinSearch as LocationIcon,
   Megaphone as AdvertiseIcon,
   ArrowRight as ArrowRightIcon,
+  ArrowUp as ArrowUpIcon,
+  ArrowDown as ArrowDownIcon,
   BarChart3 as ChartIcon,
   CalendarDays as CalendarIcon,
   Check as CheckIcon,
