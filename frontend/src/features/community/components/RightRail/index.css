@@ -17,10 +17,20 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 11px;
   color: #fff;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
+
+  box-shadow:
+    -2px -2px 5px rgba(255, 255, 255, 0.9),
+    3px 3px 7px rgba(180, 180, 180, 0.2);
+
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.community-person-item:hover .community-person-avatar {
+  transform: translateY(-2px);
 }
 
 .community-person-info {
@@ -47,9 +57,22 @@
 
 .community-highlight-card {
   overflow: hidden;
-  border: 1px solid var(--community-border);
+  border: 1px solid #e5e5e8;
   border-radius: 16px;
   background: linear-gradient(180deg, #f8f3ef, #fff);
+
+  box-shadow:
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    5px 6px 14px rgba(180, 180, 180, 0.2);
+
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease;
+}
+
+.community-highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    -5px -5px 12px rgba(255, 255, 255, 0.95),
+    7px 9px 18px rgba(160, 160, 160, 0.25);
 }
 
 .community-highlight-card__image {
@@ -71,10 +94,26 @@
 
 .community-highlight-card__content button {
   border: 0;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #e8432c, #ff7d5b);
-  padding: 10px 16px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #ef452f, #ff6f4d);
+  padding: 10px 18px;
   color: white;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 13px;
   cursor: pointer;
+
+  box-shadow:
+    0 2px 0 rgba(239, 69, 47, 0.08),
+    0 4px 12px rgba(239, 69, 47, 0.15);
+
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms ease;
+}
+
+.community-highlight-card__content button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 3px 0 rgba(239, 69, 47, 0.1),
+    0 8px 20px rgba(239, 69, 47, 0.2);
 }
