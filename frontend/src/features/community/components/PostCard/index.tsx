@@ -5,9 +5,9 @@ import Image from "next/image";
 import { FormEvent, useState } from "react";
 import MagicCard from "@/src/components/ui/magic-card";
 import {
-  BookmarkIcon,
-  ArrowUpIcon,
   ArrowDownIcon,
+  ArrowUpIcon,
+  BookmarkIcon,
   MessageIcon,
   MoreIcon,
   Share2Icon,
@@ -39,7 +39,7 @@ export default function PostCard({ post }: PostCardProps) {
   const [vote, setVote] = useState<"up" | "down" | null>(null);
   const [isSaved, setIsSaved] = useState(false);
   const [isShared, setIsShared] = useState(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0]]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0] ?? ""]);
 
   const voteCount = post.votes + (vote === "up" ? 1 : vote === "down" ? -1 : 0);
 
