@@ -8,11 +8,6 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   BookmarkIcon,
-<<<<<<< HEAD
-=======
-  ArrowUpIcon,
-  ArrowDownIcon,
->>>>>>> origin/main
   MessageIcon,
   MoreIcon,
   Share2Icon,
@@ -44,7 +39,7 @@ export default function PostCard({ post }: PostCardProps) {
   const [vote, setVote] = useState<"up" | "down" | null>(null);
   const [isSaved, setIsSaved] = useState(false);
   const [isShared, setIsShared] = useState(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0]]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0] ?? ""]);
 
   const voteCount = post.votes + (vote === "up" ? 1 : vote === "down" ? -1 : 0);
 
@@ -151,136 +146,6 @@ export default function PostCard({ post }: PostCardProps) {
         <h3 className="community-post-title">{post.title}</h3>
         <p className="community-post-body">{post.body}</p>
 
-<<<<<<< HEAD
-        <div className="community-post-menu">
-          <button
-            type="button"
-            className="community-post-more"
-            aria-label="More options"
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((open) => !open)}
-          >
-            <MoreIcon size={16} />
-          </button>
-
-          {isMenuOpen && (
-            <div className="community-post-menu__dropdown">
-              <button type="button" onClick={handleCopyLink}>
-                Copy link
-              </button>
-              <button
-                type="button"
-                className="community-post-menu__report"
-                onClick={handleReport}
-              >
-                Report
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <h3 className="community-post-title">{post.title}</h3>
-      <p className="community-post-body">{post.body}</p>
-
-      {post.image ? (
-        <div className="community-post-image-wrap">
-          <Image
-            src={post.image}
-            alt={post.title}
-            width={1200}
-            height={450}
-            className="community-post-image"
-            priority={false}
-            unoptimized
-          />
-        </div>
-      ) : null}
-
-      <div className="community-post-tags">
-        {post.tags.map((tag, index) => (
-          <button
-            key={`${tag}-${index}`}
-            type="button"
-            className={`community-post-tag${selectedTags.includes(tag) ? " is-active" : ""}`}
-            aria-pressed={selectedTags.includes(tag)}
-            onClick={() => handleTagToggle(tag)}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
-
-      <div className="community-post-footer">
-        <div className="community-post-votes" aria-label={`Votes: ${voteCount}`}>
-          <button
-            type="button"
-            className={`community-vote-button${vote === "up" ? " is-active" : ""}`}
-            aria-label="Upvote"
-            aria-pressed={vote === "up"}
-            onClick={() => handleVote("up")}
-          >
-            <ArrowUpIcon size={14} />
-          </button>
-          <span>{voteCount}</span>
-          <button
-            type="button"
-            className={`community-vote-button is-down${vote === "down" ? " is-active" : ""}`}
-            aria-label="Downvote"
-            aria-pressed={vote === "down"}
-            onClick={() => handleVote("down")}
-          >
-            <ArrowDownIcon size={14} />
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="community-post-action"
-          aria-expanded={isCommentsOpen}
-          onClick={() => setIsCommentsOpen((open) => !open)}
-        >
-          <MessageIcon size={14} />
-          {post.comments + comments.length} Comments
-        </button>
-
-        <button type="button" className="community-post-action" onClick={handleShare}>
-          <Share2Icon size={14} />
-          Share
-        </button>
-
-        <button
-          type="button"
-          className={`community-post-bookmark${isSaved ? " is-active" : ""}`}
-          aria-label={isSaved ? "Unsave post" : "Save post"}
-          aria-pressed={isSaved}
-          onClick={() => setIsSaved((saved) => !saved)}
-        >
-          <BookmarkIcon size={14} />
-        </button>
-      </div>
-
-      {isCommentsOpen && (
-        <section className="community-comments" aria-label="Comments">
-          {comments.length > 0 && (
-            <div className="community-comments__list">
-              {comments.map((comment, index) => (
-                <div key={`${comment}-${index}`} className="community-comments__item">
-                  <strong>You</strong>
-                  <p>{comment}</p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <form className="community-comments__form" onSubmit={handleAddComment}>
-            <input
-              type="text"
-              value={commentText}
-              onChange={(event) => setCommentText(event.target.value)}
-              placeholder="Write a comment..."
-              aria-label="Write a comment"
-=======
         {post.image ? (
           <div className="community-post-image-wrap">
             <Image
@@ -291,7 +156,6 @@ export default function PostCard({ post }: PostCardProps) {
               className="community-post-image"
               priority={false}
               unoptimized
->>>>>>> origin/main
             />
           </div>
         ) : null}
