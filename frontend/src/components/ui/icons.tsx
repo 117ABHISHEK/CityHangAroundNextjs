@@ -37,6 +37,8 @@ export {
   Flame as FireIcon,
   Clock3 as ClockIcon,
   Heart as HeartIcon,
+  ArrowBigUpDash  as ArrowUpIcon,
+  ArrowBigDownDash  as ArrowDownIcon,
   MessageCircle as MessageIcon,
   Share2 as Share2Icon,
   Bookmark as BookmarkIcon,
