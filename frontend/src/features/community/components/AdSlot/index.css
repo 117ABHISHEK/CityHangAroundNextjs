@@ -1,10 +1,10 @@
 .community-ad-slot {
   display: block;
   overflow: hidden;
-  border: 1px solid var(--community-border);
+  border: 1px solid #e5e5e8;
   border-radius: 16px;
   background: linear-gradient(135deg, #e7ecf4, #ffffff);
-  box-shadow: var(--community-shadow);
+  box-shadow: var(--community-shadow, 0 10px 24px rgba(15, 23, 42, 0.08));
   transition: transform 240ms ease, box-shadow 240ms ease;
 }
 
@@ -70,12 +70,12 @@
 
 .community-ad-slot__content button {
   border: 0;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #e8432c, #ff7d5b);
-  padding: 9px 14px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #ef452f, #ff6f4d);
+  padding: 10px 16px;
   color: #fff;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }

@@ -9,26 +9,28 @@
   align-items: center;
   gap: 10px;
   padding: 9px 14px;
-  border-radius: 10px;
+  border-radius: 11px;
   color: #374151;
   font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  font-weight: 600;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .community-side-link:hover {
-  background: rgba(232, 67, 44, 0.05);
-  color: var(--community-accent);
-  transform: translateX(2px);
+  background: rgba(239, 69, 47, 0.06);
+  color: #ef452f;
+  transform: translateX(3px);
 }
 
 .community-side-link.is-active {
-  background: rgba(232, 67, 44, 0.08);
-  color: var(--community-accent);
+  background: linear-gradient(135deg, #fff3f0, #ffe8e3);
+  color: #ef452f;
 }
 
-.community-side-icon,
-.community-side-avatar {
+.community-side-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +38,23 @@
   height: 24px;
   border-radius: 8px;
   font-size: 13px;
+  color: #697180;
+  transition: color 200ms ease;
+}
+
+.community-side-link:hover .community-side-icon,
+.community-side-link.is-active .community-side-icon {
+  color: #ef452f;
+}
+
+.community-side-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 12px;
 }
 
 .community-side-avatar {

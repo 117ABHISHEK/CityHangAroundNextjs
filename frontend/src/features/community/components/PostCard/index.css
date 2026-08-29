@@ -1,48 +1,107 @@
+/* =========================================================
+   POST CARD — Home-page inspired redesign
+========================================================= */
+
 .community-post-card {
   padding: 16px 18px 12px;
-  background: var(--community-card);
-  border: 1px solid var(--community-border);
+  background: var(--community-card, #ffffff);
+  border: 1px solid var(--community-border, #e5e7eb);
   border-radius: 16px;
   box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
   animation: community-post-border-pulse 5s ease-in-out infinite;
 }
 
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .community-post-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
+
+
+/* =========================================================
+   COMMUNITY BADGE
+========================================================= */
 
 .community-post-community {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border-left: 3px solid var(--community-accent);
-  padding-left: 8px;
+  gap: 9px;
 }
 
-.community-post-community-dot {
+
+.community-post-community-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 11px;
+
   color: #fff;
-  font-size: 12px;
+  font-size: 15px;
+
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    4px 4px 10px rgba(180, 180, 180, 0.3);
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease;
 }
 
-.community-post-community-name {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #161c27;
+
+.community-post-card:hover .community-post-community-icon {
+  transform: translateY(-2px) rotate(4deg);
+
+  box-shadow:
+    -4px -4px 9px rgba(255, 255, 255, 0.98),
+    5px 6px 12px rgba(160, 160, 160, 0.35),
+    0 0 0 4px rgba(239, 69, 47, 0.06);
 }
+
+
+.community-post-community-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #171923;
+  letter-spacing: -0.01em;
+  transition: color 200ms ease;
+}
+
+
+.community-post-card:hover .community-post-community-name {
+  color: #ef452f;
+}
+
+
+/* =========================================================
+   META
+========================================================= */
 
 .community-post-meta {
   font-size: 11.5px;
-  color: #7a818d;
+  color: #8d94a3;
+  letter-spacing: 0.01em;
 }
+
+
+.community-post-meta strong {
+  color: #5b6472;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MORE MENU
+========================================================= */
 
 .community-post-more,
 .community-post-bookmark,
@@ -53,50 +112,77 @@
   justify-content: center;
   border: 0;
   background: transparent;
-  color: #475467;
+  color: #5b6472;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
 }
 
 .community-post-more:hover,
 .community-post-bookmark:hover,
 .community-post-action:hover,
 .community-vote-button:hover {
-  background: rgba(232, 67, 44, 0.08);
+  background: rgba(239, 69, 47, 0.07);
+  color: #ef452f;
   transform: translateY(-1px);
 }
 
-.community-post-bookmark.is-active,
-.community-vote-button.is-active {
-  background: rgba(232, 67, 44, 0.14);
-  color: #e8432c;
+.community-post-more:hover svg,
+.community-post-bookmark:hover svg,
+.community-post-action:hover svg,
+.community-vote-button:hover svg {
+  transform: scale(1.1);
 }
 
 .community-post-more {
   margin-left: auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
 }
+
+
+/* =========================================================
+   TITLE
+========================================================= */
 
 .community-post-title {
   margin: 0 0 8px;
-  font-size: clamp(1.1rem, 1.25vw, 1.55rem);
+  font-size: clamp(1.1rem, 1.25vw, 1.5rem);
   line-height: 1.35;
-  letter-spacing: -0.02em;
-  color: #111827;
+  letter-spacing: -0.03em;
+  color: #171923;
+  font-weight: 800;
+  transition: color 200ms ease;
 }
 
-.community-post-body {
-  margin: 0 0 12px;
-  color: #475467;
-  font-size: 13.5px;
-  line-height: 1.6;
+.community-post-card:hover .community-post-title {
+  color: #11131b;
 }
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.community-post-body {
+  margin: 0 0 14px;
+  color: #697180;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
 
 .community-post-image-wrap {
   overflow: hidden;
-  border: 1px solid var(--community-border);
+  border: 1px solid rgba(225, 225, 225, 0.9);
   border-radius: 14px;
   margin-bottom: 12px;
   animation: community-image-border-pulse 4s ease-in-out infinite;
@@ -116,62 +202,166 @@
   transform: scale(1.025);
 }
 
+.community-post-card:hover .community-post-image-wrap img,
+.community-post-card:hover .community-post-image {
+  transform: scale(1.02);
+}
+
+
+/* =========================================================
+   TAGS — Neumorphic pills (home-category__pills style)
+========================================================= */
+
 .community-post-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .community-post-tag {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #edf0f4;
-  border-radius: 999px;
-  background: #f2f4f7;
-  color: #475467;
+
+  min-height: 30px;
+  padding: 0 12px;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #657080;
   font-size: 11px;
-  padding: 6px 10px;
+  font-weight: 700;
+
   font-family: inherit;
   cursor: pointer;
-}
 
-.community-post-tag.is-active {
-  background: rgba(232, 67, 44, 0.08);
-  border-color: rgba(232, 67, 44, 0.12);
-  color: #d84b39;
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    3px 3px 7px rgba(180, 180, 180, 0.22);
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
 }
 
 .community-post-tag:hover {
-  border-color: rgba(232, 67, 44, 0.35);
+  transform: translateY(-3px);
+
+  border-color: #edb4a9;
+  background: #fff0ec;
+  color: #ef452f;
+
+  box-shadow:
+    -4px -4px 9px rgba(255, 255, 255, 0.98),
+    5px 6px 10px rgba(160, 160, 160, 0.28);
 }
+
+.community-post-tag.is-active {
+  background: linear-gradient(135deg, #fff3f0, #ffe8e3);
+  border-color: rgba(239, 69, 47, 0.18);
+  color: #ef452f;
+
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    4px 4px 8px rgba(180, 180, 180, 0.2),
+    0 0 0 3px rgba(239, 69, 47, 0.05);
+}
+
+.community-post-card:hover .community-post-tag:nth-child(2) {
+  transition-delay: 35ms;
+}
+
+.community-post-card:hover .community-post-tag:nth-child(3) {
+  transition-delay: 70ms;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .community-post-footer {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #f0f2f5;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #ededf0;
   color: #6b7280;
 }
+
+
+/* =========================================================
+   VOTES — Neumorphic pill (home-button style)
+========================================================= */
 
 .community-post-votes {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  border-radius: 999px;
-  background: #f7f7f8;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 11px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
   font-size: 13px;
-  font-weight: 700;
-  color: #475467;
+  font-weight: 800;
+  color: #171923;
+
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    3px 3px 7px rgba(180, 180, 180, 0.22);
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+
+.community-post-card:hover .community-post-votes {
+  transform: translateY(-1px);
+
+  box-shadow:
+    -4px -4px 9px rgba(255, 255, 255, 0.98),
+    4px 5px 9px rgba(170, 170, 170, 0.28);
 }
 
 .community-vote-button {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: transparent;
+  color: #8d94a3;
+}
+
+.community-vote-button svg {
+  transition: fill 200ms ease, color 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.community-vote-button:hover {
+  color: #ef452f;
+}
+
+.community-vote-button--up.is-active {
+  color: #ef452f;
+}
+
+.community-vote-button--up.is-active svg {
+  fill: #ef452f;
+  transform: scale(1.15);
+}
+
+.community-vote-button--down.is-active {
+  color: #697180;
+}
+
+.community-vote-button--down.is-active svg {
+  fill: #697180;
+  transform: scale(1.15);
 }
 
 .community-post-action {
@@ -180,20 +370,79 @@
   gap: 7px;
   border: 0;
   background: transparent;
-  padding: 6px 8px;
-  border-radius: 8px;
-  color: #475467;
+  padding: 7px 12px;
+  border-radius: 10px;
+  color: #5b6472;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.community-post-action svg {
+  transition: fill 200ms ease, color 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.community-post-action:hover {
+  background: rgba(239, 69, 47, 0.07);
+  color: #ef452f;
+  transform: translateY(-1px);
+}
+
+/* Comment active — icon fills */
+.community-post-action.is-active {
+  color: #ef452f;
+}
+
+.community-post-action.is-active svg {
+  fill: #ef452f;
+  transform: scale(1.15);
+}
+
+/* Share active — icon fills temporarily */
+.community-post-action.is-active:nth-of-type(2) {
+  color: #ef452f;
+}
+
+.community-post-action.is-active:nth-of-type(2) svg {
+  fill: #ef452f;
+  transform: scale(1.15);
+}
+
+
+/* =========================================================
+   BOOKMARK
+========================================================= */
 
 .community-post-bookmark {
   margin-left: auto;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
 }
+
+.community-post-bookmark svg {
+  transition: fill 200ms ease, color 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Bookmark active — icon fills */
+.community-post-bookmark.is-active {
+  color: #ef452f;
+  transform: translateY(-1px);
+}
+
+.community-post-bookmark.is-active svg {
+  fill: #ef452f;
+  transform: scale(1.15);
+}
+
+
+/* =========================================================
+   DROPDOWN MENU
+========================================================= */
 
 .community-post-menu {
   position: relative;
@@ -203,30 +452,36 @@
 .community-post-menu__dropdown {
   position: absolute;
   z-index: 10;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   right: 0;
-  min-width: 130px;
+  min-width: 140px;
   padding: 6px;
-  border: 1px solid var(--community-border);
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+  border: 1px solid #ededf0;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow:
+    -5px -5px 12px rgba(255, 255, 255, 0.95),
+    8px 12px 28px rgba(100, 90, 85, 0.1);
 }
 
 .community-post-menu__dropdown button {
   width: 100%;
   border: 0;
-  border-radius: 7px;
+  border-radius: 9px;
   background: transparent;
-  padding: 9px 10px;
+  padding: 10px 12px;
   text-align: left;
   color: #344054;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
 }
 
 .community-post-menu__dropdown button:hover {
-  background: #f2f4f7;
+  background: #f7f7f8;
 }
 
 .community-post-menu__dropdown .community-post-menu__report {
@@ -237,67 +492,119 @@
   background: #fef3f2;
 }
 
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
 .community-comments {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #f0f2f5;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #ededf0;
 }
 
 .community-comments__list {
   display: grid;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .community-comments__item {
-  padding: 9px 11px;
-  border-radius: 10px;
-  background: #f7f7f8;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f7f8f9;
+  border: 1px solid #ededf0;
   color: #475467;
   font-size: 13px;
+
+  box-shadow:
+    -2px -2px 5px rgba(255, 255, 255, 0.9),
+    2px 3px 6px rgba(180, 180, 180, 0.12);
 }
 
 .community-comments__item strong {
-  color: #161c27;
+  color: #171923;
   font-size: 12px;
 }
 
 .community-comments__item p {
-  margin: 3px 0 0;
+  margin: 4px 0 0;
 }
 
 .community-comments__form {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .community-comments__form input {
   min-width: 0;
   flex: 1;
-  border: 1px solid var(--community-border);
-  border-radius: 9px;
-  padding: 9px 11px;
+  border: 1px solid #e5e5e5;
+  border-radius: 11px;
+  padding: 11px 14px;
   color: #344054;
   font: inherit;
+  background: #f9fafb;
+
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(180, 180, 180, 0.08);
+
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .community-comments__form input:focus {
-  outline: 2px solid rgba(232, 67, 44, 0.2);
-  border-color: var(--community-accent);
+  outline: none;
+  border-color: rgba(239, 69, 47, 0.3);
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(180, 180, 180, 0.08),
+    0 0 0 3px rgba(239, 69, 47, 0.08);
 }
 
 .community-comments__form button {
   border: 0;
-  border-radius: 9px;
-  background: var(--community-accent);
-  padding: 9px 13px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #ef452f, #ff6f4d);
+  padding: 11px 18px;
   color: #fff;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
+
+  box-shadow:
+    0 2px 0 rgba(239, 69, 47, 0.08),
+    0 4px 12px rgba(239, 69, 47, 0.15);
+
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms ease;
 }
 
+.community-comments__form button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 3px 0 rgba(239, 69, 47, 0.1),
+    0 8px 20px rgba(239, 69, 47, 0.2);
+}
+
+.community-comments__form button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media (max-width: 760px) {
+  .community-post-card {
+    padding: 16px 16px 12px;
+  }
+
   .community-post-footer {
     gap: 8px;
   }
