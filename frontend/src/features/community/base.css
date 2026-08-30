@@ -27,6 +27,10 @@
 
 .community-sidebar,
 .community-right-rail {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid #e5e5e8;
   border-radius: 18px;
@@ -38,6 +42,17 @@
 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+/* Hide scrollbar on sidebars for clean look */
+.community-sidebar::-webkit-scrollbar,
+.community-right-rail::-webkit-scrollbar {
+  width: 0;
+}
+
+.community-sidebar,
+.community-right-rail {
+  scrollbar-width: none;
 }
 
 .community-side-group {
@@ -67,6 +82,9 @@
   }
 
   .community-right-rail {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
     grid-column: 1 / -1;
   }
 }

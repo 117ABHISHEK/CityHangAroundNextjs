@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Feed Ad — Inline ad cards between event cards
+   ========================================================================== */
+
+.feed-ad {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background: var(--community-card, #ffffff);
+  box-shadow:
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    5px 6px 14px rgba(100, 90, 85, 0.07);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease;
+}
+
+.feed-ad:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    -5px -5px 12px rgba(255, 255, 255, 0.95),
+    7px 9px 20px rgba(100, 90, 85, 0.12);
+}
+
+.feed-ad__inner {
+  display: flex;
+  min-height: 160px;
+}
+
+.feed-ad__image {
+  position: relative;
+  width: 280px;
+  min-width: 280px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.feed-ad__overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  transition: opacity 350ms ease;
+}
+
+.feed-ad:hover .feed-ad__overlay {
+  opacity: 0.4;
+}
+
+.feed-ad__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.feed-ad__body {
+  flex: 1;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.feed-ad__label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 2px;
+}
+
+.feed-ad__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--community-text, #171923);
+  line-height: 1.3;
+}
+
+.feed-ad__desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--community-muted, #697180);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.feed-ad__cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms ease;
+}
+
+.feed-ad__cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- CTA type: larger with more emphasis --- */
+.feed-ad--cta {
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
+}
+
+.feed-ad--cta .feed-ad__label {
+  color: #8b5cf6;
+}
+
+/* --- Sponsor type: subtle blue accent --- */
+.feed-ad--sponsor {
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+.feed-ad--sponsor .feed-ad__label {
+  color: #2563eb;
+}
+
+/* --- Responsive --- */
+@media (max-width: 700px) {
+  .feed-ad__inner {
+    flex-direction: column;
+  }
+
+  .feed-ad__image {
+    width: 100%;
+    min-width: 100%;
+    height: 160px;
+  }
+}
