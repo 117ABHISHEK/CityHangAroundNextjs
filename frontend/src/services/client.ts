@@ -60,19 +60,27 @@ async function request<T>(
     }
   }
 
-  const response = await fetch(url, init);
+  try {
+    const response = await fetch(url, init);
 
-  if (!response.ok) {
-    const text = await response.text().catch(() => "");
-    throw new Error(
-      `API ${method} ${path} failed (${response.status}): ${text || response.statusText}`,
-    );
+    if (!response.ok) {
+      const text = await response.text().catch(() => "");
+      throw new Error(
+        `API ${method} ${path} failed (${response.status}): ${text || response.statusText}`,
+      );
+    }
+
+    // Handle 204 No Content
+    if (response.status === 204) return undefined as T;
+
+    return (await response.json()) as Promise<T>;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      // Re-throw with descriptive context or handled by callers
+      throw err;
+    }
+    throw new Error(`Network request failed for ${url}`);
   }
-
-  // Handle 204 No Content
-  if (response.status === 204) return undefined as T;
-
-  return response.json() as Promise<T>;
 }
 
 // ── Convenience helpers ──────────────────────────────────────────────

@@ -10,7 +10,6 @@ import {
   CreditCard,
   RotateCcw,
 } from "lucide-react";
-import AdSlot from "@/src/features/community/components/AdSlot";
 import "./index.css";
 
 interface EventsSidebarProps {
@@ -133,16 +132,6 @@ export default function EventsSidebar({
         </nav>
       </div>
 
-      {/* Left Sidebar Sponsored Ad Slot */}
-      <div className="community-side-group">
-        <AdSlot
-          variant="landscape"
-          title="Sunset Waves Music Night — 30% Off Early Bird"
-          cta="Grab Pass"
-          image="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
-        />
-      </div>
-
       {/* Filter By Group */}
       <div className="community-side-group">
         <div className="community-side-title">Filter By</div>
@@ -211,16 +200,6 @@ export default function EventsSidebar({
             </button>
           ))}
         </nav>
-      </div>
-
-      {/* Left Sidebar Secondary Ad Slot */}
-      <div className="community-side-group">
-        <AdSlot
-          variant="square"
-          title="Heritage & Street Photography Walk"
-          cta="Book Seat"
-          image="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80"
-        />
       </div>
     </aside>
   );

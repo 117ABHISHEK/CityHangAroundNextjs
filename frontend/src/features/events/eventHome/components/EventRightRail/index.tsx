@@ -76,16 +76,6 @@ export default function EventRightRail() {
         </div>
       </div>
 
-      {/* AdSlot 2: AI Hackathon */}
-      <div className="community-side-group">
-        <AdSlot
-          variant="portrait"
-          title="Agentic AI 48-Hour Virtual Hackathon — ₹2.5L Prize Pool"
-          cta="Register Team"
-          image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80"
-        />
-      </div>
-
       {/* Event Guidelines */}
       <div className="community-side-group">
         <div className="community-side-title">Event Safety & Guarantee</div>
@@ -93,16 +83,6 @@ export default function EventRightRail() {
           <ShieldCheck size={16} style={{ display: "inline", verticalAlign: "text-bottom", color: "#16a34a", marginRight: "4px" }} />
           All bookings on CityHangAround include 100% verified QR entry, buyer protection, and organizer authenticity.
         </p>
-      </div>
-
-      {/* AdSlot 3: Tech Summit */}
-      <div className="community-side-group">
-        <AdSlot
-          variant="landscape"
-          title="Tech Summit Gujarat 2026 @ GIFT City"
-          cta="Explore Tickets"
-          image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"
-        />
       </div>
     </aside>
   );

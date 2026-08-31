@@ -42,23 +42,6 @@ export default function RightRail({ people }: RightRailProps) {
       </div>
 
       <div className="community-side-group">
-        <div className="community-side-title">Community guidelines</div>
-        <p className="community-guidelines">
-          Be respectful, follow community rules, and engage positively. No spam, harassment,
-          or adult content.
-        </p>
-      </div>
-
-      <div className="community-side-group">
-        <AdSlot
-          variant="portrait"
-          title="Invest in Ahmedabad’s future"
-          cta="View projects"
-          image="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80"
-        />
-      </div>
-
-      <div className="community-side-group">
         <div className="community-side-title">Latest blog</div>
         <div className="community-highlight-card">
           <div className="community-highlight-card__image" aria-hidden="true" />

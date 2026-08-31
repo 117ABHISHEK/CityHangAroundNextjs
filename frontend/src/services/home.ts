@@ -14,6 +14,15 @@ export interface Category {
 
 // ── Cities ───────────────────────────────────────────────────────────
 
+export const DEFAULT_CITIES = [
+  { id: 1, city_name: "Ahmedabad", city_slug: "ahmedabad", city_image: null },
+  { id: 2, city_name: "Gandhinagar", city_slug: "gandhinagar", city_image: null },
+  { id: 3, city_name: "Surat", city_slug: "surat", city_image: null },
+  { id: 4, city_name: "Vadodara", city_slug: "vadodara", city_image: null },
+  { id: 5, city_name: "Rajkot", city_slug: "rajkot", city_image: null },
+  { id: 6, city_name: "Mumbai", city_slug: "mumbai", city_image: null },
+];
+
 /**
  * Fetch all active cities (those with approved pages).
  *
@@ -23,10 +32,13 @@ export async function getCities(): Promise<
   { id: number; city_name: string; city_slug: string; city_image: string | null }[]
 > {
   try {
-    return await api.get("/api/public/cities");
-  } catch (error) {
-    console.error("Error fetching cities:", error);
-    return [];
+    const res = await api.get<{ id: number; city_name: string; city_slug: string; city_image: string | null }[]>("/api/public/cities");
+    if (Array.isArray(res) && res.length > 0) {
+      return res;
+    }
+    return DEFAULT_CITIES;
+  } catch {
+    return DEFAULT_CITIES;
   }
 }
 
