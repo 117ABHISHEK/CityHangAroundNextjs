@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -30,25 +30,30 @@ export default function PrimaryNavbar() {
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const mobileCityRef = useRef<HTMLDivElement>(null);
 
-  // Fetch cities from the Laravel backend API on mount
+  // Fetch cities from the Laravel backend API on mount (or fallback gracefully)
   useEffect(() => {
+    let isMounted = true;
     const loadCities = async () => {
       try {
         const data = await getCities();
-        setCities(data);
+        if (isMounted) {
+          setCities(data);
 
-        // Restore previously selected city from localStorage
-        const saved = localStorage.getItem(CITY_STORAGE_KEY);
-        if (saved) {
-          const match = data.find((c) => c.city_name === saved);
-          if (match) setSelectedCity(match.city_name);
+          // Restore previously selected city from localStorage
+          const saved = typeof window !== "undefined" ? localStorage.getItem(CITY_STORAGE_KEY) : null;
+          if (saved) {
+            const match = data.find((c) => c.city_name === saved);
+            if (match) setSelectedCity(match.city_name);
+          }
         }
-      } catch (err) {
-        console.error("Failed to load cities:", err);
-        // Gracefully degrade — dropdown stays empty
+      } catch {
+        // Handled in service fallback
       }
     };
     loadCities();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {

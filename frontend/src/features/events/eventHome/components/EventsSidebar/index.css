@@ -1,0 +1,43 @@
+.community-side-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  margin-bottom: 10px;
+}
+
+.community-side-title-row .community-side-title {
+  margin: 0;
+  padding: 0;
+}
+
+.community-side-reset-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #ef452f;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.community-side-reset-pill:hover {
+  background: #ef452f;
+  color: #ffffff;
+  border-color: #ef452f;
+}
+
+/* Ensure button styles for sidebar link */
+button.community-side-link {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
