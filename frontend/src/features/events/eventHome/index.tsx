@@ -5,7 +5,7 @@ import Link from "next/link";
 import { SAMPLE_EVENTS } from "@/src/types/event";
 import EventCard from "./components/EventCard";
 import EventsFilter from "./components/EventsFilter";
-import { AddIcon, FireIcon, CalendarIcon } from "@/src/components/ui/icons";
+import { AddIcon, FireIcon } from "@/src/components/ui/icons";
 import "./index.css";
 
 const CATEGORY_CHIPS = [
@@ -58,8 +58,6 @@ export default function EventHome() {
       return true;
     });
   }, [searchQuery, selectedCategory, selectedFormat, selectedPriceType]);
-
-  const featuredEvents = SAMPLE_EVENTS.filter((e) => e.featured);
 
   return (
     <div className="event-home">

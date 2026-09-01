@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import {
@@ -164,12 +165,14 @@ export default function HeroSection() {
               index === activeSlide ? "is-active" : ""
             }`}
           >
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="home-hero__visual-image"
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
+              priority={index === 0}
+              unoptimized
             />
 
             <div className="home-hero__visual-overlay" />

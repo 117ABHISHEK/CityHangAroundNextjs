@@ -12,6 +12,19 @@ export interface Category {
   parent?: string;
 }
 
+export const FALLBACK_CITIES: Array<{
+  id: number;
+  city_name: string;
+  city_slug: string;
+  city_image: string | null;
+}> = [
+  { id: 1, city_name: "Ahmedabad", city_slug: "ahmedabad", city_image: null },
+  { id: 2, city_name: "Gandhinagar", city_slug: "gandhinagar", city_image: null },
+  { id: 3, city_name: "Mumbai", city_slug: "mumbai", city_image: null },
+  { id: 4, city_name: "Pune", city_slug: "pune", city_image: null },
+  { id: 5, city_name: "Delhi", city_slug: "delhi", city_image: null },
+];
+
 // ── Cities ───────────────────────────────────────────────────────────
 
 /**
@@ -23,10 +36,10 @@ export async function getCities(): Promise<
   { id: number; city_name: string; city_slug: string; city_image: string | null }[]
 > {
   try {
-    return await api.get("/api/public/cities");
+    const data = await api.get<{ id: number; city_name: string; city_slug: string; city_image: string | null }[]>("/api/public/cities");
+    return Array.isArray(data) && data.length > 0 ? data : FALLBACK_CITIES;
   } catch (error) {
-    console.error("Error fetching cities:", error);
-    return [];
+    return [...FALLBACK_CITIES];
   }
 }
 

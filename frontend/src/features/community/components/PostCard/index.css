@@ -8,7 +8,23 @@
   border: 1px solid var(--community-border, #e5e7eb);
   border-radius: 16px;
   box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+  cursor: pointer;
+  outline: none;
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease,
+    border-color 200ms ease;
   animation: community-post-border-pulse 5s ease-in-out infinite;
+}
+
+.community-post-card:hover {
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.community-post-card:focus-visible {
+  border-color: rgba(239, 69, 47, 0.5);
+  box-shadow: 0 0 0 4px rgba(239, 69, 47, 0.12);
 }
 
 

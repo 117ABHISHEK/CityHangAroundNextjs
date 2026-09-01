@@ -2,7 +2,8 @@
 
 import "./index.css";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import MagicCard from "@/src/components/ui/magic-card";
 import {
   ArrowDownIcon,
@@ -29,17 +30,46 @@ type PostCardProps = {
     comments: number;
     shares: number;
   };
+  detailView?: boolean;
 };
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, detailView = false }: PostCardProps) {
+  const router = useRouter();
+  const commentsStorageKey = `community-post-${post.id}-comments`;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(detailView);
   const [commentText, setCommentText] = useState("");
-  const [comments, setComments] = useState<string[]>([]);
+  const [comments, setComments] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+
+    const savedComments = window.localStorage.getItem(commentsStorageKey);
+    if (!savedComments) return [];
+
+    try {
+      const parsedComments = JSON.parse(savedComments) as string[];
+      if (Array.isArray(parsedComments)) {
+        return parsedComments;
+      }
+    } catch {
+      window.localStorage.removeItem(commentsStorageKey);
+    }
+
+    return [];
+  });
   const [vote, setVote] = useState<"up" | "down" | null>(null);
   const [isSaved, setIsSaved] = useState(false);
   const [isShared, setIsShared] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([post.tags[0] ?? ""]);
+
+  useEffect(() => {
+    if (comments.length === 0) {
+      window.localStorage.removeItem(commentsStorageKey);
+      return;
+    }
+
+    window.localStorage.setItem(commentsStorageKey, JSON.stringify(comments));
+  }, [comments, commentsStorageKey]);
 
   const voteCount = post.votes + (vote === "up" ? 1 : vote === "down" ? -1 : 0);
 
@@ -92,12 +122,46 @@ export default function PostCard({ post }: PostCardProps) {
     if (!newComment) return;
 
     setComments((currentComments) => [...currentComments, newComment]);
+    setIsCommentsOpen(true);
     setCommentText("");
+  };
+
+  const handleCardClick = (event: MouseEvent<HTMLElement>) => {
+    if (detailView) {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+    if (target.closest("button, a, input, textarea, form")) {
+      return;
+    }
+
+    router.push(`/community/${post.id}`);
+  };
+
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (detailView) {
+      return;
+    }
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      router.push(`/community/${post.id}`);
+    }
   };
 
   return (
     <MagicCard>
-      <article id={`post-${post.id}`} className="community-post-card">
+      <article
+        id={`post-${post.id}`}
+        className="community-post-card"
+        onClick={handleCardClick}
+        onKeyDown={handleCardKeyDown}
+        tabIndex={detailView ? -1 : 0}
+        role={detailView ? undefined : "button"}
+        aria-expanded={detailView ? isCommentsOpen : undefined}
+        aria-label={detailView ? undefined : `Open post details for ${post.title}`}
+      >
         <div className="community-post-head">
           <div className="community-post-community">
             <span

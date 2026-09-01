@@ -3,17 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { EventItem, TicketTier } from "@/src/types/event";
+import type { EventItem } from "@/src/types/event";
 import {
   CalendarIcon,
   LocationIcon,
-  ClockIcon,
   CheckIcon,
   Share2Icon,
   BookmarkIcon,
   BadgeIcon,
   ShieldIcon,
-  BadgeIndianRupeeIcon,
 } from "@/src/components/ui/icons";
 import { formatDate, formatDayMonth } from "@/src/utils/dateHelpers";
 import "./index.css";

@@ -2,12 +2,7 @@
 
 import Image from "next/image";
 import type { EventFormData } from "@/src/types/event";
-import {
-  CalendarIcon,
-  LocationIcon,
-  BadgeIndianRupeeIcon,
-  StarIcon,
-} from "@/src/components/ui/icons";
+import { CalendarIcon, LocationIcon } from "@/src/components/ui/icons";
 import { formatDate, formatDayMonth } from "@/src/utils/dateHelpers";
 import "./index.css";
 

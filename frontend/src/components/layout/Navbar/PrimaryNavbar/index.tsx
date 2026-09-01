@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import AuthModal, { type AuthMode } from "@/src/features/auth";
 import AnimatedIcon from "@/src/components/ui/animated-icon";
-import { getCities } from "@/src/services/home";
+import { FALLBACK_CITIES, getCities } from "@/src/services/home";
 
 type CityItem = { id: number; city_name: string; city_slug: string; city_image: string | null };
 import {
@@ -38,17 +38,19 @@ export default function PrimaryNavbar() {
         setCities(data);
 
         // Restore previously selected city from localStorage
-        const saved = localStorage.getItem(CITY_STORAGE_KEY);
-        if (saved) {
-          const match = data.find((c) => c.city_name === saved);
-          if (match) setSelectedCity(match.city_name);
+        if (typeof window !== "undefined") {
+          const saved = localStorage.getItem(CITY_STORAGE_KEY);
+          if (saved) {
+            const match = data.find((c) => c.city_name === saved);
+            if (match) setSelectedCity(match.city_name);
+          }
         }
-      } catch (err) {
-        console.error("Failed to load cities:", err);
-        // Gracefully degrade — dropdown stays empty
+      } catch {
+        setCities([...FALLBACK_CITIES]);
       }
     };
-    loadCities();
+
+    void loadCities();
   }, []);
 
   useEffect(() => {
