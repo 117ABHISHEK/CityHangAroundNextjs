@@ -3,12 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { EventItem } from "@/src/types/event";
-import {
-  CalendarIcon,
-  LocationIcon,
-  BookmarkIcon,
-  BadgeIndianRupeeIcon,
-} from "@/src/components/ui/icons";
+import { CalendarIcon, LocationIcon, BookmarkIcon } from "@/src/components/ui/icons";
 import { formatDate, formatDayMonth } from "@/src/utils/dateHelpers";
 import "./index.css";
 

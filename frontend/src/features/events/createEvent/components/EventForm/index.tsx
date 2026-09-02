@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import type { EventFormData } from "@/src/types/event";
 import EventSidebar from "../EventSidebar";
 import LivePreview from "../LivePreview";
@@ -90,23 +90,23 @@ export default function EventForm() {
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date>(new Date());
   const [isPublished, setIsPublished] = useState(false);
-
-  // Auto-save debounce effect simulation
-  useEffect(() => {
-    setIsSaving(true);
-    const timer = setTimeout(() => {
-      setIsSaving(false);
-      setLastSaved(new Date());
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, [formData]);
+  const saveTimerRef = useRef<number | null>(null);
 
   const updateField = <K extends keyof EventFormData>(
     field: K,
     value: EventFormData[K]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    setIsSaving(true);
+
+    if (saveTimerRef.current) {
+      window.clearTimeout(saveTimerRef.current);
+    }
+
+    saveTimerRef.current = window.setTimeout(() => {
+      setIsSaving(false);
+      setLastSaved(new Date());
+    }, 800);
   };
 
   const handleNext = () => {

@@ -30,12 +30,9 @@ export default function AuthModal({
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const prevIsOpenRef = useRef(false);
+  const isClient = typeof window !== "undefined";
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -61,7 +58,7 @@ export default function AuthModal({
     prevIsOpenRef.current = isOpen;
   }, [isOpen, initialMode]);
 
-  if (!isOpen || !mounted) return null;
+  if (!isOpen || !isClient) return null;
 
   const isLogin = mode === "login";
 

@@ -3,7 +3,6 @@ import type {
   AuthResponse,
   LoginPayload,
   RegisterPayload,
-  User,
 } from "./types";
 
 /**

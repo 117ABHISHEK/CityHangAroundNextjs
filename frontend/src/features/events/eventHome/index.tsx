@@ -143,7 +143,6 @@ export default function EventHome() {
     sortBy,
     activeFilter,
   ]);
-
   return (
     <section className="community-page event-page-community">
       <div className="community-shell">
