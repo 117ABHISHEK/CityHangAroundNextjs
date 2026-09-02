@@ -1,12 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import AuthModal, { type AuthMode } from "@/src/features/auth";
 import AnimatedIcon from "@/src/components/ui/animated-icon";
 import { FALLBACK_CITIES, getCities } from "@/src/services/home";
-
-type CityItem = { id: number; city_name: string; city_slug: string; city_image: string | null };
 import {
   AddIcon,
   ChevronDown,
@@ -16,6 +14,8 @@ import {
   MenuIcon,
   SearchIcon,
 } from "@/src/components/ui/icons";
+
+type CityItem = { id: number; city_name: string; city_slug: string; city_image: string | null };
 
 const CITY_STORAGE_KEY = "cha_selected_city";
 
@@ -30,14 +30,18 @@ export default function PrimaryNavbar() {
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const mobileCityRef = useRef<HTMLDivElement>(null);
 
-  // Fetch cities from the Laravel backend API on mount
+  // Fetch cities from the Laravel backend API on mount (or fallback gracefully)
   useEffect(() => {
+    let isMounted = true;
+
     const loadCities = async () => {
       try {
         const data = await getCities();
+
+        if (!isMounted) return;
+
         setCities(data);
 
-        // Restore previously selected city from localStorage
         if (typeof window !== "undefined") {
           const saved = localStorage.getItem(CITY_STORAGE_KEY);
           if (saved) {
@@ -46,11 +50,16 @@ export default function PrimaryNavbar() {
           }
         }
       } catch {
+        if (!isMounted) return;
         setCities([...FALLBACK_CITIES]);
       }
     };
 
     void loadCities();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {

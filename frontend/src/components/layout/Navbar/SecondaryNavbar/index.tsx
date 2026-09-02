@@ -87,14 +87,11 @@ export default function SecondaryNavbar({
     if (item.hasDropdown) {
       setOpenDropdown((current) => (current === item.tab ? null : item.tab));
       onTabChange?.(item.tab);
+      router.push(item.path);
     } else {
       setOpenDropdown(null);
       onTabChange?.(item.tab);
-      if (item.tab === "event") {
-        router.push("/events");
-      } else if (item.tab === "home") {
-        router.push("/");
-      }
+      router.push(item.path);
     }
   };
 

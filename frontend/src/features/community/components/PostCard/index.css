@@ -306,7 +306,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
   padding-top: 14px;
   border-top: 1px solid #ededf0;
   color: #6b7280;
@@ -320,22 +320,25 @@
 .community-post-votes {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 10px;
-  border-radius: 11px;
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f7f8f9;
+  border: 1px solid #ededf0;
   font-size: 13px;
-  font-weight: 800;
-  color: #171923;
-
-  box-shadow:
-    -3px -3px 7px rgba(255, 255, 255, 0.95),
-    3px 3px 7px rgba(180, 180, 180, 0.22);
+  font-weight: 700;
+  color: #374151;
+  letter-spacing: -0.01em;
 
   transition:
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 220ms ease;
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.community-post-card:hover .community-post-votes {
+  background: #f0f1f3;
+  border-color: #e0e1e3;
 }
 
 .community-post-card:hover .community-post-votes {
@@ -347,11 +350,14 @@
 }
 
 .community-vote-button {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   background: transparent;
   color: #8d94a3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .community-vote-button svg {
@@ -362,15 +368,21 @@
   color: #ef452f;
 }
 
+.community-vote-button:hover svg {
+  transform: scale(1.1);
+}
+
+/* Upvote (Heart) — fills coral on click */
 .community-vote-button--up.is-active {
   color: #ef452f;
 }
 
 .community-vote-button--up.is-active svg {
   fill: #ef452f;
-  transform: scale(1.15);
+  transform: scale(1.2);
 }
 
+/* Downvote — fills gray on click */
 .community-vote-button--down.is-active {
   color: #697180;
 }
